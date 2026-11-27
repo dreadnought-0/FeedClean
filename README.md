@@ -13,7 +13,7 @@ don't want, and helps you block the accounts behind them — on your phone, with
 ![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4)
 ![No tracking](https://img.shields.io/badge/analytics-none-success)
 
-[Download](#install) · [Features](#features) · [How it works](#how-it-works) · [Privacy](#privacy) · [FAQ](#faq) · [Build from source](#build-from-source)
+[Download](#install) · [Features](docs/FEATURES.md) · [How it works](#how-it-works) · [Privacy](#privacy) · [FAQ](#faq) · [Build from source](#build-from-source)
 
 <img src="docs/media/demo.gif" width="300" alt="FeedClean spots a TikTok Shop post in the For You feed and scrolls past it automatically" />
 
@@ -53,6 +53,8 @@ one of those posts appears:
 | 🧾 **Decision log** | A 7-day, on-phone log of what FeedClean decided and why (never names or captions) — so "why wasn't this skipped?" always has an answer. |
 | 📤 **Export / import** | Full backup (JSON + CSV) and a privacy-stripped public export, through the system file picker. |
 | 🎛️ **Everything is a toggle** | Every behaviour has its own switch. Automation stays **off** until you turn it on. |
+
+See each feature in action, with screenshots and recordings: **[docs/FEATURES.md](docs/FEATURES.md)**.
 
 ## See it in action
 
