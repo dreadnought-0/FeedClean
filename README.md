@@ -15,7 +15,6 @@ don't want, and helps you block the accounts behind them — on your phone, with
 
 [Download](#install) · [Features](#features) · [How it works](#how-it-works) · [Privacy](#privacy) · [FAQ](#faq) · [Build from source](#build-from-source)
 
-<img src="docs/media/demo.gif" width="300" alt="FeedClean spots a TikTok Shop post in the For You feed and scrolls past it automatically" />
 
 <sub>Real capture on a Galaxy Z Fold 7. Creator names, captions and profile pictures are blurred.</sub>
 
