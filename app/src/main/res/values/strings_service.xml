@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Live runtime (accessibility service) and the Debug screen sections it feeds. -->
+    <string name="service_debug_autoskip_armed">Auto-skip armed</string>
+    <string name="service_debug_autoskip_off">Auto-skip off</string>
+    <string name="service_debug_autoskip_paused">Auto-skip paused (loop guard)</string>
+    <string name="service_debug_selectors_ok">Selectors loaded</string>
+    <string name="service_debug_selectors_problem">Selector problem</string>
+    <string name="service_debug_section_runtime">Runtime</string>
+    <string name="service_debug_section_snapshot">Live snapshot</string>
+    <string name="service_debug_section_captures">Captures</string>
+    <string name="service_debug_captures_hint">Captures are redacted screen trees saved by \"Capture screen\" on the overlay card. They stay in app storage until you export or delete them.</string>
+    <string name="service_debug_captures_empty">No captures yet.</string>
+    <string name="service_debug_captures_refresh">Refresh</string>
+    <string name="service_debug_capture_export">Export</string>
+    <string name="service_debug_capture_delete">Delete</string>
+    <string name="service_debug_capture_size">%1$s · %2$d KB</string>
+    <string name="service_debug_export_done">Exported %1$s</string>
+    <string name="service_debug_export_failed">Export failed</string>
+</resources>

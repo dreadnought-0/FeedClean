@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/dreadnought-0/FeedClean/security/advisories/new
+    about: Please do not open a public issue for vulnerabilities. Use the repository's Security tab ("Report a vulnerability") and see SECURITY.md in the repository root.

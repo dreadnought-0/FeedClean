@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Data screens: Home "Today" counts, Accounts, Account detail, Stats, Suggested. Prefix: screens_ -->
+<resources>
+    <!-- Public profile link opened by "Open in TikTok" (ACTION_VIEW, handled by TikTok itself). -->
+    <string name="screens_profile_url_template" translatable="false">https://www.tiktok.com/@%1$s</string>
+
+    <!-- ── Shared: time labels ───────────────────────────────────────────── -->
+    <string name="screens_time_today">Today</string>
+    <string name="screens_time_yesterday">Yesterday</string>
+    <string name="screens_time_today_at">Today, %1$s</string>
+    <string name="screens_time_yesterday_at">Yesterday, %1$s</string>
+    <string name="screens_time_date_at">%1$s, %2$s</string>
+    <string name="screens_separator">" · "</string>
+    <string name="screens_percent">%1$d%%</string>
+
+    <!-- ── Shared: count tiles ───────────────────────────────────────────── -->
+    <string name="screens_count_seen">Seen</string>
+    <string name="screens_count_detected">Detected</string>
+    <string name="screens_count_organic_shop">Organic Shop</string>
+    <string name="screens_count_paid_ads">Paid ads</string>
+    <string name="screens_count_promoted">Promoted</string>
+    <string name="screens_count_auto_skipped">Auto-skipped</string>
+    <string name="screens_count_manually_skipped">Skipped by you</string>
+    <string name="screens_count_not_interested">Not interested</string>
+    <string name="screens_count_blocked">Blocked</string>
+    <string name="screens_seen_needs_tracking">“Seen” counts every video you watch and needs Session tracking, which is off. Turn it on in Settings → Data &amp; privacy.</string>
+
+    <!-- ── Home ──────────────────────────────────────────────────────────── -->
+    <string name="screens_home_today">Today</string>
+    <string name="screens_home_latest_session">Last session: %1$d%% Shop · %2$d%% ads · %3$s</string>
+
+    <!-- ── Stats ─────────────────────────────────────────────────────────── -->
+    <string name="screens_stats_today">Today</string>
+    <string name="screens_stats_last_days">Last %1$d days</string>
+    <string name="screens_stats_totals">Totals, last %1$d days</string>
+    <string name="screens_stats_sessions">Sessions</string>
+    <string name="screens_chart_blocks">Blocks per day</string>
+    <string name="screens_chart_auto_skips">Auto-skips per day</string>
+    <string name="screens_chart_organic_shop">Organic Shop per day</string>
+    <plurals name="screens_unit_blocks">
+        <item quantity="one">%d block</item>
+        <item quantity="other">%d blocks</item>
+    </plurals>
+    <plurals name="screens_unit_auto_skips">
+        <item quantity="one">%d auto-skip</item>
+        <item quantity="other">%d auto-skips</item>
+    </plurals>
+    <plurals name="screens_unit_organic_shop">
+        <item quantity="one">%d organic Shop post</item>
+        <item quantity="other">%d organic Shop posts</item>
+    </plurals>
+    <string name="screens_chart_total">Total %1$d</string>
+    <string name="screens_chart_desc">%1$s, last %2$d days: %3$d in total, most on %4$s (%5$d), today %6$d. Use Show as table for every day.</string>
+    <string name="screens_chart_desc_empty">%1$s, last %2$d days: none.</string>
+    <string name="screens_chart_tap_hint">Tap a column to see that day\'s numbers.</string>
+    <string name="screens_selected_day_today">%1$s (today)</string>
+    <string name="screens_show_table">Show as table</string>
+    <string name="screens_show_charts">Show as charts</string>
+    <string name="screens_table_date">Day</string>
+    <string name="screens_sessions_off_body">Session tracking is off, so FeedClean only counts the posts it detects. With it on, it also counts every video you watch, so you can see what share of each session was Shop posts or ads.</string>
+    <string name="screens_sessions_off_hint">Turn it on in Settings → Data &amp; privacy → Session tracking. The counts stay on this phone.</string>
+    <string name="screens_sessions_empty">No sessions yet. A session is counted while you use TikTok with tracking on.</string>
+    <string name="screens_session_header">%1$s · %2$s · %3$s</string>
+    <string name="screens_session_minutes">%1$d min</string>
+    <string name="screens_session_open">in progress</string>
+    <plurals name="screens_session_videos">
+        <item quantity="one">%d video</item>
+        <item quantity="other">%d videos</item>
+    </plurals>
+    <string name="screens_session_shop_share">Shop share</string>
+    <string name="screens_session_ad_share">Ad share</string>
+    <string name="screens_session_more">Promoted %1$d%% · Skipped %2$d (%3$d%%)</string>
+
+    <!-- ── Accounts: labels ──────────────────────────────────────────────── -->
+    <string name="screens_status_seen">Seen</string>
+    <string name="screens_status_blocked">Blocked</string>
+    <string name="screens_status_false_positive">False positive</string>
+    <string name="screens_status_unblocked_suspected">Unblocked suspected</string>
+    <string name="screens_handle">\@%1$s</string>
+    <string name="screens_handle_possible">Handle unknown — possible match</string>
+    <string name="screens_unknown_creator">Unknown creator</string>
+    <string name="screens_unknown_creator_summary">Posts that showed no name or handle</string>
+    <string name="screens_default_handle_hint">Default handle (user + digits)</string>
+    <plurals name="screens_sighting_count">
+        <item quantity="one">Seen %d time</item>
+        <item quantity="other">Seen %d times</item>
+    </plurals>
+    <string name="screens_last_seen">Last seen %1$s</string>
+    <string name="screens_handle_source_profile">read from the profile</string>
+    <string name="screens_handle_source_dialog">read from TikTok\'s block dialog</string>
+    <string name="screens_handle_source_sound">guessed from the sound name</string>
+    <string name="screens_handle_source_resolve">from a shared link</string>
+    <string name="screens_handle_source_import">imported</string>
+    <string name="screens_tag_paid_ad">Paid ad</string>
+    <string name="screens_tag_promoted">Promoted</string>
+    <string name="screens_tag_shop_anchor">Shop anchor</string>
+    <string name="screens_tag_organic_shop">Organic Shop</string>
+    <string name="screens_tag_live_shopping">Live shopping</string>
+    <string name="screens_tag_ai_generated">AI generated</string>
+    <string name="screens_tag_sexual_content">Sexual content</string>
+    <string name="screens_tag_impersonator">Impersonator / copycat</string>
+    <string name="screens_tag_reposted">Reposted content</string>
+    <string name="screens_tag_bot_like">Bot-like</string>
+
+    <!-- ── Accounts list ─────────────────────────────────────────────────── -->
+    <string name="screens_accounts_search">Search name or \@handle</string>
+    <string name="screens_accounts_clear_search">Clear search</string>
+    <string name="screens_accounts_status_filters">Filter by status</string>
+    <string name="screens_accounts_tag_filters">Filter by tag</string>
+    <string name="screens_accounts_empty_title">No accounts yet</string>
+    <string name="screens_accounts_empty_body">Accounts appear here once FeedClean logs a paid ad, a promoted post or a Shop post in your feed.</string>
+    <string name="screens_accounts_no_match_title">No matching accounts</string>
+    <string name="screens_accounts_no_match_body">Try a different search or fewer filters.</string>
+    <string name="screens_accounts_clear_filters">Clear filters</string>
+
+    <!-- ── Account detail ────────────────────────────────────────────────── -->
+    <string name="screens_detail_not_found_title">Account not found</string>
+    <string name="screens_detail_not_found_body">It may have been merged into another account when its handle was learned, or the data was cleared.</string>
+    <string name="screens_detail_handle_unconfirmed">Handle unconfirmed — possible match by display name</string>
+    <string name="screens_detail_handle_source">Handle %1$s</string>
+    <string name="screens_detail_category">Category: %1$s</string>
+    <string name="screens_detail_shop_tier">Shop tier: %1$s</string>
+    <string name="screens_detail_first_seen">First seen %1$s</string>
+    <string name="screens_detail_last_seen">Last seen %1$s</string>
+    <string name="screens_detail_default_handle">Default handle (user + digits). New and throwaway accounts often have one, and so do copycats.</string>
+    <string name="screens_detail_open_in_tiktok">Open in TikTok</string>
+    <string name="screens_detail_open_note">Opens this profile in TikTok. Nothing is tapped for you. To block, use the FeedClean card on TikTok\'s screen.</string>
+    <string name="screens_detail_open_failed">Couldn\'t open TikTok. Is it installed?</string>
+    <string name="screens_detail_status_title">Status</string>
+    <string name="screens_detail_mark_false_positive">Mark false positive</string>
+    <string name="screens_detail_mark_seen">Mark seen (reset)</string>
+    <string name="screens_detail_mark_unblocked">Mark unblocked-suspected</string>
+    <string name="screens_detail_status_note">These only change FeedClean\'s own records. Nothing happens in TikTok.</string>
+    <string name="screens_detail_tags_title">Tags</string>
+    <string name="screens_detail_tags_detected">Detected on screen</string>
+    <string name="screens_detail_tags_detected_none">None detected yet.</string>
+    <string name="screens_detail_tags_manual">Your tags</string>
+    <string name="screens_detail_tags_manual_none">No tags of your own yet.</string>
+    <string name="screens_detail_tag_remove">Remove tag %1$s</string>
+    <string name="screens_detail_tag_add_label">Add a tag</string>
+    <string name="screens_detail_tag_add">Add</string>
+    <string name="screens_detail_tag_invalid">Use 1 to %1$d characters.</string>
+    <string name="screens_detail_tag_suggestions">Suggestions</string>
+    <string name="screens_detail_notes_title">Notes</string>
+    <string name="screens_detail_notes_label">Private notes (stay on this phone)</string>
+    <string name="screens_detail_notes_save">Save notes</string>
+    <string name="screens_detail_notes_saved">Notes saved</string>
+    <string name="screens_detail_original_title">Impersonation</string>
+    <string name="screens_detail_original_none">Not marked as a copy of another account.</string>
+    <string name="screens_detail_original_of">Suspected impersonator of %1$s</string>
+    <string name="screens_detail_original_pick">Suspected impersonator of…</string>
+    <string name="screens_detail_original_change">Change</string>
+    <string name="screens_detail_original_clear">Clear</string>
+    <string name="screens_detail_original_note">Only you set this. FeedClean never decides it on its own.</string>
+    <string name="screens_picker_title">Which account does this one copy?</string>
+    <string name="screens_picker_search">Search name or \@handle</string>
+    <string name="screens_picker_empty">No other accounts match.</string>
+    <string name="screens_picker_cancel">Cancel</string>
+    <string name="screens_detail_timeline_title">Timeline</string>
+    <string name="screens_detail_timeline_empty">Nothing logged for this account yet.</string>
+    <string name="screens_outcome_verified">Verified</string>
+    <string name="screens_outcome_failed">Not verified</string>
+
+    <!-- Timeline rows -->
+    <string name="screens_timeline_seen">Seen</string>
+    <string name="screens_timeline_block_tapped">Block tapped</string>
+    <string name="screens_timeline_skipped">Skipped by you</string>
+    <string name="screens_timeline_auto_skipped">Auto-skipped</string>
+    <string name="screens_timeline_not_interested">Not interested</string>
+    <string name="screens_timeline_logged">Logged</string>
+    <string name="screens_timeline_false_positive">Marked false positive</string>
+    <string name="screens_timeline_blocked">Blocked</string>
+    <string name="screens_timeline_block_failed">Block attempt stopped</string>
+    <string name="screens_timeline_reason">Reason: %1$s</string>
+    <string name="screens_timeline_verified">Verified on screen</string>
+    <string name="screens_timeline_not_verified">Couldn\'t be verified on screen</string>
+    <string name="screens_timeline_label">On-screen label: “%1$s”</string>
+    <string name="screens_timeline_anchor">Anchor: %1$s</string>
+    <string name="screens_timeline_step">Stopped at step: %1$s</string>
+    <string name="screens_timeline_failure">Why: %1$s</string>
+    <string name="screens_skip_reason_organic_shop">organic Shop post</string>
+    <string name="screens_skip_reason_paid_ad">paid ad</string>
+    <string name="screens_skip_reason_promoted">promoted post</string>
+    <string name="screens_skip_reason_live_shopping">live shopping</string>
+    <string name="screens_block_method_assisted">Assisted by FeedClean after your tap</string>
+    <string name="screens_block_method_manual">Blocked by you in TikTok</string>
+    <string name="screens_block_method_imported">Imported</string>
+    <string name="screens_source_overlay">Seen in the feed</string>
+    <string name="screens_source_share">Shared to FeedClean</string>
+    <string name="screens_source_recon">Screen capture</string>
+    <string name="screens_signal_paid_ad">Paid ad</string>
+    <string name="screens_signal_promoted">Promoted</string>
+    <string name="screens_signal_organic_shop">Organic Shop</string>
+    <string name="screens_signal_shop_anchor">Shop anchor</string>
+    <string name="screens_signal_shop_creator">Shop creator</string>
+    <string name="screens_signal_live_shopping">Live shopping</string>
+    <string name="screens_signal_live_event">LIVE event</string>
+    <string name="screens_signal_live">LIVE</string>
+
+    <!-- ── Suggested (not built yet) ─────────────────────────────────────── -->
+    <string name="screens_suggested_heading">Community lists aren\'t here yet</string>
+    <string name="screens_suggested_status">Planned for a later version. Until then, this screen stays empty.</string>
+    <string name="screens_suggested_what_title">What it will do</string>
+    <string name="screens_suggested_what_body">You\'ll be able to subscribe to community-reviewed lists of accounts that showed an on-screen Ad, Promoted or Shop label. Each entry lands here for you to review: the handle, its tags and the evidence. Then you dismiss it or tap Block.</string>
+    <string name="screens_suggested_human_title">Every block is still yours</string>
+    <string name="screens_suggested_human_body">Nothing is blocked automatically. Each block needs your tap, runs the same verified flow, and counts against the same rate limit as every other action (Settings → Blocking). Accounts you marked as a false positive or already blocked are left out.</string>
+    <string name="screens_suggested_network_title">Nothing is fetched today</string>
+    <string name="screens_suggested_network_body">This version makes no network requests for lists. When lists arrive, fetching will only happen when you tap, from a list pinned to a release and checked against its hash.</string>
+    <string name="screens_suggested_rules_title">What lists may contain</string>
+    <string name="screens_suggested_rules_body">Objective evidence only: the on-screen label shown together with the handle. Subjective categories go in separate opt-in lists. Entries expire after 12 months unless re-confirmed, and creators can appeal.</string>
+    <string name="screens_suggested_more_title">Read more</string>
+    <string name="screens_suggested_more_body">See FeedClean\'s project page for updates on community lists.</string>
+</resources>

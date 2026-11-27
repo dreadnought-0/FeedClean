@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<!--
+  Scrubbed from a uiautomator dump (TikTok 47.7.3, Fold 7 cover screen, For You tab, 2026-11-23):
+  an in-feed LIVE preview (a gaming stream) on the current pager page, plus the pre-loaded next video page
+  (zero height, "Video"). Scrubbing: the streamer's nickname became "Streamer A", the location tab "Nearby".
+  The dump had no chat or gift lines. Structure, classes, resource IDs, flags, and bounds are unchanged;
+  attributes XmlUiNode does not read (index, checkable, enabled, focusable, drawing-order, hint, ...) and
+  default-valued ones (empty text/desc/id, false flags) are omitted.
+-->
+<hierarchy rotation="0">
+  <node class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2520]">
+    <node class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2520]">
+      <node resource-id="android:id/content" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2520]">
+        <node class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2520]">
+          <node resource-id="com.zhiliaoapp.musically:id/a43" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2520]">
+            <node class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2520]" />
+          </node>
+          <node resource-id="com.zhiliaoapp.musically:id/v_3" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2520]">
+            <node resource-id="com.zhiliaoapp.musically:id/v_6" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2520]">
+              <node resource-id="com.zhiliaoapp.musically:id/jla" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2520]">
+                <node resource-id="com.zhiliaoapp.musically:id/viewpager" class="X.06v5" package="com.zhiliaoapp.musically" scrollable="true" bounds="[0,0][1080,2520]">
+                  <node resource-id="com.zhiliaoapp.musically:id/oq8" class="android.widget.TabHost" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2520]">
+                    <node class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+                      <node resource-id="com.zhiliaoapp.musically:id/yi1" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]" />
+                    </node>
+                    <node resource-id="com.zhiliaoapp.musically:id/ops" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+                      <node resource-id="com.zhiliaoapp.musically:id/yi1" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+                        <node resource-id="com.zhiliaoapp.musically:id/it5" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+                          <node resource-id="com.zhiliaoapp.musically:id/sw5" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]" />
+                          <node resource-id="com.zhiliaoapp.musically:id/inx" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+                            <node resource-id="com.zhiliaoapp.musically:id/viewpager" class="X.06v5" package="com.zhiliaoapp.musically" scrollable="true" bounds="[0,0][1080,2486]">
+                              <node resource-id="com.zhiliaoapp.musically:id/idp" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" clickable="true" bounds="[0,0][1080,2486]">
+                                <node resource-id="com.zhiliaoapp.musically:id/wx3" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]" />
+                                <node resource-id="com.zhiliaoapp.musically:id/g92" class="android.view.ViewGroup" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]" />
+                                <node resource-id="com.zhiliaoapp.musically:id/wwx" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+                                  <node resource-id="com.zhiliaoapp.musically:id/uc3" class="android.view.ViewGroup" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+                                    <node resource-id="com.zhiliaoapp.musically:id/ogh" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+                                      <node resource-id="com.zhiliaoapp.musically:id/i5h" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]" />
+                                      <node resource-id="com.zhiliaoapp.musically:id/g_9" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]" />
+                                      <node resource-id="com.zhiliaoapp.musically:id/viewpager_container" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+                                        <node resource-id="com.zhiliaoapp.musically:id/view_pager_layout_wrapper" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2376]">
+                                          <node resource-id="com.zhiliaoapp.musically:id/viewpager" class="androidx.viewpager.widget.ViewPager" package="com.zhiliaoapp.musically" scrollable="true" bounds="[0,0][1080,2376]">
+                                            <node resource-id="com.zhiliaoapp.musically:id/view_rootview" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2376]">
+                                              <node resource-id="com.zhiliaoapp.musically:id/long_press_layout" class="android.view.View" package="com.zhiliaoapp.musically" content-desc="LIVE" clickable="true" bounds="[0,0][1080,2376]" />
+                                              <node class="android.view.View" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2376]" />
+                                              <node resource-id="com.zhiliaoapp.musically:id/imr" class="android.view.ViewGroup" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2376]">
+                                                <node resource-id="com.zhiliaoapp.musically:id/o5n" class="android.view.ViewGroup" package="com.zhiliaoapp.musically" bounds="[0,2104][1080,2349]">
+                                                  <node resource-id="com.zhiliaoapp.musically:id/cp6" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2104][1080,2154]">
+                                                    <node resource-id="com.zhiliaoapp.musically:id/o0t" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" clickable="true" bounds="[0,2104][1080,2154]">
+                                                      <node class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,2104][1080,2154]">
+                                                        <node class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,2104][1080,2154]">
+                                                          <node resource-id="com.zhiliaoapp.musically:id/o1z" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,2104][1080,2154]">
+                                                            <node resource-id="com.zhiliaoapp.musically:id/nal" class="android.view.View" package="com.zhiliaoapp.musically" bounds="[0,2128][323,2130]" />
+                                                            <node resource-id="com.zhiliaoapp.musically:id/fpb" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[350,2104][729,2154]">
+                                                              <node resource-id="com.zhiliaoapp.musically:id/u3h" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[350,2104][729,2154]">
+                                                                <node resource-id="com.zhiliaoapp.musically:id/o22" class="android.view.View" package="com.zhiliaoapp.musically" bounds="[350,2108][391,2149]" />
+                                                                <node text="Tap to watch LIVE" resource-id="com.zhiliaoapp.musically:id/tv_live_tips" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[404,2104][729,2154]" />
+                                                              </node>
+                                                            </node>
+                                                            <node resource-id="com.zhiliaoapp.musically:id/uxe" class="android.view.View" package="com.zhiliaoapp.musically" bounds="[756,2128][1080,2130]" />
+                                                          </node>
+                                                        </node>
+                                                      </node>
+                                                    </node>
+                                                  </node>
+                                                  <node resource-id="com.zhiliaoapp.musically:id/nsy" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,2154][1080,2349]">
+                                                    <node resource-id="com.zhiliaoapp.musically:id/nti" class="android.view.ViewGroup" package="com.zhiliaoapp.musically" bounds="[27,2226][855,2294]">
+                                                      <node resource-id="com.zhiliaoapp.musically:id/ijq" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[27,2226][170,2276]">
+                                                        <node text="LIVE now" resource-id="com.zhiliaoapp.musically:id/ijr" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[38,2226][159,2276]" />
+                                                      </node>
+                                                    </node>
+                                                    <node resource-id="com.zhiliaoapp.musically:id/nus" class="android.view.ViewGroup" package="com.zhiliaoapp.musically" bounds="[27,2294][1053,2344]">
+                                                      <node text="Streamer A" resource-id="com.zhiliaoapp.musically:id/tv_live_nickname" class="android.widget.Button" package="com.zhiliaoapp.musically" clickable="true" bounds="[27,2294][170,2344]" />
+                                                    </node>
+                                                  </node>
+                                                </node>
+                                              </node>
+                                              <node resource-id="com.zhiliaoapp.musically:id/nlv" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2376]" />
+                                              <node resource-id="com.zhiliaoapp.musically:id/bva" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,220][1080,2376]" />
+                                              <node resource-id="com.zhiliaoapp.musically:id/iq4" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,381][1080,2301]">
+                                                <node class="android.view.SurfaceView" package="com.zhiliaoapp.musically" bounds="[0,381][1080,2301]" />
+                                              </node>
+                                            </node>
+                                            <node resource-id="com.zhiliaoapp.musically:id/view_rootview" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]">
+                                              <node resource-id="com.zhiliaoapp.musically:id/widget_container" class="X.07CF" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]">
+                                                <node resource-id="com.zhiliaoapp.musically:id/j7k" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" clickable="true" bounds="[0,2376][1080,2376]" />
+                                                <node resource-id="com.zhiliaoapp.musically:id/cpk" class="X.07CF" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                                <node resource-id="com.zhiliaoapp.musically:id/top_widget_container" class="X.07CF" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]">
+                                                  <node resource-id="com.zhiliaoapp.musically:id/c98" class="X.07CF" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                                  <node resource-id="com.zhiliaoapp.musically:id/mvc" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" clickable="true" bounds="[522,2376][558,2376]">
+                                                    <node resource-id="com.zhiliaoapp.musically:id/wzo" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[522,2376][558,2376]" />
+                                                  </node>
+                                                </node>
+                                              </node>
+                                              <node resource-id="com.zhiliaoapp.musically:id/long_press_layout" class="android.view.View" package="com.zhiliaoapp.musically" content-desc="Video" clickable="true" bounds="[0,2376][1080,2376]" />
+                                              <node resource-id="com.zhiliaoapp.musically:id/pkg" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                              <node resource-id="com.zhiliaoapp.musically:id/drr" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                              <node resource-id="com.zhiliaoapp.musically:id/aau" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                              <node resource-id="com.zhiliaoapp.musically:id/video_hot_swap_paywall_view" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                              <node resource-id="com.zhiliaoapp.musically:id/video_hot_swap_overlay_view" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                              <node resource-id="com.zhiliaoapp.musically:id/rh_" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]">
+                                                <node class="android.widget.RelativeLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]">
+                                                  <node resource-id="com.zhiliaoapp.musically:id/uyy" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                                </node>
+                                              </node>
+                                              <node resource-id="com.zhiliaoapp.musically:id/aaj" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                              <node resource-id="com.zhiliaoapp.musically:id/video_container_area" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]">
+                                                <node resource-id="com.zhiliaoapp.musically:id/video_visible_area_container" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]">
+                                                  <node resource-id="com.zhiliaoapp.musically:id/ozf" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                                  <node resource-id="com.zhiliaoapp.musically:id/player_view" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                                  <node resource-id="com.zhiliaoapp.musically:id/rtk" class="android.view.ViewGroup" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]">
+                                                    <node resource-id="com.zhiliaoapp.musically:id/rsx" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]">
+                                                      <node class="android.widget.RelativeLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                                    </node>
+                                                  </node>
+                                                </node>
+                                              </node>
+                                              <node resource-id="com.zhiliaoapp.musically:id/video_sticker_container_area" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]">
+                                                <node resource-id="com.zhiliaoapp.musically:id/video_visible_area_container_sticker" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                              </node>
+                                              <node resource-id="com.zhiliaoapp.musically:id/gradual_top" class="android.view.View" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]" />
+                                              <node resource-id="com.zhiliaoapp.musically:id/i9r" class="android.view.ViewGroup" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]">
+                                                <node resource-id="com.zhiliaoapp.musically:id/i9s" class="android.widget.ImageView" package="com.zhiliaoapp.musically" bounds="[963,2376][1080,2376]" />
+                                              </node>
+                                            </node>
+                                          </node>
+                                        </node>
+                                        <node resource-id="com.zhiliaoapp.musically:id/col" class="android.view.View" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2486]" />
+                                      </node>
+                                    </node>
+                                  </node>
+                                </node>
+                              </node>
+                            </node>
+                            <node resource-id="com.zhiliaoapp.musically:id/zo5" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+                              <node resource-id="com.zhiliaoapp.musically:id/xjz" class="android.view.View" package="com.zhiliaoapp.musically" bounds="[0,0][1080,89]" />
+                              <node class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,89][1080,220]">
+                                <node resource-id="com.zhiliaoapp.musically:id/v1f" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" clickable="true" bounds="[0,89][1080,220]">
+                                  <node class="android.widget.ImageView" package="com.zhiliaoapp.musically" clickable="true" bounds="[0,91][126,217]" />
+                                  <node class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[126,89][954,220]">
+                                    <node class="android.widget.HorizontalScrollView" package="com.zhiliaoapp.musically" bounds="[203,89][878,220]">
+                                      <node class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[203,89][878,220]">
+                                        <node class="X.004b" package="com.zhiliaoapp.musically" clickable="true" bounds="[203,89][373,220]">
+                                          <node text="Nearby" resource-id="android:id/text1" class="android.widget.TextView" package="com.zhiliaoapp.musically" content-desc="Nearby" bounds="[203,89][373,219]" />
+                                        </node>
+                                        <node class="X.004b" package="com.zhiliaoapp.musically" clickable="true" bounds="[373,89][576,220]">
+                                          <node class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="Following" bounds="[373,89][576,219]">
+                                            <node class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[373,89][576,219]">
+                                              <node text="Following" resource-id="android:id/text1" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[373,89][576,219]" />
+                                            </node>
+                                          </node>
+                                        </node>
+                                        <node class="X.004b" package="com.zhiliaoapp.musically" clickable="true" bounds="[576,89][705,220]">
+                                          <node class="android.view.ViewGroup" package="com.zhiliaoapp.musically" content-desc="Shop" bounds="[576,89][705,220]">
+                                            <node resource-id="android:id/icon1" class="android.widget.ImageView" package="com.zhiliaoapp.musically" bounds="[583,128][698,182]" />
+                                            <node resource-id="com.zhiliaoapp.musically:id/lc8" class="android.view.View" package="com.zhiliaoapp.musically" bounds="[651,119][705,191]" />
+                                          </node>
+                                        </node>
+                                        <node class="X.004b" package="com.zhiliaoapp.musically" clickable="true" selected="true" bounds="[705,89][878,220]">
+                                          <node class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" content-desc="For You" selected="true" bounds="[705,89][878,220]">
+                                            <node text="For You" resource-id="android:id/text1" class="android.widget.TextView" package="com.zhiliaoapp.musically" selected="true" bounds="[705,89][878,220]" />
+                                          </node>
+                                        </node>
+                                      </node>
+                                    </node>
+                                  </node>
+                                  <node resource-id="com.zhiliaoapp.musically:id/kax" class="android.widget.ImageView" package="com.zhiliaoapp.musically" clickable="true" bounds="[954,91][1080,217]" />
+                                </node>
+                              </node>
+                            </node>
+                            <node resource-id="com.zhiliaoapp.musically:id/title_shadow" class="android.widget.ImageView" package="com.zhiliaoapp.musically" bounds="[0,0][1080,89]" />
+                          </node>
+                        </node>
+                      </node>
+                      <node resource-id="com.zhiliaoapp.musically:id/cos" class="android.view.View" package="com.zhiliaoapp.musically" bounds="[0,2375][1080,2376]" />
+                      <node resource-id="com.zhiliaoapp.musically:id/opn" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2486]">
+                        <node resource-id="com.zhiliaoapp.musically:id/opf" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="Home" clickable="true" selected="true" bounds="[0,2376][216,2486]">
+                          <node text="Home" class="android.widget.TextView" package="com.zhiliaoapp.musically" selected="true" bounds="[0,2445][216,2474]" />
+                          <node class="android.widget.ImageView" package="com.zhiliaoapp.musically" selected="true" bounds="[72,2381][144,2453]" />
+                        </node>
+                        <node resource-id="com.zhiliaoapp.musically:id/ope" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="Friends" clickable="true" bounds="[216,2376][432,2486]">
+                          <node text="7" resource-id="com.zhiliaoapp.musically:id/kat" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[334,2381][371,2417]" />
+                          <node text="Friends" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[216,2445][432,2474]" />
+                          <node class="android.widget.ImageView" package="com.zhiliaoapp.musically" bounds="[288,2381][360,2453]" />
+                        </node>
+                        <node resource-id="com.zhiliaoapp.musically:id/opb" class="android.widget.Button" package="com.zhiliaoapp.musically" content-desc="Create" clickable="true" bounds="[432,2376][648,2486]">
+                          <node class="android.widget.ImageView" package="com.zhiliaoapp.musically" bounds="[455,2376][624,2486]" />
+                          <node class="android.widget.ImageView" package="com.zhiliaoapp.musically" bounds="[455,2376][624,2486]" />
+                          <node class="android.widget.ImageView" package="com.zhiliaoapp.musically" bounds="[540,2431][540,2431]" />
+                        </node>
+                        <node resource-id="com.zhiliaoapp.musically:id/opg" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="Inbox" clickable="true" bounds="[648,2376][864,2486]">
+                          <node text="11" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[761,2381][809,2417]" />
+                          <node text="Inbox" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[648,2445][864,2474]" />
+                          <node class="android.widget.ImageView" package="com.zhiliaoapp.musically" bounds="[720,2381][792,2453]" />
+                        </node>
+                        <node resource-id="com.zhiliaoapp.musically:id/oph" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="Profile" clickable="true" bounds="[864,2376][1080,2486]">
+                          <node text="Profile" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[864,2445][1080,2474]" />
+                          <node class="android.widget.ImageView" package="com.zhiliaoapp.musically" bounds="[936,2381][1008,2453]" />
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node resource-id="com.zhiliaoapp.musically:id/tos" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][167,262]" />
+                <node resource-id="com.zhiliaoapp.musically:id/gud" class="android.view.View" package="com.zhiliaoapp.musically" bounds="[0,2486][1080,2520]" />
+              </node>
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+  </node>
+</hierarchy>

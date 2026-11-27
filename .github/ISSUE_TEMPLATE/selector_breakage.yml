@@ -1,0 +1,60 @@
+name: Selector breakage
+description: Detection stopped working after a TikTok update
+labels: ["selectors"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        See docs/SELECTORS.md. **Never attach raw captures.** Scrub a dump first: replace creator names,
+        handles, captions, sound titles, bios, and product titles with placeholders that keep the pattern;
+        replace share-sheet contact names and location tabs. If you are not sure it is scrubbed, describe the
+        problem in words instead.
+  - type: input
+    id: tiktok
+    attributes:
+      label: TikTok version
+      placeholder: "e.g. 47.8.0"
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and Android / One UI version
+    validations:
+      required: true
+  - type: dropdown
+    id: signal
+    attributes:
+      label: Which signal stopped working?
+      multiple: true
+      options:
+        - Paid ad label
+        - Promoted / branded label
+        - Shop anchor
+        - Shop-creator profile
+        - Live shopping
+        - Display name / handle
+        - Block flow (share sheet or dialog)
+        - Not interested menu
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What you see
+      description: What the Debug screen shows, including which selector strategy matched (or that none did).
+    validations:
+      required: true
+  - type: textarea
+    id: dump
+    attributes:
+      label: Scrubbed dump (optional)
+      description: Paste or attach only a scrubbed uiautomator dump (or the relevant fragment), following the scrubbing rules in docs/SELECTORS.md.
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Checks
+      options:
+        - label: Anything I attached is scrubbed of names, handles, captions, contacts, and location.
+          required: true

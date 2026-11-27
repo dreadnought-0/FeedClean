@@ -1,0 +1,9 @@
+<resources>
+    <!-- Shared strings only. Each feature area keeps its own strings in res/values/strings_<area>.xml
+         so parallel work doesn't conflict. -->
+    <string name="app_name">FeedClean</string>
+    <string name="share_target_label">Log in FeedClean</string>
+    <string name="accessibility_service_label">FeedClean</string>
+    <string name="accessibility_service_summary">Detects ads and Shop posts in your feed and helps you skip or block them.</string>
+    <string name="accessibility_service_description">FeedClean reads what is on screen in the TikTok app only, to detect paid ads, promoted posts, and Shop posts. It can skip organic Shop posts, help you tap \"Not interested\", and help you block accounts — every block needs your tap. Everything stays on this phone. No data is sent anywhere.</string>
+</resources>

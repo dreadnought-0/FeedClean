@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<!--
+  SYNTHETIC fixture (hand-written, placeholders only): an in-feed LIVE-SHOPPING preview. NOT a device capture.
+
+  Derived from tiktok-47.7.3/cover/k_feed_live_preview.xml (same pagers, page, LIVE layout, "Tap to watch LIVE",
+  "LIVE now", nickname button, pre-loaded next page, top tabs with the "Shop" tab desc, bottom bar; empty
+  layout-only containers trimmed). Added to the current page:
+    - an auction card modelled on what was SEEN on screen on 2026-11-23 (no dump exists yet), with a fake product
+      and buyer: "LIVE auction", "$1", "Viewer 1 won!", "#405 ... 11.23(JZ)", "$14.88 overseas shipping · Final
+      sale", "Awaiting next item", and a close button;
+    - two chat/gift lines, which change every frame on a real stream and must never change the page signature.
+  The pre-loaded next page carries commerce text too; it must never leak into the current page.
+-->
+<hierarchy rotation="0">
+  <node class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2520]">
+    <node resource-id="com.zhiliaoapp.musically:id/viewpager" class="X.06v5" package="com.zhiliaoapp.musically" scrollable="true" bounds="[0,0][1080,2520]">
+      <node resource-id="com.zhiliaoapp.musically:id/oq8" class="android.widget.TabHost" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2520]">
+        <node resource-id="com.zhiliaoapp.musically:id/ops" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+          <node resource-id="com.zhiliaoapp.musically:id/inx" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+            <node resource-id="com.zhiliaoapp.musically:id/viewpager" class="X.06v5" package="com.zhiliaoapp.musically" scrollable="true" bounds="[0,0][1080,2486]">
+              <node resource-id="com.zhiliaoapp.musically:id/idp" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" clickable="true" bounds="[0,0][1080,2486]">
+                <node resource-id="com.zhiliaoapp.musically:id/viewpager_container" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+                  <node resource-id="com.zhiliaoapp.musically:id/view_pager_layout_wrapper" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2376]">
+                    <node resource-id="com.zhiliaoapp.musically:id/viewpager" class="androidx.viewpager.widget.ViewPager" package="com.zhiliaoapp.musically" scrollable="true" bounds="[0,0][1080,2376]">
+
+                      <node resource-id="com.zhiliaoapp.musically:id/view_rootview" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2376]">
+                        <node resource-id="com.zhiliaoapp.musically:id/long_press_layout" class="android.view.View" package="com.zhiliaoapp.musically" content-desc="LIVE" clickable="true" bounds="[0,0][1080,2376]" />
+                        <node resource-id="com.zhiliaoapp.musically:id/imr" class="android.view.ViewGroup" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2376]">
+                          <node class="android.view.ViewGroup" package="com.zhiliaoapp.musically" bounds="[27,1400][760,1670]">
+                            <node text="Viewer 2: hello from the chat" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[27,1400][760,1450]" />
+                            <node text="Viewer 3 sent a gift" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[27,1470][760,1520]" />
+                          </node>
+                          <node class="android.view.ViewGroup" package="com.zhiliaoapp.musically" clickable="true" bounds="[27,1690][1053,2090]">
+                            <node text="LIVE auction" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[60,1710][290,1760]" />
+                            <node text="$1" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[305,1710][360,1760]" />
+                            <node text="Viewer 1 won!" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[375,1710][640,1760]" />
+                            <node class="android.widget.ImageView" package="com.zhiliaoapp.musically" clickable="true" bounds="[985,1705][1040,1760]" />
+                            <node text="#405 Sample Product Title 11.23(JZ)" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[60,1780][1000,1830]" />
+                            <node text="$14.88 overseas shipping · Final sale" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[60,1850][1000,1900]" />
+                            <node text="Awaiting next item" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[60,1920][420,1970]" />
+                          </node>
+                          <node resource-id="com.zhiliaoapp.musically:id/o5n" class="android.view.ViewGroup" package="com.zhiliaoapp.musically" bounds="[0,2104][1080,2349]">
+                            <node resource-id="com.zhiliaoapp.musically:id/cp6" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2104][1080,2154]">
+                              <node resource-id="com.zhiliaoapp.musically:id/o0t" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" clickable="true" bounds="[0,2104][1080,2154]">
+                                <node resource-id="com.zhiliaoapp.musically:id/o22" class="android.view.View" package="com.zhiliaoapp.musically" bounds="[350,2108][391,2149]" />
+                                <node text="Tap to watch LIVE" resource-id="com.zhiliaoapp.musically:id/tv_live_tips" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[404,2104][729,2154]" />
+                              </node>
+                            </node>
+                            <node resource-id="com.zhiliaoapp.musically:id/nsy" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,2154][1080,2349]">
+                              <node resource-id="com.zhiliaoapp.musically:id/nti" class="android.view.ViewGroup" package="com.zhiliaoapp.musically" bounds="[27,2226][855,2294]">
+                                <node resource-id="com.zhiliaoapp.musically:id/ijq" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[27,2226][170,2276]">
+                                  <node text="LIVE now" resource-id="com.zhiliaoapp.musically:id/ijr" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[38,2226][159,2276]" />
+                                </node>
+                              </node>
+                              <node resource-id="com.zhiliaoapp.musically:id/nus" class="android.view.ViewGroup" package="com.zhiliaoapp.musically" bounds="[27,2294][1053,2344]">
+                                <node text="Seller Streamer B" resource-id="com.zhiliaoapp.musically:id/tv_live_nickname" class="android.widget.Button" package="com.zhiliaoapp.musically" clickable="true" bounds="[27,2294][330,2344]" />
+                              </node>
+                            </node>
+                          </node>
+                        </node>
+                        <node resource-id="com.zhiliaoapp.musically:id/iq4" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,381][1080,2301]">
+                          <node class="android.view.SurfaceView" package="com.zhiliaoapp.musically" bounds="[0,381][1080,2301]" />
+                        </node>
+                      </node>
+
+                      <node resource-id="com.zhiliaoapp.musically:id/view_rootview" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2376]">
+                        <node text="$9.99 Shop now · Free shipping" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[60,2376][600,2376]" />
+                        <node text="Brand D" resource-id="com.zhiliaoapp.musically:id/title" class="android.widget.Button" package="com.zhiliaoapp.musically" clickable="true" bounds="[34,2376][300,2376]" />
+                        <node resource-id="com.zhiliaoapp.musically:id/long_press_layout" class="android.view.View" package="com.zhiliaoapp.musically" content-desc="Video" clickable="true" bounds="[0,2376][1080,2376]" />
+                      </node>
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node resource-id="com.zhiliaoapp.musically:id/zo5" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,0][1080,2486]">
+              <node class="android.widget.HorizontalScrollView" package="com.zhiliaoapp.musically" bounds="[203,89][878,220]">
+                <node class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[203,89][878,220]">
+                  <node class="X.004b" package="com.zhiliaoapp.musically" clickable="true" bounds="[203,89][373,220]">
+                    <node text="Nearby" resource-id="android:id/text1" class="android.widget.TextView" package="com.zhiliaoapp.musically" content-desc="Nearby" bounds="[203,89][373,219]" />
+                  </node>
+                  <node class="X.004b" package="com.zhiliaoapp.musically" clickable="true" bounds="[373,89][576,220]">
+                    <node class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="Following" bounds="[373,89][576,219]">
+                      <node text="Following" resource-id="android:id/text1" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[373,89][576,219]" />
+                    </node>
+                  </node>
+                  <node class="X.004b" package="com.zhiliaoapp.musically" clickable="true" bounds="[576,89][705,220]">
+                    <node class="android.view.ViewGroup" package="com.zhiliaoapp.musically" content-desc="Shop" bounds="[576,89][705,220]">
+                      <node resource-id="android:id/icon1" class="android.widget.ImageView" package="com.zhiliaoapp.musically" bounds="[583,128][698,182]" />
+                    </node>
+                  </node>
+                  <node class="X.004b" package="com.zhiliaoapp.musically" clickable="true" selected="true" bounds="[705,89][878,220]">
+                    <node class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" content-desc="For You" selected="true" bounds="[705,89][878,220]">
+                      <node text="For You" resource-id="android:id/text1" class="android.widget.TextView" package="com.zhiliaoapp.musically" selected="true" bounds="[705,89][878,220]" />
+                    </node>
+                  </node>
+                </node>
+              </node>
+            </node>
+          </node>
+          <node resource-id="com.zhiliaoapp.musically:id/opn" class="android.widget.LinearLayout" package="com.zhiliaoapp.musically" bounds="[0,2376][1080,2486]">
+            <node resource-id="com.zhiliaoapp.musically:id/opf" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="Home" clickable="true" selected="true" bounds="[0,2376][216,2486]">
+              <node text="Home" class="android.widget.TextView" package="com.zhiliaoapp.musically" selected="true" bounds="[0,2445][216,2474]" />
+            </node>
+            <node resource-id="com.zhiliaoapp.musically:id/opg" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="Inbox" clickable="true" bounds="[648,2376][864,2486]">
+              <node text="Inbox" class="android.widget.TextView" package="com.zhiliaoapp.musically" bounds="[648,2445][864,2474]" />
+            </node>
+          </node>
+        </node>
+      </node>
+    </node>
+  </node>
+</hierarchy>

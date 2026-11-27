@@ -1,0 +1,17 @@
+*.iml
+.gradle
+/local.properties
+/.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+.kotlin
+
+# Raw UI dumps, screenshots and screen recordings of a feed contain other people's names and your
+# account state. Keep them out of the repository; only scrubbed fixtures under
+# app/src/test/resources/fixtures/ are committed.
+*.mp4
+/raw-captures/

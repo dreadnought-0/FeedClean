@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Scoped to TikTok only. Event types: window state/content changes + scrolls.
+  flagRetrieveInteractiveWindows: the Block confirmation dialog is a separate window.
+  flagIncludeNotImportantViews: match the full tree that uiautomator dumps show.
+  canPerformGestures: gesture-tap fallback for non-clickable nodes, long-press for "Not interested".
+  canTakeScreenshot: OCR fallback only.
+  isAccessibilityTool=false: honest, this is not an assistive-technology tool.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged|typeViewScrolled|typeWindowsChanged"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagReportViewIds|flagRetrieveInteractiveWindows|flagIncludeNotImportantViews"
+    android:canPerformGestures="true"
+    android:canRetrieveWindowContent="true"
+    android:canTakeScreenshot="true"
+    android:description="@string/accessibility_service_description"
+    android:isAccessibilityTool="false"
+    android:notificationTimeout="100"
+    android:packageNames="com.zhiliaoapp.musically"
+    android:summary="@string/accessibility_service_summary" />

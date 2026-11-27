@@ -1,0 +1,240 @@
+{
+  "_comment": "FeedClean selectors: the ONLY place TikTok strings, content-descs, and view IDs live. Each key is an ordered list of strategies (first match wins; the matched one is shown on the Debug screen) or a list of labels. Prefer content-desc/text, then semantic view IDs; obfuscated IDs (ibp, b9d, t92, …) are hints only. Keys starting with '_' are comments. Strategies marked \"unverified\": true are placeholders not yet seen in a device capture. 'topFraction': the node must lie in that top fraction of the TikTok window (a position modifier, never a predicate on its own). Source: scrubbed uiautomator fixtures under app/src/test/resources/fixtures/tiktok-47.7.3/ and tiktok-47.9.3/. Obfuscated IDs shift every release (47.7.3 -> 47.9.3: profile handle tei -> tmm, outer pager class X.06v5 -> X.04OY), so they only ever come AFTER a semantic strategy.",
+  "schema_version": 1,
+  "package": "com.zhiliaoapp.musically",
+  "verified_app_versions": ["47.7.3", "47.9.3"],
+  "locales": {
+    "en": {
+      "_comment_feed": "Feed video page. Only nodes inside the visible pager page are searched; the pre-loaded next page is ignored.",
+      "feed.pager": [
+        { "viewId": "viewpager", "class": "androidx.viewpager.widget.ViewPager", "scrollable": true },
+        { "class": "androidx.viewpager.widget.ViewPager", "scrollable": true }
+      ],
+      "feed.video": [
+        { "viewId": "long_press_layout", "descEquals": "Video" },
+        { "descEquals": "Video", "clickable": true }
+      ],
+      "feed.displayName": [
+        { "viewId": "title", "textRegex": "\\S" },
+        { "descRegex": "^(.+) profile$", "group": 1 },
+        { "descRegex": "^Follow (.+)$", "group": 1 },
+        { "descRegex": "^Sound: original sound - [A-Za-z0-9._]{2,24} by (.+)$", "group": 1 }
+      ],
+      "feed.avatar": [
+        { "viewId": "user_avatar" },
+        { "descRegex": "^.+ profile$", "clickable": true, "note": "When the creator is LIVE the avatar has no desc and opens the LIVE room; use the display name instead." }
+      ],
+      "feed.probableHandle": [
+        { "descRegex": "^Sound: original sound - ([A-Za-z0-9._]{2,24}) by (.+)$", "group": 1, "group2Equals": "feed.displayName", "note": "Heuristic. Confirm on the profile or in the block dialog." }
+      ],
+      "feed.caption": [
+        { "viewId": "desc" }
+      ],
+      "feed.sound": [
+        { "descRegex": "^Sound: " },
+        { "descRegex": "^Original sound by \\S", "note": "47.9.3 search-results player (id/pya): 'Original sound by <name>', no handle in it." },
+        { "viewId": "pq1", "note": "47.7.3 obfuscated ID; hint only." }
+      ],
+
+      "_comment_feedContext": "FeedContext of every feed page (videos and LIVE previews), decided from the screen chrome ONLY: nodes outside the feed pager, so nothing a video shows counts. 1) feed.forYouTab matches -> FOR_YOU; 2) else feed.homeTopTabs (Home tab row) -> HOME_OTHER_TAB (Following, the location tab, ...); 3) else feed.searchPlayerBar -> SEARCH; 4) else OTHER (profile videos, hashtag/sound pages). Decided by WHICH tab is selected, never by tab order or the 'Shop' tab (desc-only in 47.7.3, text between Following and For You in 47.9.3). For You pages also carry a 'Search · <suggestion>' bar (ImageView desc 'Search' + TextView) INSIDE the page near the bottom: it is outside the chrome and below topFraction, so it never makes a page SEARCH.",
+      "feed.forYouTab": [
+        { "textEquals": "For You", "selected": true },
+        { "descEquals": "For You", "selected": true }
+      ],
+      "feed.homeTopTabs": [
+        { "viewId": "text1", "textEquals": "For You", "topFraction": 0.2, "note": "Tab label (android:id/text1). Present whichever tab is selected." },
+        { "viewId": "text1", "textEquals": "Following", "topFraction": 0.2 },
+        { "descEquals": "For You", "topFraction": 0.2, "note": "Tab container desc (47.7.3)." },
+        { "descEquals": "Following", "topFraction": 0.2, "note": "Tab container desc (47.7.3). The profile's 'Following' count label (td1) has no desc and sits lower." }
+      ],
+      "_comment_searchPlayerBar": "Search-results video player (captured 47.9.3, m_search_player, 2026-11-25): same pager/page/rail as For You, no Home tabs, and a TOP search bar outside the pager: back arrow, query box (ImageView desc 'Search' + id/tv_search_sug_word = the query, never read or logged) and Button id/tv_bar_search 'Search'. Only the top fifth of the window counts.",
+      "feed.searchPlayerBar": [
+        { "viewId": "tv_bar_search", "textEquals": "Search", "topFraction": 0.2 },
+        { "class": "android.widget.Button", "textEquals": "Search", "clickable": true, "topFraction": 0.2 },
+        { "viewId": "tv_search_sug_word", "textRegex": "\\S", "topFraction": 0.2, "note": "The query text. Matched for presence only; never read or logged." },
+        { "class": "android.widget.ImageView", "descEquals": "Search", "topFraction": 0.2, "note": "Query-box magnifier. Weakest: only reached when no Home tab matched." }
+      ],
+
+      "_comment_disclosure": "One disclosure-label slot (id/ibp in 47.7.3). Its TEXT says what the post is, so the label texts match first and the obfuscated ID is the last-resort hint (a reassigned ID must never shadow the text strategies). Never looks at the display name or caption.",
+      "feed.disclosureLabel": [
+        { "textIn": "feed.paidAdLabels", "excludeViewIds": ["title", "desc"] },
+        { "textIn": "feed.promotedLabels", "excludeViewIds": ["title", "desc"] },
+        { "viewId": "ibp", "note": "47.7.3 obfuscated ID; hint only. Surfaces label texts not in the lists on the Debug screen." }
+      ],
+      "feed.paidAdLabels": ["Ad", "Sponsored"],
+      "feed.promotedLabels": ["Promotional content", "Promoted", "Paid partnership"],
+
+      "_comment_corroborating": "Corroborating paid-ad evidence only. Never sets isPaidAd on its own.",
+      "feed.promotedMusic": [
+        { "descRegex": "^Sound: Promoted Music\\b" }
+      ],
+      "feed.cta": [
+        { "textIn": "feed.ctaLabels", "excludeViewIds": ["title", "desc"] },
+        { "viewId": "b9d" }
+      ],
+      "feed.ctaLabels": [
+        "Shop now", "Learn more", "Install now", "Download", "Download now", "Sign up", "Order now", "Book now",
+        "Apply now", "Contact us", "Get quote", "Get tickets", "Watch now", "Listen now", "Play game", "Subscribe",
+        "View now", "Visit store", "Get offer", "Buy now"
+      ],
+
+      "_comment_anchor": "Anchor row above the display name (id/feed_multi_tag_layout): Shop product anchor or LIVE Event anchor.",
+      "feed.anchor": [
+        { "viewId": "feed_multi_tag_layout" }
+      ],
+      "feed.shopAnchor": [
+        { "descEquals": "Product description" },
+        { "textRegex": "(Free shipping|\\d+(\\.\\d+)?[KkMm]? sold|\\d+% off|points|\\$\\d)", "inside": "feed.anchor" }
+      ],
+      "feed.liveBadge": [
+        { "textEquals": "LIVE", "excludeViewIds": ["title", "desc"] },
+        { "viewId": "user_avatar_live" }
+      ],
+      "feed.liveEventAnchor": [
+        { "textRegex": "^LIVE Event\\b" }
+      ],
+      "_comment_liveShopping": "PLACEHOLDER: a 'LIVE shopping' label on a normal VIDEO page has NOT been captured on a device yet. Best effort. LIVE-shopping PREVIEWS in the feed use feed.liveShoppingText below.",
+      "feed.liveShopping": [
+        { "textRegex": "(?i)^LIVE shopping\\b", "unverified": true },
+        { "descRegex": "(?i)\\bLIVE shopping\\b", "unverified": true }
+      ],
+
+      "_comment_livePreview": "In-feed LIVE preview (captured 47.7.3, k_feed_live_preview, 2026-11-23): a For You pager page that plays a LIVE stream. Same id/viewpager pager as videos; the page's long_press_layout has content-desc 'LIVE' (videos: 'Video'); 'Tap to watch LIVE' and 'LIVE now' texts; the streamer's name is the clickable tv_live_nickname Button. No right rail (avatar/like/share), no caption, no sound. Tapping the preview OR the nickname ENTERS the LIVE room (joining is visible to the streamer), so the parser never exposes an avatar/name node for it; only the pager scroll is safe. Chat/gift lines change every frame and never feed the page signature. The pre-loaded next page ('Video', zero height) is ignored as usual.",
+      "feed.liveVideo": [
+        { "viewId": "long_press_layout", "descEquals": "LIVE", "note": "Clickable: a tap enters the LIVE room. Never tap it." },
+        { "descEquals": "LIVE", "clickable": true, "note": "Clickable: a tap enters the LIVE room. Never tap it." }
+      ],
+      "feed.liveTips": [
+        { "textEquals": "Tap to watch LIVE" },
+        { "viewId": "tv_live_tips" }
+      ],
+      "feed.liveNow": [
+        { "textEquals": "LIVE now" },
+        { "viewId": "ijr", "note": "Obfuscated ID; hint only." }
+      ],
+      "feed.liveNickname": [
+        { "viewId": "tv_live_nickname", "textRegex": "\\S", "note": "Streamer display name. Clickable: a tap enters the LIVE room. Read the text only." },
+        { "class": "android.widget.Button", "textRegex": "\\S", "below": "feed.liveNow", "maxGap": 80, "note": "Name button right under 'LIVE now'. Read the text only." }
+      ],
+
+      "_comment_liveShoppingText": "PLACEHOLDERS - a LIVE-shopping preview was SEEN on screen on 2026-11-23 but NOT dumped: an auction card reading 'LIVE auction  $1  <buyer> won!', '#405 <product title> 11.23(JZ)', '$14.88 overseas shipping · Final sale', 'Awaiting next item', with a close x. Plain-text matches, searched ONLY among the visible LIVE preview page's nodes (never the top tabs: the 'Shop' tab is a content-desc on every page and is never searched). The streamer's name is excluded. Chat lines may also be on the page, so '$5' or 'sold' in chat can false-positive until a real dump shows the card's structure. Re-check against a dump, then drop 'unverified'.",
+      "feed.liveShoppingText": [
+        { "textRegex": "(?i)\\bauction\\b", "excludeViewIds": ["tv_live_nickname"], "unverified": true, "note": "Seen: 'LIVE auction'." },
+        { "textRegex": "(?i)\\bshipping\\b", "excludeViewIds": ["tv_live_nickname"], "unverified": true, "note": "Seen: '$14.88 overseas shipping · Final sale'." },
+        { "textRegex": "(?i)\\bfinal sale\\b", "excludeViewIds": ["tv_live_nickname"], "unverified": true, "note": "Seen next to the shipping price." },
+        { "textRegex": "(?i)\\bawaiting next item\\b", "excludeViewIds": ["tv_live_nickname"], "unverified": true, "note": "Seen between auction lots." },
+        { "textRegex": "(?i)\\bsold\\b", "excludeViewIds": ["tv_live_nickname"], "unverified": true, "note": "Expected on fixed-price items ('12 sold'); not seen yet." },
+        { "textRegex": "\\$\\d", "excludeViewIds": ["tv_live_nickname"], "unverified": true, "note": "Prices: seen '$1', '$14.88'." },
+        { "textRegex": "(?i)^shop now$", "excludeViewIds": ["tv_live_nickname"], "unverified": true, "note": "Expected button; not seen yet." },
+        { "textRegex": "(?i)^buy( now)?$", "excludeViewIds": ["tv_live_nickname"], "unverified": true, "note": "Expected button; not seen yet. Whole-text match, so chat like 'buy me a coffee' does not count." }
+      ],
+
+      "_comment_profile": "Profile page.",
+      "profile.handle": [
+        { "textRegex": "^@([A-Za-z0-9._]{2,24})$", "group": 1 }
+      ],
+      "profile.displayName": [
+        { "class": "android.widget.Button", "textRegex": "\\S", "above": "profile.handle", "maxGap": 80 },
+        { "textRegex": "\\S", "above": "profile.handle", "maxGap": 80 }
+      ],
+      "profile.category": [
+        { "class": "android.widget.Button", "textRegex": "\\S", "below": "profile.handle", "maxGap": 20 },
+        { "viewId": "t92", "textRegex": "\\S", "below": "profile.handle", "maxGap": 80, "note": "47.7.3 obfuscated ID; hint only." }
+      ],
+      "profile.shopCategoryLabels": ["Shop"],
+      "profile.shopCreator": [
+        { "descEquals": "Shopping bag" },
+        { "textEquals": "Shop" }
+      ],
+      "profile.share": [
+        { "descEquals": "Share", "tapFallback": true, "note": "clickable=false in 47.7.3; gesture-tap the center and verify the sheet appeared. Case-sensitive on purpose: the 47.9.3 product sheet over a Shop profile has its own lowercase 'share' icon, which must never match." }
+      ],
+      "profile.back": [
+        { "descEquals": "Back" },
+        { "descEquals": "Navigate up" }
+      ],
+
+      "_comment_sheet": "Profile share sheet ('Send to'). Never read or log the recent-contacts row.",
+      "sheet.container": [
+        { "descEquals": "Bottom sheet" }
+      ],
+      "sheet.title": [
+        { "textEquals": "Send to" }
+      ],
+      "sheet.block": [
+        { "descEquals": "Block", "clickable": true },
+        { "textEquals": "Block" }
+      ],
+      "sheet.close": [
+        { "descEquals": "Close", "clickable": true }
+      ],
+
+      "_comment_dismissibleSheet": "Any other modal 'Bottom sheet' in the TOPMOST window with a clickable outside-touch scrim -> DismissibleSheet (captured 47.9.3, n_profile_product_popup, 2026-11-25: tapping a Shop advertiser's avatar opened their profile with a PRODUCT sheet on top: store name + 'OFFICIAL SHOP', lowercase icon descs 'share' / 'cart' / 'more', product title, quantity options, and an 'Add to cart ' / 'Buy now' bar that sits NEXT TO the 'Bottom sheet' container, under the scrim's parent). The scrim's parent is the sheet's scope. The scrim is the only node handed out; nothing inside the sheet is ever tapped. Known sheets (Not interested / Block / Send to) are matched before this.",
+      "sheet.dismissScrim": [
+        { "viewId": "touch_outside", "clickable": true, "note": "Material BottomSheetDialog outside-touch scrim (library ID, not obfuscated; also on the 47.7.3 share sheet and long-press menu). ACTION_CLICK cancels the sheet, like a tap above it." }
+      ],
+      "sheet.commerce": [
+        { "textRegex": "^Add to cart\\b" },
+        { "textRegex": "^Buy now\\b" },
+        { "descEquals": "cart", "note": "Lowercase cart icon in the product sheet header (47.9.3)." }
+      ],
+
+      "_comment_dialog": "Block confirmation dialog (separate window). Title: 'Block <Display Name> (<handle>)?'.",
+      "dialog.container": [
+        { "descEquals": "Dialog" },
+        { "viewId": "visual_area" }
+      ],
+      "dialog.title": [
+        { "textRegex": "^Block (.+) \\(([A-Za-z0-9._]{2,24})\\)\\?$", "group": 2 }
+      ],
+      "dialog.displayName": [
+        { "textRegex": "^Block (.+) \\(([A-Za-z0-9._]{2,24})\\)\\?$", "group": 1 }
+      ],
+      "dialog.confirm": [
+        { "textEquals": "Block", "class": "android.widget.Button" },
+        { "textEquals": "Block", "clickable": true }
+      ],
+      "dialog.cancel": [
+        { "textEquals": "Cancel", "class": "android.widget.Button" },
+        { "textEquals": "Cancel", "clickable": true }
+      ],
+
+      "_comment_verify": "Profile after a block: 'Unblock' replaces Follow/Message and 'You blocked <handle>' appears.",
+      "verify.unblock": [
+        { "textEquals": "Unblock" }
+      ],
+      "verify.blockedMsg": [
+        { "textRegex": "^You blocked ([A-Za-z0-9._]{2,24})$", "group": 1 }
+      ],
+
+      "_comment_longpress": "Long-press menu on a feed video (captured 47.7.3, j_longpress_menu): a 'Bottom sheet' whose option row holds Buttons with the label as content-desc (About this ad / Report / Not interested / Playback speed). Below it is a contacts list with Send buttons: never read, log, or keep it. Option labels come from the 'Not interested' button's own row only.",
+      "longpress.container": [
+        { "descEquals": "Bottom sheet" }
+      ],
+      "longpress.notInterested": [
+        { "descEquals": "Not interested", "class": "android.widget.Button", "clickable": true },
+        { "descEquals": "Not interested", "clickable": true },
+        { "textEquals": "Not interested" }
+      ],
+      "longpress.adOption": [
+        { "descEquals": "About this ad" },
+        { "textEquals": "About this ad" }
+      ],
+
+      "_comment_longpress_placeholders": "PLACEHOLDERS - NOT YET CAPTURED ON DEVICE: the reason picker (if TikTok asks why) and the confirmation shown after tapping 'Not interested'. Verify on a device before relying on them.",
+      "longpress.reasonTitle": [
+        { "textRegex": "(?i)^(tell us why|why are you not interested|select a reason)", "unverified": true }
+      ],
+      "longpress.reasonOption": [
+        { "class": "android.widget.Button", "clickable": true, "textRegex": "\\S", "unverified": true },
+        { "clickable": true, "descRegex": "\\S", "unverified": true }
+      ],
+      "longpress.reasonShop": [
+        { "textRegex": "(?i)(shopping|products?|\\bshop\\b)", "unverified": true }
+      ],
+      "verify.notInterested": [
+        { "textRegex": "(?i)(we[’']ll show you fewer|thanks for (your )?feedback|less content like this|fewer videos like this)", "unverified": true }
+      ]
+    }
+  }
+}

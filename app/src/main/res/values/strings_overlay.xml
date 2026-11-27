@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Overlay bubble, card, hint pill, skip-cover. Owned by the service/overlay runtime. -->
+
+    <!-- Card guard messages (never silently ignore a tap) -->
+    <string name="overlay_result_no_post">No feed post here. Open the card on a video in the For You feed.</string>
+    <string name="overlay_result_live_preview">Not available on LIVE previews: a tap there would join the live stream.</string>
+
+    <!-- Bubble labels (short, fit a 44 dp bubble) -->
+    <string name="overlay_bubble_ad">AD</string>
+    <string name="overlay_bubble_promo">PROMO</string>
+    <string name="overlay_bubble_shop">SHOP</string>
+    <string name="overlay_bubble_live">LIVE</string>
+    <string name="overlay_bubble_paused">II</string>
+    <string name="overlay_bubble_skip_glyph">»</string>
+    <string name="overlay_bubble_warning_glyph">!</string>
+    <string name="overlay_bubble_cd">FeedClean. Tap for details, long-press to pause or resume automation, drag to move.</string>
+
+    <!-- Hint pill next to the bubble -->
+    <string name="overlay_hint_paused_loop">Paused after %1$d skips — tap to resume</string>
+    <string name="overlay_hint_kill_on">Automation paused</string>
+    <string name="overlay_hint_kill_off">Automation resumed</string>
+    <string name="overlay_hint_resumed">Auto-skip resumed</string>
+    <string name="overlay_hint_running">%1$s — tap the bubble to stop</string>
+
+    <!-- Skip-cover labels (LABELLED style) -->
+    <string name="overlay_cover_skipped_shop">Skipped a Shop post</string>
+    <string name="overlay_cover_skipped_ad">Skipped an ad</string>
+    <string name="overlay_cover_skipped_promoted">Skipped a promoted post</string>
+    <string name="overlay_cover_skipped_live">Skipped a LIVE shopping post</string>
+    <string name="overlay_cover_skipped">Skipped</string>
+
+    <!-- Card -->
+    <string name="overlay_card_unknown_creator">Unknown creator</string>
+    <string name="overlay_card_handle">\@%1$s</string>
+    <string name="overlay_card_handle_unknown">Handle confirmed during Block</string>
+    <string name="overlay_card_no_post">No feed post detected on screen.</string>
+    <string name="overlay_card_nothing_detected">Nothing detected on this post</string>
+    <string name="overlay_card_seen">Seen %1$d× since %2$s</string>
+    <string name="overlay_card_seen_first">First time seen</string>
+    <string name="overlay_card_blocked_strong">You blocked this account (same @handle). The block may not have held.</string>
+    <string name="overlay_card_blocked_possible">Possible match of an account you blocked (same display name only).</string>
+    <string name="overlay_card_close">Close</string>
+    <string name="overlay_card_block">Block</string>
+    <string name="overlay_card_block_wait">Block (%1$d s)</string>
+    <string name="overlay_card_skip">Skip</string>
+    <string name="overlay_card_not_interested">Not interested</string>
+    <string name="overlay_card_not_interested_wait">Not interested (%1$d s)</string>
+    <string name="overlay_card_log_only">Log only</string>
+    <string name="overlay_card_false_positive">Mark false positive</string>
+    <string name="overlay_card_tags_title">Your tags</string>
+    <string name="overlay_card_capture">Capture screen (debug)</string>
+    <string name="overlay_card_resume">Resume auto-skip</string>
+    <string name="overlay_card_stop">Stop</string>
+
+    <!-- Detected kinds -->
+    <string name="overlay_kind_paid_ad">Paid ad</string>
+    <string name="overlay_kind_promoted">Promoted</string>
+    <string name="overlay_kind_shop">Shop</string>
+    <string name="overlay_kind_live_shopping">LIVE shopping</string>
+
+    <!-- Manual tags -->
+    <string name="overlay_tag_ai_generated">AI generated</string>
+    <string name="overlay_tag_sexual_content">Sexual content</string>
+    <string name="overlay_tag_impersonator">Impersonator</string>
+    <string name="overlay_tag_reposted">Reposted</string>
+    <string name="overlay_tag_bot_like">Bot-like</string>
+
+    <!-- Progress -->
+    <string name="overlay_step_rate_limit">Checking the rate limit…</string>
+    <string name="overlay_step_open_profile">Opening the profile…</string>
+    <string name="overlay_step_read_handle">Checking the profile…</string>
+    <string name="overlay_step_open_share">Opening the share sheet…</string>
+    <string name="overlay_step_tap_block">Tapping Block…</string>
+    <string name="overlay_step_check_dialog">Checking TikTok\'s dialog…</string>
+    <string name="overlay_step_await_user">Tap TikTok\'s highlighted Block button to confirm</string>
+    <string name="overlay_step_confirm">Confirming…</string>
+    <string name="overlay_step_verify">Verifying…</string>
+    <string name="overlay_step_return">Going back to the feed…</string>
+    <string name="overlay_step_dismiss_overlay">Closing the product popup…</string>
+    <string name="overlay_step_find_video">Finding the video…</string>
+    <string name="overlay_step_long_press">Opening the menu…</string>
+    <string name="overlay_step_tap_not_interested">Tapping Not interested…</string>
+    <string name="overlay_step_choose_reason">Choosing a reason…</string>
+    <string name="overlay_step_working">Working…</string>
+
+    <!-- Results -->
+    <string name="overlay_result_blocked">Blocked @%1$s ✓ (verified)</string>
+    <string name="overlay_result_already_blocked">\@%1$s was already blocked</string>
+    <string name="overlay_result_block_stopped">Block stopped safely (%1$s). Nothing more was tapped.</string>
+    <string name="overlay_result_block_overlay_not_dismissed">Block stopped: a product popup wouldn\'t close. Nothing more was tapped.</string>
+    <string name="overlay_result_block_user_cancelled">You cancelled TikTok\'s dialog</string>
+    <string name="overlay_result_block_timed_out">TikTok\'s dialog is still open; finish it yourself</string>
+    <string name="overlay_result_block_cancelled">Block stopped</string>
+    <string name="overlay_result_ni_done">Not interested sent ✓</string>
+    <string name="overlay_result_ni_unverified">Not interested tapped, but the feed didn\'t come back as expected</string>
+    <string name="overlay_result_ni_stopped">Not interested stopped safely (%1$s)</string>
+    <string name="overlay_result_rate_limited">Rate limit: try again in %1$s s</string>
+    <string name="overlay_result_rejected">Not started (%1$s)</string>
+    <string name="overlay_result_skipped">Skipped</string>
+    <string name="overlay_result_skip_not_advanced">Scrolled, but the feed didn\'t move</string>
+    <string name="overlay_result_skip_not_done">Not skipped (%1$s)</string>
+    <string name="overlay_result_logged">Logged</string>
+    <string name="overlay_result_false_positive">Marked as a false positive</string>
+    <string name="overlay_result_capture_saved">Capture saved: %1$s</string>
+    <string name="overlay_result_capture_failed">Capture failed</string>
+    <string name="overlay_result_busy">Another action is running</string>
+    <string name="overlay_result_stopped_by_user">Stopped</string>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<!--
+  Synthetic fixture (hand-written, placeholders only). A feed pager whose CURRENT page is a normal post, surrounded
+  by pre-loaded pages that carry every signal. None of them may leak into the snapshot:
+    1. previous page, clipped to zero height above the viewport (as uiautomator reports it);
+    2. next page, zero height at the bottom edge (exactly as in the 47.7.3 uiautomator dumps);
+    3. next-next page with full off-screen bounds that a device may still report as visible-to-user.
+  The current page is deliberately NOT the first child.
+-->
+<hierarchy rotation="0">
+  <node text="" resource-id="" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="" clickable="false" long-clickable="false" scrollable="false" selected="false" bounds="[0,0][1080,2520]">
+    <node text="" resource-id="com.zhiliaoapp.musically:id/viewpager" class="androidx.viewpager.widget.ViewPager" package="com.zhiliaoapp.musically" content-desc="" clickable="false" long-clickable="false" scrollable="true" selected="false" bounds="[0,0][1080,2376]">
+
+      <node text="" resource-id="com.zhiliaoapp.musically:id/view_rootview" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="" clickable="false" long-clickable="false" scrollable="false" selected="false" bounds="[0,0][1080,0]">
+        <node text="Sponsored" resource-id="com.zhiliaoapp.musically:id/ibp" class="android.widget.Button" package="com.zhiliaoapp.musically" content-desc="" clickable="true" long-clickable="false" scrollable="false" selected="false" bounds="[34,0][84,0]" />
+        <node text="Brand D" resource-id="com.zhiliaoapp.musically:id/title" class="android.widget.Button" package="com.zhiliaoapp.musically" content-desc="" clickable="true" long-clickable="false" scrollable="false" selected="false" bounds="[34,0][300,0]" />
+        <node text="" resource-id="com.zhiliaoapp.musically:id/long_press_layout" class="android.view.View" package="com.zhiliaoapp.musically" content-desc="Video" clickable="true" long-clickable="false" scrollable="false" selected="false" bounds="[0,0][1080,0]" />
+      </node>
+
+      <node text="" resource-id="com.zhiliaoapp.musically:id/view_rootview" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="" clickable="false" long-clickable="false" scrollable="false" selected="false" bounds="[0,0][1080,2376]">
+        <node text="" resource-id="com.zhiliaoapp.musically:id/widget_container" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="" clickable="false" long-clickable="false" scrollable="false" selected="false" bounds="[0,0][1080,2376]">
+          <node text="" resource-id="com.zhiliaoapp.musically:id/user_avatar" class="android.widget.ImageView" package="com.zhiliaoapp.musically" content-desc="Creator A profile" clickable="true" long-clickable="false" scrollable="false" selected="false" bounds="[940,1353][1057,1470]" />
+          <node text="" resource-id="com.zhiliaoapp.musically:id/pq1" class="android.widget.Button" package="com.zhiliaoapp.musically" content-desc="Sound: original sound - creator_a123 by Creator A" clickable="true" long-clickable="false" scrollable="false" selected="false" bounds="[900,2209][1080,2376]" />
+          <node text="Creator A" resource-id="com.zhiliaoapp.musically:id/title" class="android.widget.Button" package="com.zhiliaoapp.musically" content-desc="" clickable="true" long-clickable="false" scrollable="false" selected="false" bounds="[34,2202][246,2252]" />
+          <node text="placeholder caption for video A #fyp" resource-id="com.zhiliaoapp.musically:id/desc" class="android.widget.TextView" package="com.zhiliaoapp.musically" content-desc="" clickable="true" long-clickable="false" scrollable="false" selected="false" bounds="[34,2270][745,2358]" />
+        </node>
+        <node text="" resource-id="com.zhiliaoapp.musically:id/long_press_layout" class="android.view.View" package="com.zhiliaoapp.musically" content-desc="Video" clickable="true" long-clickable="false" scrollable="false" selected="false" bounds="[0,0][1080,2376]" />
+      </node>
+
+      <node text="" resource-id="com.zhiliaoapp.musically:id/view_rootview" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="" clickable="false" long-clickable="false" scrollable="false" selected="false" bounds="[0,2376][1080,2376]">
+        <node text="Ad" resource-id="com.zhiliaoapp.musically:id/ibp" class="android.widget.Button" package="com.zhiliaoapp.musically" content-desc="" clickable="true" long-clickable="false" scrollable="false" selected="false" bounds="[34,2376][84,2376]" />
+        <node text="" resource-id="com.zhiliaoapp.musically:id/b44" class="android.widget.ImageView" package="com.zhiliaoapp.musically" content-desc="Product description" clickable="false" long-clickable="false" scrollable="false" selected="false" bounds="[43,2376][88,2376]" />
+        <node text="Shop now" resource-id="com.zhiliaoapp.musically:id/b9d" class="android.widget.TextView" package="com.zhiliaoapp.musically" content-desc="" clickable="false" long-clickable="false" scrollable="false" selected="false" bounds="[314,2376][436,2376]" />
+        <node text="Brand D" resource-id="com.zhiliaoapp.musically:id/title" class="android.widget.Button" package="com.zhiliaoapp.musically" content-desc="" clickable="true" long-clickable="false" scrollable="false" selected="false" bounds="[34,2376][300,2376]" />
+        <node text="" resource-id="com.zhiliaoapp.musically:id/long_press_layout" class="android.view.View" package="com.zhiliaoapp.musically" content-desc="Video" clickable="true" long-clickable="false" scrollable="false" selected="false" bounds="[0,2376][1080,2376]" />
+      </node>
+
+      <node text="" resource-id="com.zhiliaoapp.musically:id/view_rootview" class="android.widget.FrameLayout" package="com.zhiliaoapp.musically" content-desc="" clickable="false" long-clickable="false" scrollable="false" selected="false" visible-to-user="true" bounds="[0,2376][1080,4752]">
+        <node text="Promotional content" resource-id="com.zhiliaoapp.musically:id/ibp" class="android.widget.TextView" package="com.zhiliaoapp.musically" content-desc="" clickable="false" long-clickable="false" scrollable="false" selected="false" visible-to-user="true" bounds="[34,4585][295,4621]" />
+        <node text="" resource-id="com.zhiliaoapp.musically:id/b44" class="android.widget.ImageView" package="com.zhiliaoapp.musically" content-desc="Product description" clickable="false" long-clickable="false" scrollable="false" selected="false" visible-to-user="true" bounds="[43,4300][88,4345]" />
+        <node text="LIVE" resource-id="" class="android.widget.TextView" package="com.zhiliaoapp.musically" content-desc="" clickable="false" long-clickable="false" scrollable="false" selected="false" visible-to-user="true" bounds="[961,3729][1035,3763]" />
+        <node text="SELLER B" resource-id="com.zhiliaoapp.musically:id/title" class="android.widget.Button" package="com.zhiliaoapp.musically" content-desc="" clickable="true" long-clickable="false" scrollable="false" selected="false" visible-to-user="true" bounds="[34,4600][400,4650]" />
+        <node text="" resource-id="com.zhiliaoapp.musically:id/long_press_layout" class="android.view.View" package="com.zhiliaoapp.musically" content-desc="Video" clickable="true" long-clickable="false" scrollable="false" selected="false" visible-to-user="true" bounds="[0,2376][1080,4752]" />
+      </node>
+    </node>
+  </node>
+</hierarchy>

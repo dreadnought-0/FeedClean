@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Data & privacy: export / import / clear (io/, ui/data/). -->
+    <string name="io_full_title">Full backup</string>
+    <string name="io_full_body">Every table as a zip (JSON and CSV), for your own backup or a new phone. Keep it private: it includes your notes, display names and exact times.</string>
+    <string name="io_export_full">Export everything</string>
+    <string name="io_public_title">Public export</string>
+    <string name="io_public_body">Accounts with a known handle, their label tags, the month first seen, and the kind of evidence. Notes, display names, screenshots, exact times, sightings and sessions are left out.</string>
+    <string name="io_public_subjective">Include subjective tags</string>
+    <string name="io_public_subjective_body">AI generated, sexual content, impersonator, reposted, bot-like. Off by default.</string>
+    <string name="io_export_public">Export public list</string>
+    <string name="io_import_title">Import</string>
+    <string name="io_import_body">Merges a FeedClean full export into your data. Importing the same file twice adds nothing. It never does anything in TikTok.</string>
+    <string name="io_import">Import a full export</string>
+    <string name="io_clear_title">Clear all data</string>
+    <string name="io_clear_body">Deletes every account, sighting, tag, block record and audit on this phone. Settings are kept.</string>
+    <string name="io_clear">Clear all data</string>
+    <string name="io_clear_confirm_title">Clear all data?</string>
+    <string name="io_clear_confirm_body">This can\'t be undone. Export a full backup first if you may want it back.</string>
+    <string name="io_clear_confirm">Delete everything</string>
+    <string name="io_cancel">Cancel</string>
+    <string name="io_ok">OK</string>
+    <string name="io_working">Working…</string>
+    <string name="io_full_exported">Exported %1$d accounts and %2$d sightings.</string>
+    <plurals name="io_public_exported">
+        <item quantity="one">Exported %d account.</item>
+        <item quantity="other">Exported %d accounts.</item>
+    </plurals>
+    <string name="io_cleared">All data cleared.</string>
+
+    <string name="io_import_report_title">Import finished</string>
+    <string name="io_import_source">From FeedClean %1$s, exported %2$s</string>
+    <string name="io_import_nothing_new">Nothing new: everything in this file is already here.</string>
+    <string name="io_import_accounts_added">Accounts added: %1$d (%2$d without a handle)</string>
+    <string name="io_import_accounts_matched">Accounts merged into existing ones: %1$d</string>
+    <string name="io_import_sightings_added">Sightings added: %1$d</string>
+    <string name="io_import_blocks_added">Block records added: %1$d</string>
+    <string name="io_import_tags_added">Tags added: %1$d, tag assignments added: %2$d</string>
+    <string name="io_import_sessions_added">Sessions added: %1$d</string>
+    <string name="io_import_audits_added">Audits added: %1$d (%2$d findings)</string>
+    <string name="io_import_actions_added">Older rate-limit history added: %1$d</string>
+    <string name="io_import_duplicates">Already here, skipped: %1$d sightings, %2$d block records, %3$d audits</string>
+    <string name="io_import_actions_window">Recent rate-limit rows not imported (your current limit is unchanged): %1$d</string>
+    <string name="io_import_invalid">Unreadable rows skipped: %1$d</string>
+
+    <string name="io_fail_open">Couldn\'t open the file.</string>
+    <string name="io_fail_not_export">This isn\'t a FeedClean full export.</string>
+    <string name="io_fail_newer">This export is from a newer FeedClean. Update the app to import it.</string>
+    <string name="io_fail_damaged">The file is damaged or incomplete. Nothing was imported.</string>
+    <string name="io_fail_too_large">The file is too large.</string>
+    <string name="io_fail_unexpected">Something went wrong.</string>
+
+    <!-- Unblock audit (audit/, ui/audit/). -->
+    <string name="audit_intro">Compare TikTok\'s \"Download your data\" file with the blocks FeedClean recorded. Request it in TikTok under Settings → Account → Download your data, in JSON format.</string>
+    <string name="audit_pick">Choose data export (.zip or .json)</string>
+    <string name="audit_running">Reading the export…</string>
+    <plurals name="audit_ran">
+        <item quantity="one">Found %d account in the export\'s block list.</item>
+        <item quantity="other">Found %d accounts in the export\'s block list.</item>
+    </plurals>
+    <string name="audit_no_block_list">No block list was found in this file. Make sure it is TikTok\'s JSON data export.</string>
+    <string name="audit_report_title">Audit of %1$s</string>
+    <string name="audit_file">File: %1$s</string>
+    <string name="audit_count_missing">missing from TikTok\'s list</string>
+    <string name="audit_count_seen_after">seen after block</string>
+    <string name="audit_count_in_export">in TikTok\'s list only</string>
+    <string name="audit_kind_missing">Missing from TikTok\'s block list</string>
+    <string name="audit_kind_missing_body">Blocked with FeedClean, but not in the export: possibly unblocked. Marked \"unblocked (suspected)\" unless the export may be older than the block.</string>
+    <string name="audit_kind_seen_after">Seen after the block</string>
+    <string name="audit_kind_seen_after_body">Posts from these accounts were logged after you blocked them.</string>
+    <string name="audit_kind_in_export">In TikTok\'s block list, not in FeedClean</string>
+    <string name="audit_kind_in_export_body">You blocked these in TikTok. You can record them in FeedClean.</string>
+    <string name="audit_none">None</string>
+    <string name="audit_handle">\@%1$s</string>
+    <string name="audit_detail_blocked">blocked %1$s</string>
+    <string name="audit_detail_newer">newer than the export</string>
+    <string name="audit_detail_seen">seen %1$d× after, last %2$s</string>
+    <string name="audit_detail_export_date">blocked in TikTok %1$s</string>
+    <string name="audit_detail_known">already in FeedClean</string>
+    <plurals name="audit_import_missing">
+        <item quantity="one">Record %d block in FeedClean</item>
+        <item quantity="other">Record %d blocks in FeedClean</item>
+    </plurals>
+    <string name="audit_import_confirm_title">Record these blocks?</string>
+    <string name="audit_import_confirm_body">Adds these accounts to FeedClean as blocked (imported). Nothing is done in TikTok.</string>
+    <string name="audit_import_confirm">Record</string>
+    <plurals name="audit_imported">
+        <item quantity="one">Recorded %d account as blocked.</item>
+        <item quantity="other">Recorded %d accounts as blocked.</item>
+    </plurals>
+    <string name="audit_export_json">Export report (JSON)</string>
+    <string name="audit_export_csv">Export report (CSV)</string>
+    <string name="audit_saved">Report saved.</string>
+    <string name="audit_history">Past audits</string>
+    <string name="audit_history_row">%1$s · %2$d missing · %3$d seen after</string>
+    <string name="audit_fail_open">Couldn\'t open the file.</string>
+    <string name="audit_fail_malformed">This file isn\'t valid JSON.</string>
+    <string name="audit_fail_no_json">No JSON file in this zip. Request the export in JSON format.</string>
+    <string name="audit_fail_too_large">The file is too large.</string>
+    <string name="audit_fail_unexpected">Something went wrong.</string>
+</resources>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Share target (share/). -->
+    <string name="share_no_link">No TikTok link found in what was shared. Nothing was saved.</string>
+    <string name="share_title">Log this post</string>
+    <string name="share_link_label">Link</string>
+    <plurals name="share_extra_links">
+        <item quantity="one">%d more link in the shared text is not logged.</item>
+        <item quantity="other">%d more links in the shared text are not logged.</item>
+    </plurals>
+    <string name="share_account_label">Account</string>
+    <string name="share_handle_confirmed">\@%1$s</string>
+    <string name="share_handle_from_link">Confirmed from the link</string>
+    <string name="share_handle_from_resolve">Confirmed by Resolve</string>
+    <string name="share_possible_name">%1$s (possible, from the screen)</string>
+    <string name="share_possible_handle">\@%1$s (possible, not confirmed)</string>
+    <string name="share_account_unknown">Account unknown. Resolve can read the handle from the link.</string>
+    <string name="share_context_discarded">The screen showed a different account than this link, so its name and labels were not used.</string>
+
+    <string name="share_resolve">Resolve</string>
+    <string name="share_resolve_explainer">Sends one request to TikTok for this link and reads the handle from the reply. Nothing else is sent.</string>
+    <string name="share_resolving">Resolving…</string>
+    <string name="share_resolve_no_location">Couldn\'t resolve in one request: TikTok did not redirect this link.</string>
+    <string name="share_resolve_second_hop">Couldn\'t resolve in one request: the link points at another short link.</string>
+    <string name="share_resolve_no_handle">Couldn\'t resolve in one request: the link does not name an account.</string>
+    <string name="share_resolve_unexpected">Couldn\'t resolve in one request: unexpected reply.</string>
+    <string name="share_resolve_failed">Couldn\'t reach TikTok. Check your connection and tap Resolve again.</string>
+    <string name="share_resolve_refused">This link can\'t be resolved.</string>
+
+    <string name="share_tags_signal">On-screen labels</string>
+    <string name="share_tags_manual">Your tags</string>
+    <string name="share_notes_label">Notes (stay on this phone)</string>
+    <string name="share_save">Save</string>
+    <string name="share_cancel">Cancel</string>
+    <string name="share_save_failed">Couldn\'t save. Please try again.</string>
+
+    <!-- Tag labels (shared with the data screens). -->
+    <string name="tag_paid_ad">Paid ad</string>
+    <string name="tag_promoted">Promoted</string>
+    <string name="tag_shop_anchor">Shop anchor</string>
+    <string name="tag_organic_shop">Organic Shop</string>
+    <string name="tag_live_shopping">LIVE shopping</string>
+    <string name="tag_ai_generated">AI generated</string>
+    <string name="tag_sexual_content">Sexual content</string>
+    <string name="tag_impersonator">Impersonator / copycat</string>
+    <string name="tag_reposted">Reposted content</string>
+    <string name="tag_bot_like">Bot-like</string>
+</resources>

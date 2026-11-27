@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Debug screen → "Decision log" section (the 7-day on-phone curation decision log). -->
+    <string name="debug_log_section_title">Decision log</string>
+    <string name="debug_log_hint">One line for each feed page FeedClean looked at: which player it was in (For You, another Home tab, search, other), what was detected, the decision, and why auto-skip did or didn\'t run. Also late labels and the overlay card\'s results. No names, handles, captions, or other screen text. Kept on this phone for 7 days, at most about 5 MB.</string>
+    <string name="debug_log_off">The decision log is off (Settings → Data &amp; privacy). Nothing new is recorded; what is already here is shown below.</string>
+    <string name="debug_log_on">The decision log is on.</string>
+    <string name="debug_log_size">%1$d entries · %2$d files · %3$d KB</string>
+    <string name="debug_log_counts">Counts</string>
+    <string name="debug_log_recent">Last %1$d entries</string>
+    <string name="debug_log_empty">No entries yet.</string>
+    <string name="debug_log_unreadable">The decision log could not be read.</string>
+    <string name="debug_log_refresh">Refresh</string>
+    <string name="debug_log_export">Export log</string>
+    <string name="debug_log_clear">Clear log</string>
+    <string name="debug_log_clear_title">Clear the decision log?</string>
+    <string name="debug_log_clear_text">This deletes every decision-log file on this phone. Sightings and stats are not affected.</string>
+    <string name="debug_log_clear_confirm">Clear</string>
+    <string name="debug_log_clear_cancel">Cancel</string>
+    <string name="debug_log_exported">Decision log exported</string>
+    <string name="debug_log_export_failed">Export failed</string>
+    <string name="debug_log_cleared">Decision log cleared</string>
+</resources>

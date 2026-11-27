@@ -1,0 +1,65 @@
+name: Bug report
+description: Something in FeedClean does not work as expected
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Do not paste personal data.** Remove real names, @handles of people who are not part of the bug,
+        contact names, your location, and your own account details. Do not attach raw screenshots or
+        uiautomator dumps. For selector problems after a TikTok update, use the "Selector breakage" template.
+  - type: input
+    id: device
+    attributes:
+      label: Device
+      placeholder: "Manufacturer and model"
+    validations:
+      required: true
+  - type: input
+    id: android
+    attributes:
+      label: Android / One UI version
+      placeholder: "e.g. Android 17 / One UI 9"
+    validations:
+      required: true
+  - type: input
+    id: tiktok
+    attributes:
+      label: TikTok version
+      placeholder: "e.g. 47.7.3"
+    validations:
+      required: true
+  - type: input
+    id: feedclean
+    attributes:
+      label: FeedClean version or commit
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: debug
+    attributes:
+      label: Debug screen info
+      description: What the Debug screen shows (screen type, signals, which selector strategy matched). Check it for personal data first.
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Checks
+      options:
+        - label: I removed personal data from this report.
+          required: true
