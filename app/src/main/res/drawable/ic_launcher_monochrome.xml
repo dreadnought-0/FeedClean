@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Themed-icon (monochrome) layer: same funnel glyph as the foreground; the launcher tints it. -->
+<!-- Themed-icon (monochrome) layer: the same circle-ban glyph as the foreground; the launcher tints it. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <group
-        android:scaleX="2.5"
-        android:scaleY="2.5"
-        android:translateX="24"
-        android:translateY="24">
-        <path
-            android:fillColor="#FFFFFFFF"
-            android:pathData="M4.25,5.61C6.27,8.2 10,13 10,13v6c0,0.55 0.45,1 1,1h2c0.55,0 1,-0.45 1,-1v-6c0,0 3.72,-4.8 5.74,-7.39C20.25,4.95 19.78,4 18.95,4H5.04C4.21,4 3.74,4.95 4.25,5.61z" />
-    </group>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M84,54 A30,30 0 1,1 24,54 A30,30 0 1,1 84,54 Z"
+        android:strokeWidth="6.4"
+        android:strokeColor="@color/ic_launcher_glyph" />
+    <path
+        android:fillColor="@color/ic_launcher_glyph"
+        android:pathData="M59.53,44.87L62.21,45.77L64.86,46.96L66.99,48.18L70.42,50.50L71.43,51.03L71.67,49.80L71.82,48.01L71.73,46.30L71.41,44.67L70.87,43.13L70.11,41.69L69.13,40.37L68.36,39.55L67.04,38.44L65.52,37.47L63.81,36.65L62.56,36.18L60.53,35.63L58.33,35.26L58.33,37.31L58.24,36.72L58.09,36.34L57.86,36.01L57.42,35.61L57.06,35.42L56.48,35.27L56.07,35.27L55.49,35.42L54.97,35.73L54.69,36.01L54.38,36.53L54.23,37.11L54.22,45.39L58.33,49.49L58.33,44.55ZM50.44,59.30L48.87,58.99L47.21,58.93L45.49,59.14L43.78,59.59L42.12,60.29L40.56,61.20L39.15,62.30L37.93,63.55L36.95,64.93L36.22,66.38L35.84,67.57L35.64,69.05L35.73,70.48L36.12,71.81L36.80,73.02L37.74,74.05L38.66,74.73L39.44,75.16L40.59,75.58L41.51,75.80L42.48,75.93L43.81,75.95L45.19,75.81L46.56,75.51L47.92,75.05L49.23,74.44L50.47,73.69L51.61,72.82L52.63,71.85L53.52,70.79L54.24,69.67L54.81,68.48L55.14,68.75L55.49,68.94L56.28,69.10L57.06,68.94L57.42,68.75L57.86,68.35L58.17,67.83L58.32,67.16Z" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M33.8,33.8 L74.2,74.2"
+        android:strokeWidth="6.4"
+        android:strokeColor="@color/ic_launcher_glyph"
+        android:strokeLineCap="round" />
 </vector>
