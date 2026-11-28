@@ -42,6 +42,9 @@ class ArmedEvaluatorTest {
         val r = eval()
         assertEquals(7, r.total)
         assertEquals(7, r.armedCount)
+        assertEquals(listOf(SKIP_SHOP, SKIP_PAID_AD, SKIP_PROMOTED, SKIP_LIVE_SHOPPING, AUTO_NOT_INTERESTED), Behaviour.AUTOMATED)
+        assertEquals(Behaviour.AUTOMATED.size, r.actionTotal)
+        assertEquals(5, r.actionArmedCount)
         assertEquals(ARMED, r.detection.level)
         assertEquals(ARMED, r.autoSkip.level)
         assertTrue(r.anySkipArmed)
@@ -57,6 +60,8 @@ class ArmedEvaluatorTest {
         assertEquals(OFF, r.of(AUTO_NOT_INTERESTED).level)
         assertEquals(ARMED, r.of(NOT_INTERESTED_BUTTON).level)
         assertEquals(ARMED, r.of(BLOCK_BUTTON).level)
+        assertEquals(0, r.actionArmedCount)
+        assertEquals(Behaviour.AUTOMATED.size, r.actionTotal)
     }
 
     @Test
@@ -130,6 +135,9 @@ class ArmedEvaluatorTest {
         assertEquals(ARMED, r.of(BLOCK_BUTTON).level)
         assertEquals(2, r.armedCount)
         assertEquals(5, r.count(PAUSED))
+        assertEquals(0, r.actionArmedCount)
+        assertEquals(5, r.actionCount(PAUSED))
+        assertEquals(0, r.actionCount(BLOCKED))
     }
 
     @Test
@@ -396,5 +404,20 @@ class ArmedEvaluatorTest {
         Behaviour.SKIPS.forEach {
             assertEquals(it.name, BLOCKED, r.of(it).level)
         }
+    }
+
+    @Test
+    fun `the actions-armed badge counts only automated actions, not the manual buttons`() {
+        // Manual buttons stay armed when Detection is off; they must not inflate the badge.
+        val r = eval(allOn.copy(detectionEnabled = false))
+        assertEquals(ARMED, r.of(NOT_INTERESTED_BUTTON).level)
+        assertEquals(ARMED, r.of(BLOCK_BUTTON).level)
+        assertEquals(0, r.actionArmedCount)
+        assertEquals(Behaviour.AUTOMATED.size, r.actionTotal)
+        assertEquals(Behaviour.AUTOMATED.size, r.actionCount(BLOCKED))
+        // A kind switched off leaves the matching skip out of the armed total, still excluding the buttons.
+        val oneOff = eval(allOn.copy(detectPaidAd = false))
+        assertEquals(Behaviour.AUTOMATED.size - 1, oneOff.actionArmedCount)
+        assertEquals(6, oneOff.armedCount) // the two buttons plus four other automations
     }
 }

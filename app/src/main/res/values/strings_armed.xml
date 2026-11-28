@@ -7,8 +7,8 @@
     <string name="armed_level_off">Off</string>
     <string name="armed_level_blocked">Blocked</string>
     <string name="armed_level_paused">Paused</string>
-    <string name="armed_header_badge">%1$d/%2$d armed</string>
-    <string name="armed_header_badge_cd">%1$d of %2$d options armed. What Armed means.</string>
+    <string name="armed_header_badge">%1$d/%2$d actions armed</string>
+    <string name="armed_header_badge_cd">%1$d of %2$d actions armed. What Armed means.</string>
 
     <!-- Behaviour names (summary, fix sheet) -->
     <string name="behaviour_skip_shop">Skip Shop posts</string>
@@ -173,7 +173,7 @@
 
     <!-- Guide: What Armed means -->
     <string name="guide_title">What “Armed” means</string>
-    <string name="guide_intro">A badge shows whether an option will really act the next time a matching post shows up — not just whether its switch is on.</string>
+    <string name="guide_intro">The actions-armed badge counts automated actions — the skip types and Auto Not interested — and shows whether they will really act the next time a matching post shows up, not just whether their switch is on.</string>
     <string name="guide_armed">Switch is on and everything it needs is ready.</string>
     <string name="guide_off">Switch is off. Nothing happens.</string>
     <string name="guide_blocked">Switch is on, but something it needs is missing. The badge says what and links to the fix.</string>
@@ -187,7 +187,7 @@
     <string name="guide_live_title">Checked live — the badge won\'t change</string>
     <string name="guide_live_body">TikTok is in front · your screen is on (if you chose that) · FeedClean isn\'t in the middle of another action · the pace limit isn\'t reached. The line under the count tells you when it\'s waiting.</string>
     <string name="guide_taps_title">Your own taps are different</string>
-    <string name="guide_taps_body">The Block button and the Not interested button only run when you tap them. They need accessibility access and the bubble. “Pause everything” doesn\'t turn them off, but switching it on stops one that\'s already running.</string>
+    <string name="guide_taps_body">The Block button and the Not interested button only run when you tap them. They need accessibility access and the bubble. They aren\'t included in the actions-armed badge. “Pause everything” doesn\'t turn them off, but switching it on stops one that\'s already running.</string>
     <string name="guide_auto_ni_title">Auto Not interested needs more</string>
     <string name="guide_auto_ni_1">Everything a Shop skip needs</string>
     <string name="guide_auto_ni_2">“Skip Shop posts” on — it only acts on skipped Shop posts</string>

@@ -47,7 +47,7 @@ object DebugRuntimeFormatter {
         info.selectorWarnings.forEach { appendLine("    - $it") }
         appendLine()
         info.armed?.let { report ->
-            appendLine("armed (${report.armedCount}/${report.total}):")
+            appendLine("actions armed (${report.actionArmedCount}/${report.actionTotal}):")
             line("  detection", status(report.detection))
             line("  autoSkip", status(report.autoSkip))
             report.behaviours.forEach { (behaviour, st) -> line("  $behaviour", status(st)) }

@@ -32,7 +32,7 @@ import io.github.dreadnought0.feedclean.ui.theme.Glass
  *
  * @param title screen title.
  * @param onBack shows a back button when non-null (pushed destinations); top-level tabs pass null.
- * @param actions trailing actions (e.g. Home's "n/7 armed" badge).
+ * @param actions trailing actions (e.g. Home's "n/5 actions armed" badge).
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

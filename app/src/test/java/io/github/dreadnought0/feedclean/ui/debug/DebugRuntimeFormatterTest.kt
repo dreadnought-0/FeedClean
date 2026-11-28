@@ -66,7 +66,7 @@ class DebugRuntimeFormatterTest {
     fun showsTheArmedReport() {
         val report = ArmedEvaluator.evaluate(FeedCleanSettings(curateFeedEnabled = true, detectionEnabled = false), LiveFacts(serviceConnected = true))
         val text = DebugRuntimeFormatter.format(DebugRuntimeInfo(armed = report))
-        assertTrue(text, text.contains("armed (2/7):"))
+        assertTrue(text, text.contains("actions armed (0/5):"))
         assertTrue(text, text.contains("SKIP_SHOP: BLOCKED (DETECTION_ON)"))
         assertTrue(text, text.contains("BLOCK_BUTTON: ARMED"))
         assertTrue(text, text.contains("detection: OFF"))

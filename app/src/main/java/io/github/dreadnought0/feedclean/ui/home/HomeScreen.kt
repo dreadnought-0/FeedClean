@@ -189,7 +189,7 @@ fun HomeScreen(
     GlassScreen(
         title = stringResource(R.string.ui_home_title),
         modifier = modifier,
-        actions = { ArmedBadge(armed.armedCount, armed.total, armed.count(ArmedLevel.BLOCKED) + armed.count(ArmedLevel.PAUSED) > 0, navigation.openGuide) },
+        actions = { ArmedBadge(armed.actionArmedCount, armed.actionTotal, armed.actionCount(ArmedLevel.BLOCKED) + armed.actionCount(ArmedLevel.PAUSED) > 0, navigation.openGuide) },
     ) {
         SummaryCard(state, setupStatus, navigation)
         PauseCard(engaged = s.killSwitchEngaged, onChange = actions::setKillSwitchEngaged)
@@ -248,18 +248,24 @@ private fun ArmedBadge(armed: Int, total: Int, needsAttention: Boolean, onClick:
     val cd = stringResource(R.string.armed_header_badge_cd, armed, total)
     Row(
         modifier = Modifier
-            .padding(end = 12.dp)
+            .padding(end = 8.dp)
             .clip(CircleShape)
             .background(Glass.CardStrong)
             .border(1.dp, Glass.Border, CircleShape)
             .clickable(onClick = onClick)
             .semantics { contentDescription = cd }
-            .padding(horizontal = 12.dp, vertical = 7.dp),
+            .padding(horizontal = 8.dp, vertical = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(7.dp),
+        horizontalArrangement = Arrangement.spacedBy(5.dp),
     ) {
         Box(Modifier.size(7.dp).clip(CircleShape).background(dot))
-        Text(stringResource(R.string.armed_header_badge, armed, total), style = MaterialTheme.typography.labelMedium, color = Glass.Ink)
+        Text(
+            stringResource(R.string.armed_header_badge, armed, total),
+            style = MaterialTheme.typography.labelMedium.copy(fontSize = 11.sp),
+            color = Glass.Ink,
+            maxLines = 1,
+            softWrap = false,
+        )
     }
 }
 

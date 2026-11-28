@@ -15,7 +15,7 @@ import io.github.dreadnought0.feedclean.settings.FeedCleanSettings
  */
 enum class ArmedLevel { ARMED, OFF, BLOCKED, PAUSED }
 
-/** The seven behaviours Home counts ("5 of 7 armed"), in display order. */
+/** Behaviours Home can show as Armed / Off / Blocked / Paused, in display order. */
 enum class Behaviour {
     SKIP_SHOP,
     SKIP_PAID_AD,
@@ -28,8 +28,14 @@ enum class Behaviour {
 
     val isSkip: Boolean get() = this in SKIPS
 
+    /** The Not interested and Block buttons: they only run on a tap, and are not in the actions-armed badge. */
+    val isManual: Boolean get() = this == NOT_INTERESTED_BUTTON || this == BLOCK_BUTTON
+
     companion object {
         val SKIPS: Set<Behaviour> = setOf(SKIP_SHOP, SKIP_PAID_AD, SKIP_PROMOTED, SKIP_LIVE_SHOPPING)
+
+        /** Automated actions the Home badge counts (the skip types and Auto Not interested). Derived from the enum. */
+        val AUTOMATED: List<Behaviour> = entries.filterNot { it.isManual }
     }
 }
 
@@ -157,6 +163,15 @@ data class ArmedReport(
 
     val armedCount: Int get() = count(ArmedLevel.ARMED)
     val total: Int get() = behaviours.size
+
+    /** How many of the automated actions ([Behaviour.AUTOMATED]) are in [level]. */
+    fun actionCount(level: ArmedLevel): Int = Behaviour.AUTOMATED.count { of(it).level == level }
+
+    /** Armed automated actions, for the Home "N/M actions armed" badge. */
+    val actionArmedCount: Int get() = actionCount(ArmedLevel.ARMED)
+
+    /** Number of automated actions the badge counts (derived from [Behaviour.AUTOMATED], not a fixed 5). */
+    val actionTotal: Int get() = Behaviour.AUTOMATED.size
 
     /** True when at least one skip type would act on the next matching post. */
     val anySkipArmed: Boolean get() = Behaviour.SKIPS.any { of(it).isArmed }
