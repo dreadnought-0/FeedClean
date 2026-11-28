@@ -7,7 +7,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -18,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,6 +26,7 @@ import io.github.dreadnought0.feedclean.service.ScreenStateHolder
 import io.github.dreadnought0.feedclean.ui.common.CardTone
 import io.github.dreadnought0.feedclean.ui.common.FeedCleanTopAppBar
 import io.github.dreadnought0.feedclean.ui.theme.FeedCleanTheme
+import io.github.dreadnought0.feedclean.ui.theme.Glass
 
 /**
  * Setup checklist destination: live checks (refreshed on every resume) plus deep links into system settings.
@@ -73,7 +72,7 @@ fun SetupScreen(
     modifier: Modifier = Modifier,
 ) {
     val serviceOk = status.serviceEnabled && serviceConnected
-    val remaining = setupProgress(status, serviceConnected).let { it.total - it.completed }
+    val progress = setupProgress(status, serviceConnected)
     val yes = stringResource(R.string.ui_yes)
     val no = stringResource(R.string.ui_no)
 
@@ -89,18 +88,18 @@ fun SetupScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            if (remaining == 0) {
-                Text(stringResource(R.string.ui_setup_all_set), style = MaterialTheme.typography.titleLarge, modifier = Modifier.fillMaxWidth())
-            } else {
-                Row(verticalAlignment = Alignment.Bottom) {
-                    Text(remaining.toString(), style = MaterialTheme.typography.displaySmall.copy(fontSize = 40.sp, lineHeight = 44.sp))
-                    Text(
-                        pluralStringResource(R.plurals.ui_setup_steps_to_go, remaining),
-                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(start = 8.dp, bottom = 6.dp),
-                    )
-                }
+            Row(verticalAlignment = Alignment.Bottom) {
+                Text(
+                    progress.completed.toString(),
+                    style = MaterialTheme.typography.displaySmall,
+                    color = Glass.Ink,
+                )
+                Text(
+                    stringResource(R.string.home_steps_count, progress.total),
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal, fontSize = 17.sp),
+                    color = Glass.Muted,
+                    modifier = Modifier.padding(start = 8.dp, bottom = 4.dp),
+                )
             }
             Text(
                 text = stringResource(R.string.ui_setup_intro),

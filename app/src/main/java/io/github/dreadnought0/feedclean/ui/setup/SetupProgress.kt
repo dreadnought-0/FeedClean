@@ -4,7 +4,7 @@ import io.github.dreadnought0.feedclean.armed.HeroOutline
 
 /**
  * A required Setup-checklist item that must be done before FeedClean can run. The list is
- * the same one the Setup screen counts in "N steps to go" (info-only cards are not steps).
+ * the same one the Home hero and the Setup screen count as "N of M steps completed" (info-only cards are not steps).
  */
 enum class SetupStepId {
     /** The target app (TikTok) is installed and visible to FeedClean. */
