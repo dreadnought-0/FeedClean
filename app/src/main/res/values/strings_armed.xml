@@ -95,33 +95,12 @@
     <string name="and_word">and</string>
 
     <!-- Home summary -->
-    <string name="home_summary_count">of %1$d armed</string>
-    <string name="home_summary_all">Everything is armed. FeedClean acts the next time a matching post shows up.</string>
-    <string name="home_summary_no_service">FeedClean can\'t see TikTok yet. Until accessibility access is on, nothing here can act.</string>
-    <string name="home_summary_none">Nothing is armed. Turn on Detection and Auto-skip below to start.</string>
-    <string name="home_summary_working">Working.</string>
-    <string name="home_summary_idle">Not working yet.</string>
-    <plurals name="home_summary_attention">
-        <item quantity="one">%1$d needs attention</item>
-        <item quantity="other">%1$d need attention</item>
-    </plurals>
-    <string name="home_summary_paused_n">%1$d paused</string>
-    <string name="home_summary_off_n">%1$d turned off</string>
-    <string name="home_summary_live_service_off">Service not running</string>
-    <string name="home_summary_live_waiting">Waiting for you to open TikTok</string>
-    <string name="home_summary_live_watching">TikTok is open — FeedClean is watching your feed</string>
-    <string name="home_summary_why_line">%1$s — %2$s</string>
-    <plurals name="home_summary_paused_user">
-        <item quantity="one">%1$d paused by “Pause everything”. Block and Not interested button still work on your tap.</item>
-        <item quantity="other">%1$d paused by “Pause everything”. Block and Not interested button still work on your tap.</item>
-    </plurals>
-    <plurals name="home_summary_paused_safety">
-        <item quantity="one">%1$d paused by the safety stop after %2$d skips in a row.</item>
-        <item quantity="other">%1$d paused by the safety stop after %2$d skips in a row.</item>
-    </plurals>
-    <string name="home_summary_switched_off">Switched off: %1$s</string>
-    <string name="home_summary_help_cd">What Armed means</string>
-    <string name="home_open_setup">Open setup checklist</string>
+    <string name="home_steps_count">of %1$d steps completed</string>
+    <string name="home_steps_completed">%1$d of %2$d steps completed</string>
+    <string name="home_steps_expand_cd">Show setup steps</string>
+    <string name="home_steps_collapse_cd">Hide setup steps</string>
+    <string name="home_steps_fix_target">Open Setup</string>
+
 
     <!-- Home: Pause everything (exact) -->
     <string name="home_pause_title">Pause everything</string>

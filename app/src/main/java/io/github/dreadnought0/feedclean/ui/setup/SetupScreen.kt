@@ -73,7 +73,7 @@ fun SetupScreen(
     modifier: Modifier = Modifier,
 ) {
     val serviceOk = status.serviceEnabled && serviceConnected
-    val remaining = listOf(status.targetAppInstalled, serviceOk, status.batteryUnrestricted).count { !it }
+    val remaining = setupProgress(status, serviceConnected).let { it.total - it.completed }
     val yes = stringResource(R.string.ui_yes)
     val no = stringResource(R.string.ui_no)
 

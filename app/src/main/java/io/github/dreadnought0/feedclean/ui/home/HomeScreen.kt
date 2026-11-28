@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,9 +30,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -44,7 +47,6 @@ import io.github.dreadnought0.feedclean.appContainer
 import io.github.dreadnought0.feedclean.armed.ArmedLevel
 import io.github.dreadnought0.feedclean.armed.ArmedStatus
 import io.github.dreadnought0.feedclean.armed.HeroOutline
-import io.github.dreadnought0.feedclean.armed.heroOutline
 import io.github.dreadnought0.feedclean.armed.Behaviour
 import io.github.dreadnought0.feedclean.armed.Requirement
 import io.github.dreadnought0.feedclean.settings.BlockStyle
@@ -61,14 +63,20 @@ import io.github.dreadnought0.feedclean.ui.common.GlassSwitch
 import io.github.dreadnought0.feedclean.ui.common.LinkRow
 import io.github.dreadnought0.feedclean.ui.common.ArmedPill
 import io.github.dreadnought0.feedclean.ui.common.OptionRow
-import io.github.dreadnought0.feedclean.ui.common.PrimaryButton
 import io.github.dreadnought0.feedclean.ui.common.WarnBar
 import io.github.dreadnought0.feedclean.ui.icons.FeedCleanIcons
 import io.github.dreadnought0.feedclean.ui.settings.NotInterestedRiskDialog
 import io.github.dreadnought0.feedclean.ui.settings.SettingsActions
 import io.github.dreadnought0.feedclean.ui.settings.SettingsViewModel
 import io.github.dreadnought0.feedclean.ui.settings.previewSettingsActions
+import io.github.dreadnought0.feedclean.ui.setup.SetupIntents
 import io.github.dreadnought0.feedclean.ui.setup.SetupStatus
+import io.github.dreadnought0.feedclean.ui.setup.SetupStep
+import io.github.dreadnought0.feedclean.ui.setup.SetupStepId
+import io.github.dreadnought0.feedclean.ui.setup.heroOutline
+import io.github.dreadnought0.feedclean.ui.setup.heroStartsCollapsed
+import io.github.dreadnought0.feedclean.ui.setup.launchSystemScreen
+import io.github.dreadnought0.feedclean.ui.setup.setupProgress
 import io.github.dreadnought0.feedclean.ui.setup.rememberSetupStatus
 import io.github.dreadnought0.feedclean.ui.theme.FeedCleanTheme
 import io.github.dreadnought0.feedclean.ui.theme.Glass
@@ -141,9 +149,9 @@ private fun sheetTargetOf(key: String?): SheetTarget? = when (key) {
 }
 
 /**
- * Stateless Home control center (v2): summary, Pause everything, Detection, Auto-skip (with the skip choices and
- * links nested inside), Not interested, Blocking, on-screen helpers, Setup / Audit. Every badge comes from
- * [HomeUiState.armed] ([io.github.dreadnought0.feedclean.armed.ArmedEvaluator]).
+ * Stateless Home control center (v2): setup-steps hero, Pause everything, Detection, Auto-skip (with the skip choices and
+ * links nested inside), Not interested, Blocking, on-screen helpers, Setup / Audit. Every Armed / Off / Blocked /
+ * Paused pill comes from [HomeUiState.armed] ([io.github.dreadnought0.feedclean.armed.ArmedEvaluator]).
  */
 @Composable
 fun HomeScreen(
@@ -177,7 +185,7 @@ fun HomeScreen(
         modifier = modifier,
         actions = { ArmedBadge(armed.armedCount, armed.total, armed.count(ArmedLevel.BLOCKED) + armed.count(ArmedLevel.PAUSED) > 0, navigation.openGuide) },
     ) {
-        SummaryCard(state, navigation, fixHandlers, openSheet)
+        SummaryCard(state, setupStatus, navigation)
         PauseCard(engaged = s.killSwitchEngaged, onChange = actions::setKillSwitchEngaged)
         DetectionCard(state, actions, fixHandlers, openSheet)
         AutoSkipCard(state, actions, navigation, fixHandlers, openSheet)
@@ -248,161 +256,151 @@ private fun ArmedBadge(armed: Int, total: Int, needsAttention: Boolean, onClick:
     }
 }
 
-// ── Summary ─────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Summary (setup steps) ───────────────────────────────────────────────────────────────────────────────────
 
 @Composable
-private fun SummaryCard(state: HomeUiState, navigation: HomeNavigation, fix: FixHandlers, openSheet: (SheetTarget) -> Unit) {
-    val armed = state.armed
-    val blocked = armed.inLevel(ArmedLevel.BLOCKED)
-    val paused = armed.inLevel(ArmedLevel.PAUSED)
-    val off = armed.inLevel(ArmedLevel.OFF)
+private fun SummaryCard(state: HomeUiState, setupStatus: SetupStatus?, navigation: HomeNavigation) {
+    val context = LocalContext.current
+    val progress = setupProgress(setupStatus ?: SetupStatus.Unknown, state.serviceConnected)
+    var userExpanded by remember { mutableStateOf<Boolean?>(null) }
+    val expanded = userExpanded ?: !heroStartsCollapsed(progress)
+    val canToggle = progress.allComplete
+    val toggle = if (canToggle) ({ userExpanded = !expanded }) else null
+
     GlassCard(
-        tone = when (heroOutline(armed.autoSkip)) {
+        tone = when (heroOutline(progress)) {
             HeroOutline.SETUP_MISSING -> CardTone.DESTRUCTIVE
             HeroOutline.READY -> CardTone.ACCENT
             HeroOutline.NORMAL -> CardTone.NORMAL
         },
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = if (expanded) 16.dp else 12.dp),
     ) {
-        Row(verticalAlignment = Alignment.Bottom) {
-            Text(
-                armed.armedCount.toString(),
-                style = MaterialTheme.typography.displaySmall,
-                color = Glass.Ink,
-            )
-            Text(
-                stringResource(R.string.home_summary_count, armed.total),
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal, fontSize = 17.sp),
-                color = Glass.Muted,
-                modifier = Modifier.padding(start = 8.dp, bottom = 8.dp).weight(1f),
-            )
-            Icon(
-                FeedCleanIcons.Help,
-                contentDescription = stringResource(R.string.home_summary_help_cd),
-                tint = Glass.Muted,
-                modifier = Modifier.padding(bottom = 10.dp).size(22.dp).clip(CircleShape).clickable(onClick = navigation.openGuide),
-            )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(if (toggle != null) Modifier.clickable(onClick = toggle) else Modifier),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (expanded) {
+                Text(
+                    progress.completed.toString(),
+                    style = MaterialTheme.typography.displaySmall,
+                    color = Glass.Ink,
+                )
+                Text(
+                    stringResource(R.string.home_steps_count, progress.total),
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal, fontSize = 17.sp),
+                    color = Glass.Muted,
+                    modifier = Modifier.padding(start = 8.dp, bottom = 4.dp).weight(1f),
+                )
+            } else {
+                Text(
+                    stringResource(R.string.home_steps_completed, progress.completed, progress.total),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Glass.Ink,
+                    modifier = Modifier.weight(1f),
+                )
+            }
+            if (canToggle) {
+                Icon(
+                    Icons.Filled.KeyboardArrowDown,
+                    contentDescription = stringResource(if (expanded) R.string.home_steps_collapse_cd else R.string.home_steps_expand_cd),
+                    tint = Glass.Muted,
+                    modifier = Modifier.size(22.dp).rotate(if (expanded) 180f else 0f),
+                )
+            }
         }
-        SegmentBar(Behaviour.entries.map { armed.of(it).level }, Modifier.padding(top = 10.dp))
-        Text(
-            headline(state),
-            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
-            color = Glass.Ink,
-            modifier = Modifier.padding(top = 10.dp),
-        )
-        LiveLine(state)
-        if (!state.serviceConnected) {
-            Spacer(Modifier.height(12.dp))
-            PrimaryButton(stringResource(R.string.home_open_setup), navigation.openSetup, icon = FeedCleanIcons.Checklist)
-            return@GlassCard
-        }
-        blocked.forEach { b ->
-            val reason = armed.of(b).reason ?: return@forEach
-            SummaryLine(
-                icon = { Icon(Icons.Filled.Warning, null, tint = Glass.AmberStrong, modifier = Modifier.size(16.dp)) },
-                text = stringResource(R.string.home_summary_why_line, stringResource(b.label()), stringResource(reason.unmetText())),
-                action = reason.shortFixText()?.let { stringResource(it) },
-                onAction = { reason.applyFix(fix) },
-                onClick = { openSheet(SheetTarget.Of(b)) },
-            )
-        }
-        if (paused.isNotEmpty()) {
-            val byUser = state.settings.killSwitchEngaged
-            SummaryLine(
-                icon = { Icon(FeedCleanIcons.Pause, null, tint = Glass.SlateInk, modifier = Modifier.size(16.dp)) },
-                text = if (byUser) {
-                    pluralStringResource(R.plurals.home_summary_paused_user, paused.size, paused.size)
-                } else {
-                    pluralStringResource(R.plurals.home_summary_paused_safety, paused.size, paused.size, armed.facts.loopGuardPausedAfter)
-                },
-                action = stringResource(R.string.req_fix_short_resume),
-                onAction = { (if (byUser) Requirement.NOT_PAUSED_BY_USER else Requirement.NOT_PAUSED_BY_SAFETY_STOP).applyFix(fix) },
-            )
-        }
-        if (off.isNotEmpty()) {
-            SummaryLine(
-                icon = { Box(Modifier.size(14.dp).border(1.5.dp, Glass.Faint, CircleShape)) },
-                text = stringResource(R.string.home_summary_switched_off, off.map { stringResource(it.label()) }.joinToString(", ")),
-            )
+        if (expanded) {
+            progress.steps.forEach { step ->
+                SetupStepRow(
+                    step = step,
+                    serviceEnabled = (setupStatus ?: SetupStatus.Unknown).serviceEnabled,
+                    serviceConnected = state.serviceConnected,
+                    onFix = { fixSetupStep(context, step.id, navigation.openSetup) },
+                )
+            }
         }
     }
 }
 
 @Composable
-private fun headline(state: HomeUiState): String {
-    val a = state.armed
-    if (!state.serviceConnected) return stringResource(R.string.home_summary_no_service)
-    if (a.armedCount == a.total) return stringResource(R.string.home_summary_all)
-    val blocked = a.count(ArmedLevel.BLOCKED)
-    val paused = a.count(ArmedLevel.PAUSED)
-    val off = a.count(ArmedLevel.OFF)
-    if (a.armedCount == 0 && blocked == 0 && paused == 0) return stringResource(R.string.home_summary_none)
-    val parts = buildList {
-        if (blocked > 0) add(pluralStringResource(R.plurals.home_summary_attention, blocked, blocked))
-        if (paused > 0) add(stringResource(R.string.home_summary_paused_n, paused))
-        if (off > 0) add(stringResource(R.string.home_summary_off_n, off))
-    }
-    val lead = stringResource(if (a.armedCount > 0) R.string.home_summary_working else R.string.home_summary_idle)
-    return if (parts.isEmpty()) lead else "$lead ${parts.joinToString(", ")}."
-}
-
-@Composable
-private fun LiveLine(state: HomeUiState) {
-    val (dot, text) = when {
-        !state.serviceConnected -> Glass.Amber to R.string.home_summary_live_service_off
-        state.tiktokForeground -> Glass.Accent to R.string.home_summary_live_watching
-        else -> Glass.Faint to R.string.home_summary_live_waiting
-    }
-    Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        Box(Modifier.size(8.dp).clip(CircleShape).background(dot))
-        Text(stringResource(text), style = MaterialTheme.typography.bodySmall, color = Glass.Muted)
-    }
-}
-
-@Composable
-private fun SummaryLine(
-    icon: @Composable () -> Unit,
-    text: String,
-    action: String? = null,
-    onAction: (() -> Unit)? = null,
-    onClick: (() -> Unit)? = null,
+private fun SetupStepRow(
+    step: SetupStep,
+    serviceEnabled: Boolean,
+    serviceConnected: Boolean,
+    onFix: () -> Unit,
 ) {
+    val title = stringResource(
+        when (step.id) {
+            SetupStepId.TARGET_APP -> R.string.ui_setup_target_title
+            SetupStepId.ACCESSIBILITY -> R.string.ui_setup_service_title
+            SetupStepId.BATTERY -> R.string.ui_setup_battery_title
+        },
+    )
+    val subtitle = when {
+        step.done -> null
+        step.id == SetupStepId.ACCESSIBILITY && serviceEnabled && !serviceConnected ->
+            stringResource(R.string.ui_setup_service_not_running)
+        step.id == SetupStepId.ACCESSIBILITY -> stringResource(R.string.req_unmet_service_short)
+        step.id == SetupStepId.TARGET_APP -> stringResource(R.string.ui_setup_target_missing)
+        step.id == SetupStepId.BATTERY -> stringResource(R.string.ui_setup_battery_off)
+        else -> null
+    }
+    val action = if (step.done) null else stringResource(
+        when (step.id) {
+            SetupStepId.TARGET_APP -> R.string.home_steps_fix_target
+            SetupStepId.ACCESSIBILITY -> R.string.ui_setup_service_action
+            SetupStepId.BATTERY -> R.string.ui_setup_battery_action
+        },
+    )
     GlassDivider(Modifier.padding(top = 10.dp))
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
-            .padding(top = 10.dp),
+        modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalAlignment = Alignment.Top,
     ) {
-        Box(Modifier.padding(top = 2.dp).size(16.dp), contentAlignment = Alignment.Center) { icon() }
-        Text(text, style = MaterialTheme.typography.bodyMedium, color = Glass.Ink, modifier = Modifier.weight(1f))
-        if (action != null && onAction != null) {
+        Box(
+            Modifier.padding(top = 2.dp).size(22.dp).clip(CircleShape).background(if (step.done) Glass.Accent else Glass.AmberStrong),
+            contentAlignment = Alignment.Center,
+        ) {
+            if (step.done) {
+                Icon(Icons.Filled.Check, contentDescription = null, tint = Color.White, modifier = Modifier.size(14.dp))
+            } else {
+                Icon(Icons.Filled.Warning, contentDescription = null, tint = Color.White, modifier = Modifier.size(14.dp))
+            }
+        }
+        Column(Modifier.weight(1f)) {
+            Text(title, style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium), color = Glass.Ink)
+            if (subtitle != null) {
+                Text(subtitle, style = MaterialTheme.typography.bodySmall, color = if (step.done) Glass.Muted else Glass.AmberText, modifier = Modifier.padding(top = 2.dp))
+            }
+        }
+        if (action != null) {
             Text(
                 "$action ›",
                 style = MaterialTheme.typography.labelMedium,
                 color = Glass.Accent,
-                modifier = Modifier.clip(CircleShape).clickable(onClick = onAction).padding(horizontal = 4.dp, vertical = 2.dp),
+                modifier = Modifier.clip(CircleShape).clickable(onClick = onFix).padding(horizontal = 4.dp, vertical = 2.dp),
             )
         }
     }
 }
 
-/** The 7-segment bar: teal armed, amber blocked, slate paused, white off. */
-@Composable
-internal fun SegmentBar(levels: List<ArmedLevel>, modifier: Modifier = Modifier) {
-    Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-        levels.forEach { level ->
-            val color = when (level) {
-                ArmedLevel.ARMED -> Glass.Accent
-                ArmedLevel.BLOCKED -> Glass.Amber
-                ArmedLevel.PAUSED -> Glass.SlateBar
-                ArmedLevel.OFF -> Color.White.copy(alpha = 0.75f)
-            }
-            Box(Modifier.weight(1f).height(7.dp).clip(CircleShape).background(color))
-        }
+/** Opens the same system screen the Setup checklist uses, or the Setup screen if that isn't available. */
+private fun fixSetupStep(context: android.content.Context, id: SetupStepId, openSetup: () -> Unit) {
+    val opened = when (id) {
+        SetupStepId.TARGET_APP -> false
+        SetupStepId.ACCESSIBILITY -> context.launchSystemScreen(SetupIntents.accessibilitySettings())
+        SetupStepId.BATTERY -> context.launchSystemScreen(
+            SetupIntents.requestIgnoreBatteryOptimizations(context.packageName),
+            SetupIntents.batteryOptimizationSettings(),
+            SetupIntents.appDetails(context.packageName),
+        )
     }
+    if (!opened) openSetup()
 }
 
+// ── Pause everything ────────────────────────────────────────────────────────────────────────────────────────
 // ── Pause everything ────────────────────────────────────────────────────────────────────────────────────────
 
 @Composable
@@ -703,7 +701,7 @@ private fun ToolsCard(setupStatus: SetupStatus?, serviceConnected: Boolean, navi
 
 /** Every setup step is done and the service is actually running. */
 fun SetupStatus.allSet(serviceConnected: Boolean): Boolean =
-    targetAppInstalled && serviceEnabled && batteryUnrestricted && serviceConnected
+    setupProgress(this, serviceConnected).allComplete
 
 // ── Previews ────────────────────────────────────────────────────────────────────────────────────────────────
 
