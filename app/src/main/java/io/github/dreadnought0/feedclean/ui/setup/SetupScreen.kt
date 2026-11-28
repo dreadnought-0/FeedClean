@@ -1,5 +1,9 @@
 package io.github.dreadnought0.feedclean.ui.setup
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -84,15 +88,19 @@ fun SetupScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            Text(
-                text = if (remaining == 0) {
-                    stringResource(R.string.ui_setup_all_set)
-                } else {
-                    pluralStringResource(R.plurals.ui_setup_remaining, remaining, remaining)
-                },
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.fillMaxWidth(),
-            )
+            if (remaining == 0) {
+                Text(stringResource(R.string.ui_setup_all_set), style = MaterialTheme.typography.titleLarge, modifier = Modifier.fillMaxWidth())
+            } else {
+                Row(verticalAlignment = Alignment.Bottom) {
+                    Text(remaining.toString(), style = MaterialTheme.typography.displaySmall.copy(fontSize = 40.sp, lineHeight = 44.sp))
+                    Text(
+                        pluralStringResource(R.plurals.ui_setup_steps_to_go, remaining),
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(start = 8.dp, bottom = 6.dp),
+                    )
+                }
+            }
             Text(
                 text = stringResource(R.string.ui_setup_intro),
                 style = MaterialTheme.typography.bodyMedium,
@@ -155,7 +163,7 @@ fun SetupScreen(
 @Preview(showBackground = true, heightDp = 1200)
 @Composable
 private fun SetupScreenPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         SetupScreen(
             status = SetupStatus(targetAppInstalled = true, serviceEnabled = true, batteryUnrestricted = false),
             serviceConnected = false,

@@ -2,18 +2,18 @@
 <resources>
     <!-- Data & privacy: export / import / clear (io/, ui/data/). -->
     <string name="io_full_title">Full backup</string>
-    <string name="io_full_body">Every table as a zip (JSON and CSV), for your own backup or a new phone. Keep it private: it includes your notes, display names and exact times.</string>
+    <string name="io_full_body">All your FeedClean data as a zip (JSON + CSV), for a new phone or safekeeping. Private: includes your notes, display names and exact times. Settings aren\'t included.</string>
     <string name="io_export_full">Export everything</string>
-    <string name="io_public_title">Public export</string>
-    <string name="io_public_body">Accounts with a known handle, their label tags, the month first seen, and the kind of evidence. Notes, display names, screenshots, exact times, sightings and sessions are left out.</string>
-    <string name="io_public_subjective">Include subjective tags</string>
-    <string name="io_public_subjective_body">AI generated, sexual content, impersonator, reposted, bot-like. Off by default.</string>
+    <string name="io_public_title">Public list</string>
+    <string name="io_public_body">Just handles, label tags, the month first seen and how each was spotted — no notes, names, screenshots or exact times. Accounts without a handle or marked as a false positive are left out.</string>
+    <string name="io_public_subjective">Include opinion tags</string>
+    <string name="io_public_subjective_body">AI generated, sexual content, impersonator, reposted, bot-like. Off shares only on-screen labels.</string>
     <string name="io_export_public">Export public list</string>
     <string name="io_import_title">Import</string>
-    <string name="io_import_body">Merges a FeedClean full export into your data. Importing the same file twice adds nothing. It never does anything in TikTok.</string>
-    <string name="io_import">Import a full export</string>
+    <string name="io_import_body">Adds a FeedClean backup to what you have. Records you already have are skipped, so importing the same file twice adds nothing. It never does anything in TikTok.</string>
+    <string name="io_import">Import a backup</string>
     <string name="io_clear_title">Clear all data</string>
-    <string name="io_clear_body">Deletes every account, sighting, tag, block record and audit on this phone. Settings are kept.</string>
+    <string name="io_clear_body">Deletes every account, sighting, tag, block record, session and audit on this phone. Kept: your settings, the 7-day activity log (clear it on the Debug screen) and the last hour\'s pace-limit count.</string>
     <string name="io_clear">Clear all data</string>
     <string name="io_clear_confirm_title">Clear all data?</string>
     <string name="io_clear_confirm_body">This can\'t be undone. Export a full backup first if you may want it back.</string>

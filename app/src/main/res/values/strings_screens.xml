@@ -26,8 +26,6 @@
     <string name="screens_seen_needs_tracking">“Seen” counts every video you watch and needs Session tracking, which is off. Turn it on in Settings → Data &amp; privacy.</string>
 
     <!-- ── Home ──────────────────────────────────────────────────────────── -->
-    <string name="screens_home_today">Today</string>
-    <string name="screens_home_latest_session">Last session: %1$d%% Shop · %2$d%% ads · %3$s</string>
 
     <!-- ── Stats ─────────────────────────────────────────────────────────── -->
     <string name="screens_stats_today">Today</string>

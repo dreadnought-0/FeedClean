@@ -1,5 +1,7 @@
 package io.github.dreadnought0.feedclean.ui.suggested
 
+import androidx.compose.foundation.layout.PaddingValues
+import io.github.dreadnought0.feedclean.ui.common.GlassCard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -89,7 +91,7 @@ fun SuggestedScreen(onBack: () -> Unit, modifier: Modifier = Modifier) {
 
 @Composable
 private fun ExplainerCard(titleRes: Int, bodyRes: Int) {
-    Card(modifier = Modifier.fillMaxWidth()) {
+    GlassCard(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(0.dp)) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text(
                 text = stringResource(titleRes),
@@ -104,7 +106,7 @@ private fun ExplainerCard(titleRes: Int, bodyRes: Int) {
 @Preview(showBackground = true, heightDp = 1200)
 @Composable
 private fun SuggestedScreenPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         SuggestedScreen(onBack = {})
     }
 }

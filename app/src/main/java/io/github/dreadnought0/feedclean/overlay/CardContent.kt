@@ -1,5 +1,9 @@
 package io.github.dreadnought0.feedclean.overlay
 
+import io.github.dreadnought0.feedclean.ui.theme.Glass
+import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -62,8 +66,11 @@ interface CardCallbacks {
 fun CardContent(model: CardModel, callbacks: CardCallbacks, maxHeight: Dp, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(22.dp),
+        border = BorderStroke(1.dp, Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
+        // Opaque frosted surface: the card sits over a moving video, so it must stay readable.
+        colors = CardDefaults.cardColors(containerColor = Glass.Sheet.copy(alpha = 0.97f), contentColor = Glass.Ink),
     ) {
         Column(
             modifier = Modifier

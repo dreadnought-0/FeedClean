@@ -147,7 +147,7 @@ private fun SessionRatiosSectionPreview() {
             skippedShare = shareOf(0.18),
         ),
     )
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(24.dp)) {
             SessionRatiosSection(trackingEnabled = true, sessions = sessions, nowMillis = now)
             SessionRatiosSection(trackingEnabled = false, sessions = emptyList(), nowMillis = now)

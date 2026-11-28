@@ -84,7 +84,7 @@ private fun DailyTablePreview() {
             DailySeries(DailyMetric.ORGANIC_SHOP, listOf(6, 11, 15, 9)),
         ),
     )
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         DailyTable(model = model, today = today, modifier = Modifier.padding(16.dp))
     }
 }

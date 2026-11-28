@@ -1,5 +1,7 @@
 package io.github.dreadnought0.feedclean.ui.accounts
 
+import androidx.compose.foundation.layout.PaddingValues
+import io.github.dreadnought0.feedclean.ui.common.GlassCard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -38,7 +40,7 @@ fun AccountHeaderCard(state: AccountDetailUiState, onOpenInTikTok: (String) -> U
     val account = state.account ?: return
     val locale = currentLocale()
     val zone = ZoneId.systemDefault()
-    Card(modifier = modifier.fillMaxWidth()) {
+    GlassCard(modifier = modifier.fillMaxWidth(), contentPadding = PaddingValues(0.dp)) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text(
                 text = accountTitle(account.displayName?.takeIf { it.isNotBlank() }, account.handle),

@@ -1,5 +1,9 @@
 package io.github.dreadnought0.feedclean.ui.audit
 
+import io.github.dreadnought0.feedclean.ui.icons.FeedCleanIcons
+import io.github.dreadnought0.feedclean.ui.common.PrimaryButton
+import io.github.dreadnought0.feedclean.ui.common.GlassDialog
+import io.github.dreadnought0.feedclean.ui.common.GlassCard
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
@@ -120,7 +124,7 @@ internal fun AuditBody(
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
-                Button(onClick = onPick, enabled = !busy) { Text(stringResource(R.string.audit_pick)) }
+                PrimaryButton(stringResource(R.string.audit_pick), onPick, icon = FeedCleanIcons.Upload, enabled = !busy)
             }
         }
         item { StatusCard(status, onDismissStatus) }
@@ -156,19 +160,17 @@ internal fun AuditBody(
     }
 
     if (confirmImport) {
-        AlertDialog(
-            onDismissRequest = { confirmImport = false },
-            title = { Text(stringResource(R.string.audit_import_confirm_title)) },
-            text = { Text(stringResource(R.string.audit_import_confirm_body)) },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        confirmImport = false
-                        onImportConfirmed()
-                    },
-                ) { Text(stringResource(R.string.audit_import_confirm)) }
+        GlassDialog(
+            title = stringResource(R.string.audit_import_confirm_title),
+            text = stringResource(R.string.audit_import_confirm_body),
+            confirm = stringResource(R.string.audit_import_confirm),
+            onConfirm = {
+                confirmImport = false
+                onImportConfirmed()
             },
-            dismissButton = { TextButton(onClick = { confirmImport = false }) { Text(stringResource(R.string.io_cancel)) } },
+            dismiss = stringResource(R.string.io_cancel),
+            onDismiss = { confirmImport = false },
+            destructive = false,
         )
     }
 }
@@ -277,7 +279,7 @@ private fun CountBox(count: Int, @StringRes labelRes: Int, modifier: Modifier = 
 @Composable
 private fun StatusCard(status: AuditStatus, onDismiss: () -> Unit) {
     if (status == AuditStatus.Idle) return
-    Card(modifier = Modifier.fillMaxWidth()) {
+    GlassCard(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(0.dp)) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             when (status) {
                 AuditStatus.Idle -> Unit

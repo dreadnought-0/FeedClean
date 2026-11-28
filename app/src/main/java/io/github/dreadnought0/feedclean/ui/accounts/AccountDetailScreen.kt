@@ -33,7 +33,7 @@ import io.github.dreadnought0.feedclean.data.model.Account
 import io.github.dreadnought0.feedclean.data.model.AccountStatus
 import io.github.dreadnought0.feedclean.data.model.HandleSource
 import io.github.dreadnought0.feedclean.ui.common.FeedCleanTopAppBar
-import io.github.dreadnought0.feedclean.ui.common.PlaceholderCard
+import io.github.dreadnought0.feedclean.ui.common.GlassCard
 import io.github.dreadnought0.feedclean.ui.stats.UiText
 import io.github.dreadnought0.feedclean.ui.theme.FeedCleanTheme
 import kotlinx.coroutines.launch
@@ -112,10 +112,9 @@ fun AccountDetailContent(
             !state.loaded -> Unit
             account == null -> Column(modifier = Modifier.padding(innerPadding).padding(16.dp)) {
                 Text(stringResource(R.string.screens_detail_not_found_title), style = MaterialTheme.typography.titleMedium)
-                PlaceholderCard(
-                    message = stringResource(R.string.screens_detail_not_found_body),
-                    modifier = Modifier.padding(top = 12.dp),
-                )
+                GlassCard(modifier = Modifier.padding(top = 12.dp)) {
+                    Text(stringResource(R.string.screens_detail_not_found_body), style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
             }
 
             else -> LazyColumn(
@@ -202,7 +201,7 @@ private fun previewDetailState(): AccountDetailUiState {
 @Preview(showBackground = true, heightDp = 2200)
 @Composable
 private fun AccountDetailScreenPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         AccountDetailContent(
             state = previewDetailState(),
             actions = NoOpAccountDetailActions,
@@ -216,7 +215,7 @@ private fun AccountDetailScreenPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun AccountDetailNotFoundPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         AccountDetailContent(
             state = AccountDetailUiState(loaded = true),
             actions = NoOpAccountDetailActions,

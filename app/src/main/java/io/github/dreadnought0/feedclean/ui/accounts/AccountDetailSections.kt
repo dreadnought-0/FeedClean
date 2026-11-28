@@ -1,5 +1,6 @@
 package io.github.dreadnought0.feedclean.ui.accounts
 
+import io.github.dreadnought0.feedclean.ui.theme.Glass
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -207,7 +208,7 @@ private fun DetectedTagLabel(text: String) {
     Surface(
         shape = RoundedCornerShape(8.dp),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-        color = MaterialTheme.colorScheme.surface,
+        color = Glass.Nest,
     ) {
         Text(
             text = text,

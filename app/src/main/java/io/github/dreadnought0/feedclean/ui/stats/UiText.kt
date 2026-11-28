@@ -32,4 +32,7 @@ fun UiText.resolve(): String = when (this) {
 
 /** The first locale of the current configuration, for date and number formatting. */
 @Composable
-fun currentLocale(): Locale = LocalConfiguration.current.locales.get(0) ?: Locale.getDefault()
+fun currentLocale(): Locale {
+    // An empty locale list never happens on a real device; ROOT keeps this observable (no Locale.getDefault()).
+    return LocalConfiguration.current.locales.get(0) ?: Locale.ROOT
+}

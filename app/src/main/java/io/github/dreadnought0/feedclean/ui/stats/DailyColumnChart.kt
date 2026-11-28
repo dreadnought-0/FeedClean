@@ -287,7 +287,7 @@ private fun DailyColumnChartPreview() {
             ),
         )
     }
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             val gutter = rememberChartGutter(model.series.map { it.axisMax })
             model.series.forEach { series ->
