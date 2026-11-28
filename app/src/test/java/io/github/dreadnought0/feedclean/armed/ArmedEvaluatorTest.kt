@@ -348,4 +348,53 @@ class ArmedEvaluatorTest {
         assertEquals(Requirement.SERVICE_RUNNING, summarizeCard(blockedService, blocked).reason)
         assertEquals(OFF, summarizeCard().level)
     }
+
+
+    // ── Detection kinds (Home Detection sub-panel) ─────────────────────────────────────────────
+
+    @Test
+    fun `each detection kind is armed when Detection is on and the service is running`() {
+        val r = eval()
+        DetectionKind.entries.forEach { kind ->
+            assertEquals(kind.name, ARMED, r.of(kind).level)
+        }
+        assertEquals(ARMED, r.detection.level)
+    }
+
+    @Test
+    fun `a detection kind switched off is Off, and the matching skip is blocked by that kind`() {
+        val r = eval(allOn.copy(detectPaidAd = false))
+        assertEquals(OFF, r.of(DetectionKind.PAID_AD).level)
+        assertNull(r.of(DetectionKind.PAID_AD).reason)
+        assertEquals(ARMED, r.of(DetectionKind.SHOP).level)
+        assertEquals(BLOCKED, r.of(SKIP_PAID_AD).level)
+        assertEquals(Requirement.DETECT_PAID_AD_ON, r.of(SKIP_PAID_AD).reason)
+    }
+
+    @Test
+    fun `Detection master stays armed when only one kind is off if another kind is still on`() {
+        val r = eval(allOn.copy(detectPaidAd = false))
+        assertEquals(ARMED, r.detection.level)
+        assertEquals(ARMED, r.autoSkip.level)
+        assertEquals(ARMED, r.of(SKIP_SHOP).level)
+    }
+
+    @Test
+    fun `a detection kind that is on is blocked when Detection or the service is off`() {
+        assertEquals(Requirement.DETECTION_ON, eval(allOn.copy(detectionEnabled = false)).of(DetectionKind.SHOP).reason)
+        assertEquals(Requirement.SERVICE_RUNNING, eval(facts = LiveFacts(serviceConnected = false)).of(DetectionKind.SHOP).reason)
+        assertEquals(OFF, eval(allOn.copy(detectShopAnchor = false, detectionEnabled = false)).of(DetectionKind.SHOP).level)
+    }
+
+    @Test
+    fun `turning every detection kind off blocks the Detection master and Auto-skip`() {
+        val r = eval(allOn.copy(detectPaidAd = false, detectPromoted = false, detectShopAnchor = false, detectLiveShopping = false))
+        DetectionKind.entries.forEach { assertEquals(it.name, OFF, r.of(it).level) }
+        assertEquals(BLOCKED, r.detection.level)
+        assertEquals(Requirement.ANY_DETECTION_KIND_ON, r.detection.reason)
+        assertEquals(Requirement.SKIP_TYPE_READY, r.autoSkip.reason)
+        Behaviour.SKIPS.forEach {
+            assertEquals(it.name, BLOCKED, r.of(it).level)
+        }
+    }
 }

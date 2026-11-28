@@ -50,6 +50,16 @@ class SettingsViewModelTest {
     // ── Detection ──────────────────────────────────────────────────────────
 
     @Test
+    fun detectionKindsDefaultToOnForAFreshInstall() {
+        val d = FeedCleanSettings()
+        assertTrue(d.detectionEnabled)
+        assertTrue(d.detectPaidAd)
+        assertTrue(d.detectPromoted)
+        assertTrue(d.detectShopAnchor)
+        assertTrue(d.detectLiveShopping)
+    }
+
+    @Test
     fun detectionToggles() {
         val d = FeedCleanSettings()
         assertOnlyChanged(expected = d.copy(detectionEnabled = false)) { setDetectionEnabled(false) }

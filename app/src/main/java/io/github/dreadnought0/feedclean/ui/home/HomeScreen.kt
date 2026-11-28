@@ -48,6 +48,7 @@ import io.github.dreadnought0.feedclean.armed.ArmedLevel
 import io.github.dreadnought0.feedclean.armed.ArmedStatus
 import io.github.dreadnought0.feedclean.armed.HeroOutline
 import io.github.dreadnought0.feedclean.armed.Behaviour
+import io.github.dreadnought0.feedclean.armed.DetectionKind
 import io.github.dreadnought0.feedclean.armed.Requirement
 import io.github.dreadnought0.feedclean.settings.BlockStyle
 import io.github.dreadnought0.feedclean.settings.FeedCleanSettings
@@ -126,6 +127,7 @@ fun HomeRoute(navigation: HomeNavigation, modifier: Modifier = Modifier) {
 internal sealed interface SheetTarget {
     data class Of(val behaviour: Behaviour) : SheetTarget
     data object Detection : SheetTarget
+    data class Kind(val kind: DetectionKind) : SheetTarget
     data object AutoSkip : SheetTarget
     data object NotInterested : SheetTarget
     data object Helpers : SheetTarget
@@ -134,17 +136,20 @@ internal sealed interface SheetTarget {
 private fun SheetTarget.key(): String = when (this) {
     is SheetTarget.Of -> behaviour.name
     SheetTarget.Detection -> "DETECTION"
+    is SheetTarget.Kind -> "KIND_${kind.name}"
     SheetTarget.AutoSkip -> "AUTO_SKIP"
     SheetTarget.NotInterested -> "NOT_INTERESTED"
     SheetTarget.Helpers -> "HELPERS"
 }
 
-private fun sheetTargetOf(key: String?): SheetTarget? = when (key) {
-    null -> null
-    "DETECTION" -> SheetTarget.Detection
-    "AUTO_SKIP" -> SheetTarget.AutoSkip
-    "NOT_INTERESTED" -> SheetTarget.NotInterested
-    "HELPERS" -> SheetTarget.Helpers
+private fun sheetTargetOf(key: String?): SheetTarget? = when {
+    key == null -> null
+    key == "DETECTION" -> SheetTarget.Detection
+    key == "AUTO_SKIP" -> SheetTarget.AutoSkip
+    key == "NOT_INTERESTED" -> SheetTarget.NotInterested
+    key == "HELPERS" -> SheetTarget.Helpers
+    key.startsWith("KIND_") ->
+        DetectionKind.entries.firstOrNull { it.name == key.removePrefix("KIND_") }?.let { SheetTarget.Kind(it) }
     else -> Behaviour.entries.firstOrNull { it.name == key }?.let { SheetTarget.Of(it) }
 }
 
@@ -199,6 +204,7 @@ fun HomeScreen(
         val (name, status) = when (target) {
             is SheetTarget.Of -> stringResource(target.behaviour.label()) to armed.of(target.behaviour)
             SheetTarget.Detection -> stringResource(R.string.behaviour_detection) to armed.detection
+            is SheetTarget.Kind -> stringResource(target.kind.label()) to armed.of(target.kind)
             SheetTarget.AutoSkip -> stringResource(R.string.behaviour_auto_skip) to armed.autoSkip
             SheetTarget.NotInterested -> stringResource(R.string.home_ni_title) to armed.notInterestedCard
             SheetTarget.Helpers -> stringResource(R.string.home_helpers_title) to armed.helpersCard
@@ -420,6 +426,7 @@ private fun PauseCard(engaged: Boolean, onChange: (Boolean) -> Unit) {
 
 @Composable
 private fun DetectionCard(state: HomeUiState, actions: SettingsActions, fix: FixHandlers, openSheet: (SheetTarget) -> Unit) {
+    val s = state.settings
     val status = state.armed.detection
     GlassCard {
         CardHeader(
@@ -431,6 +438,57 @@ private fun DetectionCard(state: HomeUiState, actions: SettingsActions, fix: Fix
         CardBody(stringResource(R.string.home_detection_p1))
         CardBody(stringResource(R.string.home_detection_p2))
         ReasonBar(status, fix, Modifier.padding(top = 10.dp))
+        Spacer(Modifier.height(12.dp))
+        GlassNest {
+            DetectRow(DetectionKind.SHOP, R.string.home_detect_shop_sub, R.string.info_shop_detect, s.detectShopAnchor, actions::setDetectShopAnchor, state, fix, openSheet)
+            GlassDivider()
+            DetectRow(DetectionKind.PAID_AD, R.string.home_detect_paid_sub, R.string.info_detect_paid, s.detectPaidAd, actions::setDetectPaidAd, state, fix, openSheet)
+            GlassDivider()
+            DetectRow(DetectionKind.PROMOTED, R.string.home_detect_promoted_sub, R.string.info_detect_promoted, s.detectPromoted, actions::setDetectPromoted, state, fix, openSheet)
+            GlassDivider()
+            DetectRow(DetectionKind.LIVE_SHOPPING, R.string.home_detect_live_sub, R.string.info_detect_live, s.detectLiveShopping, actions::setDetectLiveShopping, state, fix, openSheet)
+        }
+    }
+}
+
+@Composable
+private fun DetectRow(
+    kind: DetectionKind,
+    description: Int,
+    info: Int,
+    checked: Boolean,
+    onChange: (Boolean) -> Unit,
+    state: HomeUiState,
+    fix: FixHandlers,
+    openSheet: (SheetTarget) -> Unit,
+) {
+    val status = state.armed.of(kind)
+    val (desc, color) = rowDescription(status, stringResource(description))
+    // Shared with the Detection header; don't repeat it on every kind row.
+    val shared = setOf(Requirement.DETECTION_ON)
+    Column {
+        OptionRow(
+            title = stringResource(kind.label()),
+            description = desc,
+            descriptionColor = color,
+            level = status.level,
+            info = stringResource(info),
+            checked = checked,
+            onCheckedChange = onChange,
+            onLevelClick = { openSheet(SheetTarget.Kind(kind)) },
+        )
+        ReasonBar(status, fix, Modifier.padding(bottom = 10.dp), hide = { it in shared })
+        val skipStatus = state.armed.of(kind.skip)
+        val waiting = !checked && skipStatus.level == ArmedLevel.BLOCKED &&
+            skipStatus.checks.any { it.requirement == kind.skipRequirement && !it.met }
+        if (waiting) {
+            WarnBar(
+                text = stringResource(R.string.rules_waiting, stringResource(kind.skip.label())),
+                action = stringResource(R.string.req_fix_short_turn_on),
+                onAction = { onChange(true) },
+                modifier = Modifier.padding(bottom = 10.dp),
+            )
+        }
     }
 }
 

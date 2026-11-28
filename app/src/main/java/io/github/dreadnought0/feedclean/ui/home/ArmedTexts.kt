@@ -3,6 +3,7 @@ package io.github.dreadnought0.feedclean.ui.home
 import androidx.annotation.StringRes
 import io.github.dreadnought0.feedclean.R
 import io.github.dreadnought0.feedclean.armed.Behaviour
+import io.github.dreadnought0.feedclean.armed.DetectionKind
 import io.github.dreadnought0.feedclean.armed.Requirement
 import io.github.dreadnought0.feedclean.ui.settings.SettingsActions
 
@@ -16,6 +17,15 @@ fun Behaviour.label(): Int = when (this) {
     Behaviour.AUTO_NOT_INTERESTED -> R.string.behaviour_auto_ni
     Behaviour.NOT_INTERESTED_BUTTON -> R.string.behaviour_ni_button
     Behaviour.BLOCK_BUTTON -> R.string.behaviour_block_button
+}
+
+/** User-facing name of a detection kind (same titles as Detection rules). */
+@StringRes
+fun DetectionKind.label(): Int = when (this) {
+    DetectionKind.SHOP -> R.string.rules_shop
+    DetectionKind.PAID_AD -> R.string.rules_paid
+    DetectionKind.PROMOTED -> R.string.rules_promoted
+    DetectionKind.LIVE_SHOPPING -> R.string.rules_live
 }
 
 /** The reason line when this requirement is the one holding a behaviour back. */

@@ -33,6 +33,33 @@ enum class Behaviour {
     }
 }
 
+/** The four detection kinds Home and Detection rules can switch, in the same order as the Auto-skip rows. */
+enum class DetectionKind {
+    SHOP,
+    PAID_AD,
+    PROMOTED,
+    LIVE_SHOPPING,
+    ;
+
+    /** The skip behaviour that needs this kind on. */
+    val skip: Behaviour
+        get() = when (this) {
+            SHOP -> Behaviour.SKIP_SHOP
+            PAID_AD -> Behaviour.SKIP_PAID_AD
+            PROMOTED -> Behaviour.SKIP_PROMOTED
+            LIVE_SHOPPING -> Behaviour.SKIP_LIVE_SHOPPING
+        }
+
+    /** The Auto-skip requirement that this kind satisfies. */
+    val skipRequirement: Requirement
+        get() = when (this) {
+            SHOP -> Requirement.DETECT_SHOP_ON
+            PAID_AD -> Requirement.DETECT_PAID_AD_ON
+            PROMOTED -> Requirement.DETECT_PROMOTED_ON
+            LIVE_SHOPPING -> Requirement.DETECT_LIVE_SHOPPING_ON
+        }
+}
+
 /**
  * One condition a behaviour needs. [pause] conditions make a behaviour PAUSED rather than BLOCKED when they are the
  * only ones unmet.
@@ -105,12 +132,15 @@ data class LiveFacts(
 data class ArmedReport(
     val behaviours: Map<Behaviour, ArmedStatus>,
     val detection: ArmedStatus,
+    val detectionKinds: Map<DetectionKind, ArmedStatus>,
     val autoSkip: ArmedStatus,
     /** Bubble and skip-cover, summarized for the On-screen helpers card header. */
     val helpersCard: ArmedStatus,
     val facts: LiveFacts,
 ) {
     fun of(behaviour: Behaviour): ArmedStatus = behaviours.getValue(behaviour)
+
+    fun of(kind: DetectionKind): ArmedStatus = detectionKinds.getValue(kind)
 
     /**
      * Not interested card header: the button and automated Not interested, in display order.
@@ -158,6 +188,9 @@ object ArmedEvaluator {
         return ArmedReport(
             behaviours = behaviours,
             detection = detection(settings, facts),
+            detectionKinds = DetectionKind.entries.associateWith { kind ->
+                detectionKind(kind.switchOn(settings), settings, facts)
+            },
             autoSkip = autoSkipMaster(settings, facts),
             helpersCard = summarizeCard(helper(settings.showBubble, facts), helper(settings.skipCoverEnabled, facts)),
             facts = facts,
@@ -235,6 +268,17 @@ object ArmedEvaluator {
         )
     }
 
+    /** One detection kind: its own switch, then the service and the Detection master. */
+    private fun detectionKind(switchOn: Boolean, settings: FeedCleanSettings, facts: LiveFacts): ArmedStatus {
+        if (!switchOn) return ArmedStatus(ArmedLevel.OFF)
+        return resolve(
+            listOf(
+                Check(Requirement.SERVICE_RUNNING, facts.serviceConnected),
+                Check(Requirement.DETECTION_ON, settings.detectionEnabled),
+            ),
+        )
+    }
+
     private fun autoSkipMaster(settings: FeedCleanSettings, facts: LiveFacts): ArmedStatus {
         if (!settings.curateFeedEnabled) return ArmedStatus(ArmedLevel.OFF)
         val anyTypeReady = listOf(
@@ -265,6 +309,13 @@ object ArmedEvaluator {
 
     private val FeedCleanSettings.anyDetectionKind: Boolean
         get() = detectPaidAd || detectPromoted || detectShopAnchor || detectLiveShopping
+
+    private fun DetectionKind.switchOn(settings: FeedCleanSettings): Boolean = when (this) {
+        DetectionKind.SHOP -> settings.detectShopAnchor
+        DetectionKind.PAID_AD -> settings.detectPaidAd
+        DetectionKind.PROMOTED -> settings.detectPromoted
+        DetectionKind.LIVE_SHOPPING -> settings.detectLiveShopping
+    }
 }
 
 /**

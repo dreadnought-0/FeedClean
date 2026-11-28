@@ -110,6 +110,13 @@
     <string name="home_detection_title">Detection</string>
     <string name="home_detection_p1">Looks at each post and flags ads, shop videos, and promotions. Detections do not change your feed.</string>
     <string name="home_detection_p2">Auto-skip uses detections to determine what to skip for you. Auto-skip can be enabled/disabled for different kinds of detections.</string>
+    <string name="home_detect_shop_sub">Detects videos with a product link</string>
+    <string name="home_detect_paid_sub">Detects posts marked as Ads or Sponsored</string>
+    <string name="home_detect_promoted_sub">Detects paid partnerships and promotions</string>
+    <string name="home_detect_live_sub">Detects LIVE streams that sell products</string>
+    <string name="info_detect_paid">Posts TikTok marks as “Ad” or “Sponsored”.</string>
+    <string name="info_detect_promoted">Posts marked as promotional content or a paid partnership.</string>
+    <string name="info_detect_live">LIVE streams that are selling products. A plain LIVE preview is not flagged as shopping.</string>
 
     <!-- Home: Auto-skip (exact) -->
     <string name="home_autoskip_title">Auto-skip</string>
