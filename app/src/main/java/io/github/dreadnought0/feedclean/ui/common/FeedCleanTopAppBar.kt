@@ -27,7 +27,8 @@ import io.github.dreadnought0.feedclean.ui.theme.FeedCleanTheme
 import io.github.dreadnought0.feedclean.ui.theme.Glass
 
 /**
- * Standard top app bar for every FeedClean screen: transparent over the glass gradient, centered title, and a
+ * Standard top app bar for every FeedClean screen: stays transparent over the glass gradient while content
+ * scrolls (no scrolled-container tint or tonal elevation change), centered title, and a
  * round frosted back button on pushed screens.
  *
  * @param title screen title.
@@ -69,7 +70,8 @@ fun FeedCleanTopAppBar(
         actions = actions,
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = Color.Transparent,
-            scrolledContainerColor = Glass.BgTop.copy(alpha = 0.92f),
+            // Same as the resting color: a distinct scrolled color flashes a flat slab over the gradient.
+            scrolledContainerColor = Color.Transparent,
             titleContentColor = Glass.Ink,
             navigationIconContentColor = Glass.Ink,
             actionIconContentColor = Glass.Ink,

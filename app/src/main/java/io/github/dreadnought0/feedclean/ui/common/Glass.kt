@@ -32,7 +32,6 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -45,7 +44,6 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,7 +54,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
@@ -150,10 +147,9 @@ fun IconTile(icon: ImageVector, modifier: Modifier = Modifier, amber: Boolean = 
 // ── Screen scaffold ─────────────────────────────────────────────────────────────────────────────────────────
 
 /**
- * A scrolling screen of glass cards over the gradient: transparent top bar (title, optional back button and
- * actions) and a 16 dp padded, 12 dp spaced column.
+ * A scrolling screen of glass cards over the gradient: a stable transparent top bar (title, optional back
+ * button and actions) and a 16 dp padded, 12 dp spaced column.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GlassScreen(
     title: String,
@@ -163,11 +159,10 @@ fun GlassScreen(
     spacing: Dp = 12.dp,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
-        modifier = modifier.fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier.fillMaxSize(),
         containerColor = Color.Transparent,
-        topBar = { FeedCleanTopAppBar(title = title, onBack = onBack, actions = actions, scrollBehavior = scrollBehavior) },
+        topBar = { FeedCleanTopAppBar(title = title, onBack = onBack, actions = actions) },
     ) { innerPadding ->
         Column(
             modifier = Modifier
