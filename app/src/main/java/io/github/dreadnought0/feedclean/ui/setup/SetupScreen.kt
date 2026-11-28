@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.dreadnought0.feedclean.R
 import io.github.dreadnought0.feedclean.service.ScreenStateHolder
-import io.github.dreadnought0.feedclean.ui.common.CardTone
 import io.github.dreadnought0.feedclean.ui.common.FeedCleanTopAppBar
 import io.github.dreadnought0.feedclean.ui.theme.FeedCleanTheme
 import io.github.dreadnought0.feedclean.ui.theme.Glass
@@ -71,8 +70,8 @@ fun SetupScreen(
     onOpenAppInfo: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val serviceOk = status.serviceEnabled && serviceConnected
     val progress = setupProgress(status, serviceConnected)
+    val serviceOk = progress.done(SetupStepId.ACCESSIBILITY)
     val yes = stringResource(R.string.ui_yes)
     val no = stringResource(R.string.ui_no)
 
@@ -108,11 +107,12 @@ fun SetupScreen(
             )
 
             ChecklistItem(
-                state = if (status.targetAppInstalled) CheckState.OK else CheckState.ACTION_NEEDED,
+                state = if (progress.done(SetupStepId.TARGET_APP)) CheckState.OK else CheckState.ACTION_NEEDED,
                 title = stringResource(R.string.ui_setup_target_title),
                 body = stringResource(
-                    if (status.targetAppInstalled) R.string.ui_setup_target_ok else R.string.ui_setup_target_missing,
+                    if (progress.done(SetupStepId.TARGET_APP)) R.string.ui_setup_target_ok else R.string.ui_setup_target_missing,
                 ),
+                tone = setupStepTone(progress, SetupStepId.TARGET_APP),
             )
 
             ChecklistItem(
@@ -131,17 +131,18 @@ fun SetupScreen(
                 ),
                 actionLabel = stringResource(R.string.ui_setup_service_action),
                 onAction = onOpenAccessibilitySettings,
-                tone = if (serviceOk) CardTone.NORMAL else CardTone.DESTRUCTIVE,
+                tone = setupStepTone(progress, SetupStepId.ACCESSIBILITY),
             )
 
             ChecklistItem(
-                state = if (status.batteryUnrestricted) CheckState.OK else CheckState.ACTION_NEEDED,
+                state = if (progress.done(SetupStepId.BATTERY)) CheckState.OK else CheckState.ACTION_NEEDED,
                 title = stringResource(R.string.ui_setup_battery_title),
                 body = stringResource(
-                    if (status.batteryUnrestricted) R.string.ui_setup_battery_ok else R.string.ui_setup_battery_off,
+                    if (progress.done(SetupStepId.BATTERY)) R.string.ui_setup_battery_ok else R.string.ui_setup_battery_off,
                 ),
-                actionLabel = if (status.batteryUnrestricted) null else stringResource(R.string.ui_setup_battery_action),
+                actionLabel = if (progress.done(SetupStepId.BATTERY)) null else stringResource(R.string.ui_setup_battery_action),
                 onAction = onRequestBatteryUnrestricted,
+                tone = setupStepTone(progress, SetupStepId.BATTERY),
             )
 
             ChecklistItem(

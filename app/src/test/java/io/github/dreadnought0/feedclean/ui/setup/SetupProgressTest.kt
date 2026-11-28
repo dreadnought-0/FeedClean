@@ -1,6 +1,7 @@
 package io.github.dreadnought0.feedclean.ui.setup
 
 import io.github.dreadnought0.feedclean.armed.HeroOutline
+import io.github.dreadnought0.feedclean.ui.common.CardTone
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -73,5 +74,36 @@ class SetupProgressTest {
         assertEquals(2, p.completed)
         assertEquals(HeroOutline.SETUP_MISSING, heroOutline(p))
         assertFalse(heroStartsCollapsed(p))
+    }
+
+    @Test
+    fun `each required step is red only when that step itself is not done`() {
+        val bothMissing = progress(
+            allOn.copy(serviceEnabled = false, batteryUnrestricted = false),
+            serviceConnected = false,
+        )
+        assertEquals(CardTone.NORMAL, setupStepTone(bothMissing, SetupStepId.TARGET_APP))
+        assertEquals(CardTone.DESTRUCTIVE, setupStepTone(bothMissing, SetupStepId.ACCESSIBILITY))
+        assertEquals(CardTone.DESTRUCTIVE, setupStepTone(bothMissing, SetupStepId.BATTERY))
+
+        val onlyBattery = progress(allOn.copy(batteryUnrestricted = false))
+        assertEquals(CardTone.NORMAL, setupStepTone(onlyBattery, SetupStepId.TARGET_APP))
+        assertEquals(CardTone.NORMAL, setupStepTone(onlyBattery, SetupStepId.ACCESSIBILITY))
+        assertEquals(CardTone.DESTRUCTIVE, setupStepTone(onlyBattery, SetupStepId.BATTERY))
+
+        val onlyAccess = progress(allOn, serviceConnected = false)
+        assertEquals(CardTone.NORMAL, setupStepTone(onlyAccess, SetupStepId.TARGET_APP))
+        assertEquals(CardTone.DESTRUCTIVE, setupStepTone(onlyAccess, SetupStepId.ACCESSIBILITY))
+        assertEquals(CardTone.NORMAL, setupStepTone(onlyAccess, SetupStepId.BATTERY))
+
+        val onlyTikTok = progress(allOn.copy(targetAppInstalled = false))
+        assertEquals(CardTone.DESTRUCTIVE, setupStepTone(onlyTikTok, SetupStepId.TARGET_APP))
+        assertEquals(CardTone.NORMAL, setupStepTone(onlyTikTok, SetupStepId.ACCESSIBILITY))
+        assertEquals(CardTone.NORMAL, setupStepTone(onlyTikTok, SetupStepId.BATTERY))
+
+        val ready = progress()
+        SetupStepId.entries.forEach { id ->
+            assertEquals(CardTone.NORMAL, setupStepTone(ready, id))
+        }
     }
 }

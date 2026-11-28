@@ -1,6 +1,7 @@
 package io.github.dreadnought0.feedclean.ui.setup
 
 import io.github.dreadnought0.feedclean.armed.HeroOutline
+import io.github.dreadnought0.feedclean.ui.common.CardTone
 
 /**
  * A required Setup-checklist item that must be done before FeedClean can run. The list is
@@ -60,3 +61,11 @@ fun heroStartsCollapsed(progress: SetupProgress): Boolean = progress.allComplete
  */
 fun heroOutline(progress: SetupProgress): HeroOutline =
     if (progress.allComplete) HeroOutline.READY else HeroOutline.SETUP_MISSING
+
+/**
+ * Outline of a required Setup checklist card, from that step's own completion in [progress].
+ * Incomplete steps get the needs-attention red outline ([CardTone.DESTRUCTIVE]: 3 dp, [io.github.dreadnought0.feedclean.ui.theme.Glass.RedOutline], normal glass fill).
+ * Done steps use the normal glass border. Info-only cards are not steps and stay [CardTone.NORMAL].
+ */
+fun setupStepTone(progress: SetupProgress, id: SetupStepId): CardTone =
+    if (progress.done(id)) CardTone.NORMAL else CardTone.DESTRUCTIVE
