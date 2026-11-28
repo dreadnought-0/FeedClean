@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- v2 control-center copy: Home, armed states, the fix sheet, the "What Armed means" guide and the new
+     sub-screens. Exact user-approved copy is marked "exact". -->
+<resources>
+    <!-- Armed pills -->
+    <string name="armed_level_armed">Armed</string>
+    <string name="armed_level_off">Off</string>
+    <string name="armed_level_blocked">Blocked</string>
+    <string name="armed_level_paused">Paused</string>
+    <string name="armed_header_badge">%1$d/%2$d armed</string>
+    <string name="armed_header_badge_cd">%1$d of %2$d options armed. What Armed means.</string>
+
+    <!-- Behaviour names (summary, fix sheet) -->
+    <string name="behaviour_skip_shop">Skip Shop posts</string>
+    <string name="behaviour_skip_paid_ad">Skip paid ads</string>
+    <string name="behaviour_skip_promoted">Skip promoted posts</string>
+    <string name="behaviour_skip_live_shopping">Skip LIVE shopping</string>
+    <string name="behaviour_auto_ni">Auto Not interested</string>
+    <string name="behaviour_ni_button">Not interested button</string>
+    <string name="behaviour_block_button">Block button</string>
+    <string name="behaviour_detection">Detection</string>
+    <string name="behaviour_auto_skip">Auto-skip</string>
+
+    <!-- Requirement: unmet (Blocked / Paused reason) -->
+    <string name="req_unmet_service">Accessibility access is off</string>
+    <string name="req_unmet_service_short">Waiting for accessibility access</string>
+    <string name="req_unmet_detection">Detection is off</string>
+    <string name="req_unmet_any_kind">Nothing is picked under Detection rules</string>
+    <string name="req_unmet_detect_paid">Paid-ad detection is off</string>
+    <string name="req_unmet_detect_promoted">Promoted-post detection is off</string>
+    <string name="req_unmet_detect_shop">Shop-post detection is off</string>
+    <string name="req_unmet_detect_live">LIVE-shopping detection is off</string>
+    <string name="req_unmet_auto_skip">Auto-skip is off</string>
+    <string name="req_unmet_place">No place is picked under Where it skips</string>
+    <string name="req_unmet_skip_type">No skip choice below is ready</string>
+    <string name="req_unmet_skip_shop">Skip Shop posts is off</string>
+    <string name="req_unmet_risk">You haven\'t accepted the risk note</string>
+    <string name="req_unmet_bubble">The bubble is hidden</string>
+    <string name="req_unmet_paused">Paused by Pause everything</string>
+    <string name="req_unmet_safety_stop">Safety stop after too many skips in a row</string>
+    <string name="req_unmet_safety_stop_n">Safety stop after %1$d skips in a row</string>
+
+    <!-- Requirement: met (fix sheet checklist) -->
+    <string name="req_met_service">Accessibility access is on</string>
+    <string name="req_met_detection">Detection is on</string>
+    <string name="req_met_any_kind">Detection looks for at least one kind of post</string>
+    <string name="req_met_detect_paid">Paid-ad detection is on</string>
+    <string name="req_met_detect_promoted">Promoted-post detection is on</string>
+    <string name="req_met_detect_shop">Shop-post detection is on</string>
+    <string name="req_met_detect_live">LIVE-shopping detection is on</string>
+    <string name="req_met_auto_skip">Auto-skip is on</string>
+    <string name="req_met_place">Skipping is allowed in %1$s</string>
+    <string name="req_met_skip_type">At least one skip choice is ready</string>
+    <string name="req_met_skip_shop">Skip Shop posts is on</string>
+    <string name="req_met_risk">You accepted the risk note</string>
+    <string name="req_met_bubble">The bubble is shown</string>
+    <string name="req_met_not_paused">Not paused</string>
+    <string name="req_met_no_safety_stop">No safety stop</string>
+    <string name="req_met_switch">“%1$s” is on</string>
+
+    <!-- Requirement fix buttons -->
+    <string name="req_fix_service">Open setup checklist</string>
+    <string name="req_fix_detection">Turn on Detection</string>
+    <string name="req_fix_any_kind">Open Detection rules</string>
+    <string name="req_fix_detect_paid">Turn on paid-ad detection</string>
+    <string name="req_fix_detect_promoted">Turn on promoted-post detection</string>
+    <string name="req_fix_detect_shop">Turn on Shop-post detection</string>
+    <string name="req_fix_detect_live">Turn on LIVE-shopping detection</string>
+    <string name="req_fix_auto_skip">Turn on Auto-skip</string>
+    <string name="req_fix_place">Pick where it skips</string>
+    <string name="req_fix_skip_type">Turn on a skip choice</string>
+    <string name="req_fix_skip_shop">Turn on Skip Shop posts</string>
+    <string name="req_fix_risk">Read the risk note</string>
+    <string name="req_fix_bubble">Show the bubble</string>
+    <string name="req_fix_paused">Turn off Pause everything</string>
+    <string name="req_fix_safety_stop">Resume auto-skip</string>
+    <string name="req_fix_short_turn_on">Turn on</string>
+    <string name="req_fix_short_open">Open</string>
+    <string name="req_fix_short_resume">Resume</string>
+    <string name="req_fix_short_setup">Set up</string>
+    <string name="req_fix_short_show">Show</string>
+    <string name="req_fix_short_pick">Pick</string>
+    <string name="req_fix_short_read">Read</string>
+
+    <!-- Fix sheet -->
+    <string name="fix_sheet_title_blocked">Why isn\'t “%1$s” armed?</string>
+    <string name="fix_sheet_title_paused">Why is “%1$s” paused?</string>
+    <string name="fix_sheet_title_armed">“%1$s” is armed</string>
+    <string name="fix_sheet_sub_blocked">The switch is on, but one thing it needs is off.</string>
+    <string name="fix_sheet_sub_paused">The switch is on and everything is ready, but it\'s paused.</string>
+    <string name="fix_sheet_sub_armed">Everything it needs is ready. It acts the next time a matching post shows up.</string>
+    <string name="fix_sheet_live_skip">Also checked live: TikTok open, screen on.</string>
+    <string name="fix_sheet_live_manual">Also checked live: TikTok open, no other action running, pace limit.</string>
+    <string name="fix_sheet_done">Done</string>
+    <string name="and_word">and</string>
+
+    <!-- Home summary -->
+    <string name="home_summary_count">of %1$d armed</string>
+    <string name="home_summary_all">Everything is armed. FeedClean acts the next time a matching post shows up.</string>
+    <string name="home_summary_no_service">FeedClean can\'t see TikTok yet. Until accessibility access is on, nothing here can act.</string>
+    <string name="home_summary_none">Nothing is armed. Turn on Detection and Auto-skip below to start.</string>
+    <string name="home_summary_working">Working.</string>
+    <string name="home_summary_idle">Not working yet.</string>
+    <plurals name="home_summary_attention">
+        <item quantity="one">%1$d needs attention</item>
+        <item quantity="other">%1$d need attention</item>
+    </plurals>
+    <string name="home_summary_paused_n">%1$d paused</string>
+    <string name="home_summary_off_n">%1$d turned off</string>
+    <string name="home_summary_live_service_off">Service not running</string>
+    <string name="home_summary_live_waiting">Waiting for you to open TikTok</string>
+    <string name="home_summary_live_watching">TikTok is open — FeedClean is watching your feed</string>
+    <string name="home_summary_why_line">%1$s — %2$s</string>
+    <plurals name="home_summary_paused_user">
+        <item quantity="one">%1$d paused by “Pause everything”. Block and Not interested button still work on your tap.</item>
+        <item quantity="other">%1$d paused by “Pause everything”. Block and Not interested button still work on your tap.</item>
+    </plurals>
+    <plurals name="home_summary_paused_safety">
+        <item quantity="one">%1$d paused by the safety stop after %2$d skips in a row.</item>
+        <item quantity="other">%1$d paused by the safety stop after %2$d skips in a row.</item>
+    </plurals>
+    <string name="home_summary_switched_off">Switched off: %1$s</string>
+    <string name="home_summary_help_cd">What Armed means</string>
+    <string name="home_open_setup">Open setup checklist</string>
+
+    <!-- Home: Pause everything (exact) -->
+    <string name="home_pause_title">Pause everything</string>
+    <string name="home_pause_body">Pauses Auto-skip and other actions on your feed.</string>
+
+    <!-- Home: Detection (exact) -->
+    <string name="home_detection_title">Detection</string>
+    <string name="home_detection_p1">Looks at each post and flags ads, shop videos, and promotions. Detections do not change your feed.</string>
+    <string name="home_detection_p2">Auto-skip uses detections to determine what to skip for you. Auto-skip can be enabled/disabled for different kinds of detections.</string>
+
+    <!-- Home: Auto-skip (exact) -->
+    <string name="home_autoskip_title">Auto-skip</string>
+    <string name="home_autoskip_p1">Automatically skips detections by scrolling to the next video. It never likes, follows, comments, or blocks.</string>
+    <string name="home_autoskip_p2">Configure detections to choose which videos get detected, and enable Auto-skip on those detections to choose which get skipped.</string>
+    <string name="home_skip_shop_sub">Skips past Shop videos that aren\'t ads</string>
+    <string name="home_skip_paid_sub">Skips past posts marked as Ads or Sponsored</string>
+    <string name="home_skip_promoted_sub">Skips past paid partnerships and promotions</string>
+    <string name="home_skip_live_sub">Skips past LIVE streams that sell products</string>
+    <string name="home_link_where">Where it skips</string>
+    <string name="home_link_where_none">None picked</string>
+    <string name="home_link_rules">Detection rules</string>
+    <string name="home_link_rules_value">%1$d of 4 on</string>
+    <string name="home_link_timing">Timing &amp; safety</string>
+    <string name="home_link_timing_value">Stop after %1$d</string>
+
+    <!-- Home: Not interested / Blocking / helpers -->
+    <string name="home_ni_title">Not interested</string>
+    <string name="home_ni_button_sub">Adds a one-tap button to the bubble card.</string>
+    <string name="home_ni_auto_sub">Also taps it for you on each Shop post it skips.</string>
+    <string name="home_link_ni">Reason &amp; details</string>
+    <string name="home_block_title">Blocking</string>
+    <string name="home_block_button_sub">Tap the bubble, then Block. It only ever runs on your tap.</string>
+    <string name="home_link_block">Block mode &amp; pace limit</string>
+    <string name="home_link_block_value">%1$s · %2$d s</string>
+    <string name="home_block_mode_full_short">Do it all</string>
+    <string name="home_block_mode_confirm_short">You confirm</string>
+    <string name="home_helpers_title">On-screen helpers</string>
+    <string name="home_bubble_title">Bubble</string>
+    <string name="home_bubble_sub">A small dot over TikTok. Tap for actions, long-press to pause.</string>
+    <string name="home_cover_title">Cover skipped posts</string>
+    <string name="home_cover_sub">Hides a post while it\'s skipped so it doesn\'t flash by.</string>
+    <string name="home_link_helpers">Bubble &amp; cover options</string>
+    <string name="home_setup_row">Setup checklist</string>
+    <string name="home_setup_all_set">All set</string>
+    <string name="home_setup_needs">Needs attention</string>
+    <string name="home_audit_row">Unblock audit</string>
+    <string name="home_info_cd">More about %1$s</string>
+
+    <!-- Info dialogs (ⓘ) -->
+    <string name="info_ok">Got it</string>
+    <string name="info_skip_shop">Shop posts are videos with a product link that aren\'t marked as an ad or promotion. Needs Shop-post detection.</string>
+    <string name="info_skip_paid">Posts TikTok marks as “Ad” or “Sponsored”. Needs paid-ad detection.</string>
+    <string name="info_skip_promoted">Posts marked as promotional content or a paid partnership. Needs promoted-post detection.</string>
+    <string name="info_skip_live">LIVE streams that are selling products. A plain LIVE preview is never skipped. Needs LIVE-shopping detection.</string>
+    <string name="info_ni_button">Sends TikTok\'s own “Not interested” for the post on screen when you tap it on the bubble card. Only runs on your tap, and needs the bubble.</string>
+    <string name="info_auto_ni">Before skipping a Shop post that isn\'t an ad, FeedClean taps TikTok\'s “Not interested” for you. TikTok sees these taps. It follows the pace limit; past it, FeedClean only skips.</string>
+    <string name="info_block_button">Blocks the creator of the post on screen, after you tap Block on the bubble card. FeedClean never blocks on its own. Needs the bubble.</string>
+    <string name="info_bubble">The bubble is the only way to open the card with Skip, Not interested and Block. Hide it and those buttons are unavailable.</string>
+    <string name="info_cover">Covers the post on screen while auto-skip scrolls past it. It doesn\'t change what gets skipped.</string>
+    <string name="info_detection">Reads the labels TikTok shows on screen (Ad, Sponsored, Paid partnership, product links, LIVE shopping). Nothing leaves your phone.</string>
+    <string name="info_shop_detect">A post counts as a Shop post when it shows a product link.</string>
+    <string name="info_session">Counts every video you scroll past, not only detections, so Stats can show ad and Shop percentages.</string>
+    <string name="info_log">Records what FeedClean decided for each post (type, decision, why). View or export it on the Debug screen.</string>
+
+    <!-- Guide: What Armed means -->
+    <string name="guide_title">What “Armed” means</string>
+    <string name="guide_intro">A badge shows whether an option will really act the next time a matching post shows up — not just whether its switch is on.</string>
+    <string name="guide_armed">Switch is on and everything it needs is ready.</string>
+    <string name="guide_off">Switch is off. Nothing happens.</string>
+    <string name="guide_blocked">Switch is on, but something it needs is missing. The badge says what and links to the fix.</string>
+    <string name="guide_paused">Switch is on, but paused — by “Pause everything” or the safety stop after too many skips in a row.</string>
+    <string name="guide_skip_title">Skip options need all of these</string>
+    <string name="guide_skip_1">Accessibility access is on</string>
+    <string name="guide_skip_2">Detection is on, for that kind of post</string>
+    <string name="guide_skip_3">Auto-skip is on</string>
+    <string name="guide_skip_4">At least one place under “Where it skips”</string>
+    <string name="guide_skip_5">Not paused</string>
+    <string name="guide_live_title">Checked live — the badge won\'t change</string>
+    <string name="guide_live_body">TikTok is in front · your screen is on (if you chose that) · FeedClean isn\'t in the middle of another action · the pace limit isn\'t reached. The line under the count tells you when it\'s waiting.</string>
+    <string name="guide_taps_title">Your own taps are different</string>
+    <string name="guide_taps_body">The Block button and the Not interested button only run when you tap them. They need accessibility access and the bubble. “Pause everything” doesn\'t turn them off, but switching it on stops one that\'s already running.</string>
+    <string name="guide_auto_ni_title">Auto Not interested needs more</string>
+    <string name="guide_auto_ni_1">Everything a Shop skip needs</string>
+    <string name="guide_auto_ni_2">“Skip Shop posts” on — it only acts on skipped Shop posts</string>
+    <string name="guide_auto_ni_3">You accepted the risk note</string>
+    <string name="guide_auto_ni_note">If the pace limit is reached, FeedClean skips without tapping.</string>
+
+    <!-- Where it skips -->
+    <string name="where_title">Where it skips</string>
+    <string name="where_status_armed">Armed in %1$s</string>
+    <string name="where_status_none">Nothing can be skipped until you pick a place</string>
+    <string name="where_status_other">Auto-skip isn\'t armed: %1$s</string>
+    <string name="where_for_you">For You</string>
+    <string name="where_for_you_sub">TikTok\'s main feed.</string>
+    <string name="where_other_home">Following &amp; other Home tabs</string>
+    <string name="where_other_home_sub">The other tabs at the top of Home.</string>
+    <string name="where_search">Search results</string>
+    <string name="where_search_sub">Videos you open from a search.</string>
+    <string name="where_other_feeds">Profiles, hashtags &amp; sounds</string>
+    <string name="where_other_feeds_sub">Videos you open from those pages.</string>
+    <string name="where_note">Skipping is always just a quick scroll. It never likes, follows or blocks. Pick at least one place or nothing will be skipped.</string>
+
+    <!-- Detection rules -->
+    <string name="rules_title">Detection rules</string>
+    <string name="rules_master_sub">Looks for ads and Shop posts on TikTok.</string>
+    <string name="rules_what">What it looks for</string>
+    <string name="rules_paid">Paid ads</string>
+    <string name="rules_paid_sub">Posts marked Ad or Sponsored.</string>
+    <string name="rules_promoted">Promoted posts</string>
+    <string name="rules_promoted_sub">Posts marked promotional or a paid partnership.</string>
+    <string name="rules_shop">Shop posts</string>
+    <string name="rules_shop_sub">Videos with a product link.</string>
+    <string name="rules_live">LIVE shopping</string>
+    <string name="rules_live_sub">LIVE streams that sell products.</string>
+    <string name="rules_waiting">“%1$s” is on but can\'t act without this.</string>
+    <string name="rules_note">Each skip option needs its matching detection on. Skip options that are waiting on one show a Blocked badge on Home.</string>
+    <string name="rules_ocr">Read image-only labels</string>
+    <string name="rules_ocr_sub">Coming in a later version.</string>
+    <string name="coming_soon">Coming soon</string>
+
+    <!-- Not interested sub-screen -->
+    <string name="nis_title">Not interested</string>
+    <string name="nis_needs_prefix">Needs:</string>
+    <string name="nis_needs_autoskip">Auto-skip on</string>
+    <string name="nis_needs_skip_shop">Skip Shop posts on</string>
+    <string name="nis_needs_risk">your OK on the risk note</string>
+    <string name="nis_reason_title">When TikTok asks for a reason</string>
+    <string name="nis_reason_first">First one it shows</string>
+    <string name="nis_reason_first_sub">Taps whichever reason is listed first.</string>
+    <string name="nis_reason_shopping">Shopping-related if offered</string>
+    <string name="nis_reason_shopping_sub">Picks a shopping or product reason when there is one.</string>
+    <string name="nis_reason_none">None</string>
+    <string name="nis_reason_none_sub">Closes the picker without choosing.</string>
+    <string name="nis_revoke">Take back my OK</string>
+    <string name="nis_revoke_sub">Turns auto Not interested off and asks again next time.</string>
+    <string name="nis_reason_short_first">First reason</string>
+    <string name="nis_reason_short_shopping">Shopping reason</string>
+    <string name="nis_reason_short_none">No reason</string>
+
+    <!-- Blocking sub-screen -->
+    <string name="blk_title">Blocking</string>
+    <string name="blk_how_title">How a block works</string>
+    <string name="blk_how_1">FeedClean opens the profile and reads the @handle.</string>
+    <string name="blk_how_2">It checks the handle in TikTok\'s own confirm dialog.</string>
+    <string name="blk_how_3">It confirms, then checks that “Unblock” shows. Any surprise stops it.</string>
+    <string name="blk_how_3_confirm">You tap Block in TikTok\'s dialog; FeedClean then checks that “Unblock” shows.</string>
+    <string name="blk_mode_title">Block mode</string>
+    <string name="blk_mode_full">Do it all for me</string>
+    <string name="blk_mode_full_sub">One tap on Block runs every step and checks each one.</string>
+    <string name="blk_mode_confirm">Let me confirm in TikTok</string>
+    <string name="blk_mode_confirm_sub">FeedClean opens TikTok\'s dialog and you tap Block yourself.</string>
+    <string name="blk_pace">Pace limit</string>
+    <string name="blk_pace_value">%1$d s · %2$d an hour</string>
+    <string name="blk_no_bubble">Without the bubble there\'s no way to tap Block. Show the bubble to use it.</string>
+
+    <!-- Bubble & cover -->
+    <string name="look_title">Bubble &amp; cover</string>
+    <string name="look_bubble_sub">A small dot over TikTok.</string>
+    <string name="look_using">Using the bubble</string>
+    <string name="look_tap">Tap</string>
+    <string name="look_tap_body">Open the card: Skip, Not interested, Block.</string>
+    <string name="look_hold">Hold</string>
+    <string name="look_hold_body">Pause or resume everything automatic.</string>
+    <string name="look_drag">Drag</string>
+    <string name="look_drag_body">Move it out of the way.</string>
+    <string name="look_reset">Reset bubble position</string>
+    <string name="look_reset_default">Currently at the default spot</string>
+    <string name="look_reset_moved">Moved — tap to put it back</string>
+    <string name="look_cover_style">Cover style</string>
+    <string name="look_cover_blank">Blank</string>
+    <string name="look_cover_blur">Blur</string>
+    <string name="look_cover_labelled">Labelled</string>
+    <string name="look_cover_blank_sub">Blank: a plain cover.</string>
+    <string name="look_cover_blur_sub">Blur: a frosted cover.</string>
+    <string name="look_cover_labelled_sub">Labelled: says what was skipped.</string>
+    <string name="look_bubble_off_warn">Hidden bubble: no Block or Not interested button.</string>
+
+    <!-- Settings root -->
+    <string name="set_rules_sub">What FeedClean looks for · %1$d of 4 on</string>
+    <string name="set_timing">Timing &amp; safety</string>
+    <string name="set_timing_sub">Delay before scrolling, safety stop</string>
+    <string name="set_pace">Pace limits</string>
+    <string name="set_pace_sub">%1$d s apart · %2$d an hour</string>
+    <string name="set_data">Data &amp; privacy</string>
+    <string name="set_data_sub">Counting and logs · stays on this phone</string>
+    <string name="set_export">Export &amp; import</string>
+    <string name="set_export_sub">Back up, share or clear your data</string>
+    <string name="set_advanced">Advanced</string>
+    <string name="set_advanced_sub">Matching rules, debug, setup</string>
+    <string name="set_home_hint">Looking for what to skip, block or turn on? It\'s all on Home.</string>
+
+    <!-- Timing & safety -->
+    <string name="tim_delay">Pause before scrolling</string>
+    <string name="tim_delay_value">%1$d ms</string>
+    <string name="tim_delay_sub">How long to wait after the cover appears. 0 is fastest (up to 2000 ms).</string>
+    <string name="tim_cap">Stop after this many in a row</string>
+    <string name="tim_cap_sub">If it skips this many posts in a row, FeedClean pauses in case a detection goes wrong. Tap the bubble to resume.</string>
+    <string name="tim_screen">Only with the screen on</string>
+    <string name="tim_screen_sub">Doesn\'t skip while your screen is off.</string>
+    <string name="tim_decrease">Decrease</string>
+    <string name="tim_increase">Increase</string>
+
+    <!-- Pace limits -->
+    <string name="pace_intro">Shared by blocks and Not interested taps, so FeedClean never acts faster than a person would. If the limit is reached, auto-skip carries on without tapping.</string>
+    <string name="pace_wait">Wait between actions</string>
+    <string name="pace_wait_sub">At least 3 s.</string>
+    <string name="pace_wait_value">%1$d s</string>
+    <string name="pace_max">Most per hour</string>
+    <string name="pace_max_sub">Up to 120. Counted across restarts.</string>
+
+    <!-- Data & privacy -->
+    <string name="dp_session">Count every video I watch</string>
+    <string name="dp_session_sub">Adds Seen counts and ad / Shop percentages to Stats.</string>
+    <string name="dp_log">Keep a 7-day activity log</string>
+    <string name="dp_log_sub">Notes why each post was skipped or kept. No names, handles or captions.</string>
+    <string name="dp_shots">Save screenshots</string>
+    <string name="dp_shots_sub">Not available yet.</string>
+    <string name="dp_note">Everything stays on this phone. No analytics, no cloud backup. Exports only go where you save them.</string>
+
+    <!-- Advanced -->
+    <string name="adv_rules_title">TikTok matching rules</string>
+    <string name="adv_rules_in_use">Rules in use</string>
+    <string name="adv_rules_builtin">Built-in</string>
+    <string name="adv_rules_custom">Your file</string>
+    <string name="adv_rules_load">Load a rules file</string>
+    <string name="adv_rules_load_sub">After a TikTok update, without updating the app</string>
+    <string name="adv_rules_reset">Go back to built-in rules</string>
+    <string name="adv_debug">Debug screen</string>
+    <string name="adv_debug_sub">See what FeedClean sees</string>
+    <string name="adv_setup_sub_ok">All set</string>
+    <string name="adv_setup_sub_todo">Something needs attention</string>
+    <string name="adv_audit_sub">Check your blocks held</string>
+    <string name="adv_suggested">Suggested lists</string>
+    <string name="adv_suggested_sub">Coming in a later version</string>
+</resources>
