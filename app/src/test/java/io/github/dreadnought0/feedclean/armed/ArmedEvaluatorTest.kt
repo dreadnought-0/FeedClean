@@ -348,4 +348,66 @@ class ArmedEvaluatorTest {
         assertEquals(Requirement.SERVICE_RUNNING, summarizeCard(blockedService, blocked).reason)
         assertEquals(OFF, summarizeCard().level)
     }
+
+
+    // ── Home hero outline ──────────────────────────────────────────────────────────────────────
+
+    @Test
+    fun `hero outline is teal when Auto-skip is armed`() {
+        assertEquals(HeroOutline.READY, heroOutline(eval().autoSkip))
+        assertEquals(ARMED, eval().autoSkip.level)
+    }
+
+    @Test
+    fun `hero outline is red when Auto-skip is blocked by a missing setup or setting`() {
+        fun reason(settings: FeedCleanSettings, facts: LiveFacts = running) =
+            eval(settings, facts).autoSkip
+
+        val noService = reason(allOn, LiveFacts(serviceConnected = false))
+        assertEquals(Requirement.SERVICE_RUNNING, noService.reason)
+        assertEquals(HeroOutline.SETUP_MISSING, heroOutline(noService))
+
+        val detectionOff = reason(allOn.copy(detectionEnabled = false))
+        assertEquals(Requirement.DETECTION_ON, detectionOff.reason)
+        assertEquals(HeroOutline.SETUP_MISSING, heroOutline(detectionOff))
+
+        val noTypeReady = reason(allOn.copy(autoSkipOrganicShop = false, autoSkipPaidAds = false, autoSkipPromoted = false, autoSkipLiveShopping = false))
+        assertEquals(Requirement.SKIP_TYPE_READY, noTypeReady.reason)
+        assertEquals(HeroOutline.SETUP_MISSING, heroOutline(noTypeReady))
+
+        val kindsOffForEnabledTypes = reason(allOn.copy(
+            detectShopAnchor = false, detectPaidAd = false, detectPromoted = false, detectLiveShopping = false,
+        ))
+        assertEquals(Requirement.SKIP_TYPE_READY, kindsOffForEnabledTypes.reason)
+        assertEquals(HeroOutline.SETUP_MISSING, heroOutline(kindsOffForEnabledTypes))
+
+        val noPlace = reason(allOn.copy(autoSkipInForYou = false, autoSkipInOtherHomeTabs = false, autoSkipInSearch = false, autoSkipInOtherFeeds = false))
+        assertEquals(Requirement.PLACE_SELECTED, noPlace.reason)
+        assertEquals(HeroOutline.SETUP_MISSING, heroOutline(noPlace))
+    }
+
+    @Test
+    fun `hero outline stays glass when Auto-skip is switched off or paused`() {
+        val off = eval(allOn.copy(curateFeedEnabled = false)).autoSkip
+        assertEquals(OFF, off.level)
+        assertEquals(HeroOutline.NORMAL, heroOutline(off))
+
+        val pausedUser = eval(allOn.copy(killSwitchEngaged = true)).autoSkip
+        assertEquals(PAUSED, pausedUser.level)
+        assertEquals(Requirement.NOT_PAUSED_BY_USER, pausedUser.reason)
+        assertEquals(HeroOutline.NORMAL, heroOutline(pausedUser))
+
+        val pausedSafety = eval(facts = LiveFacts(serviceConnected = true, loopGuardPaused = true, loopGuardPausedAfter = 8)).autoSkip
+        assertEquals(PAUSED, pausedSafety.level)
+        assertEquals(Requirement.NOT_PAUSED_BY_SAFETY_STOP, pausedSafety.reason)
+        assertEquals(HeroOutline.NORMAL, heroOutline(pausedSafety))
+    }
+
+    @Test
+    fun `heroOutline maps each ArmedLevel the same way from a bare status`() {
+        assertEquals(HeroOutline.SETUP_MISSING, heroOutline(ArmedStatus(BLOCKED, Requirement.SERVICE_RUNNING)))
+        assertEquals(HeroOutline.READY, heroOutline(ArmedStatus(ARMED)))
+        assertEquals(HeroOutline.NORMAL, heroOutline(ArmedStatus(OFF)))
+        assertEquals(HeroOutline.NORMAL, heroOutline(ArmedStatus(PAUSED, Requirement.NOT_PAUSED_BY_USER)))
+    }
 }

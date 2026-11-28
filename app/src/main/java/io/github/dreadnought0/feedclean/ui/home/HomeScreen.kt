@@ -43,6 +43,8 @@ import io.github.dreadnought0.feedclean.R
 import io.github.dreadnought0.feedclean.appContainer
 import io.github.dreadnought0.feedclean.armed.ArmedLevel
 import io.github.dreadnought0.feedclean.armed.ArmedStatus
+import io.github.dreadnought0.feedclean.armed.HeroOutline
+import io.github.dreadnought0.feedclean.armed.heroOutline
 import io.github.dreadnought0.feedclean.armed.Behaviour
 import io.github.dreadnought0.feedclean.armed.Requirement
 import io.github.dreadnought0.feedclean.settings.BlockStyle
@@ -254,7 +256,13 @@ private fun SummaryCard(state: HomeUiState, navigation: HomeNavigation, fix: Fix
     val blocked = armed.inLevel(ArmedLevel.BLOCKED)
     val paused = armed.inLevel(ArmedLevel.PAUSED)
     val off = armed.inLevel(ArmedLevel.OFF)
-    GlassCard {
+    GlassCard(
+        tone = when (heroOutline(armed.autoSkip)) {
+            HeroOutline.SETUP_MISSING -> CardTone.DESTRUCTIVE
+            HeroOutline.READY -> CardTone.ACCENT
+            HeroOutline.NORMAL -> CardTone.NORMAL
+        },
+    ) {
         Row(verticalAlignment = Alignment.Bottom) {
             Text(
                 armed.armedCount.toString(),

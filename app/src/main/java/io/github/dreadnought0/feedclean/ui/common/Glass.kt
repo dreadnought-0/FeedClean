@@ -70,8 +70,8 @@ import io.github.dreadnought0.feedclean.ui.theme.Glass
 
 // ── Surfaces ─────────────────────────────────────────────────────────────────────────────────────────────────
 
-/** Card look: normal frosted glass, amber ("Pause everything" while on), or a red outline (Setup when accessibility is missing). */
-enum class CardTone { NORMAL, AMBER, DESTRUCTIVE }
+/** Card look: normal frosted glass, amber ("Pause everything" while on), a red outline (Setup / hero when setup is missing), or an accent teal outline (hero when Auto-skip is ready). */
+enum class CardTone { NORMAL, AMBER, DESTRUCTIVE, ACCENT }
 
 val GlassCardShape = RoundedCornerShape(22.dp)
 private val NestShape = RoundedCornerShape(16.dp)
@@ -90,6 +90,7 @@ fun GlassCard(
         CardTone.NORMAL -> Glass.Card to Glass.Border
         CardTone.AMBER -> Glass.AmberWash to Glass.AmberBorderSoft
         CardTone.DESTRUCTIVE -> Glass.Card to Glass.RedBorder
+        CardTone.ACCENT -> Glass.Card to Glass.Accent
     }
     Surface(
         modifier = modifier.fillMaxWidth(),

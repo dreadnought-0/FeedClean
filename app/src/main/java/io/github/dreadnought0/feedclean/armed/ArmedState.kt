@@ -285,3 +285,29 @@ fun summarizeCard(vararg statuses: ArmedStatus): ArmedStatus {
         ?: enabled.firstOrNull { it.level == ArmedLevel.PAUSED }
         ?: enabled.first()
 }
+
+/** Border of the Home hero ("N of 7 armed") card, from Auto-skip's [ArmedStatus]. */
+enum class HeroOutline {
+    /** Destructive red: Auto-skip is on but a required setup or setting is missing. */
+    SETUP_MISSING,
+    /** Accent teal (same as primary buttons): Auto-skip is Armed — set up and ready. */
+    READY,
+    /** Normal glass: Auto-skip is Off (switched off by the user) or Paused. */
+    NORMAL,
+}
+
+/**
+ * Home hero outline, from Auto-skip's ArmedEvaluator status:
+ *  - [HeroOutline.SETUP_MISSING] (red) when Auto-skip is [ArmedLevel.BLOCKED] — a required
+ *    setup or setting is missing (accessibility not running, Detection off, no skip type
+ *    with its detection on, or no place selected under Where it skips).
+ *  - [HeroOutline.READY] (accent teal) when Auto-skip is [ArmedLevel.ARMED] — everything
+ *    needed is set up and working.
+ *  - [HeroOutline.NORMAL] (glass) when Auto-skip is Off (the user switched it off) or
+ *    Paused (Pause everything or the safety stop). Paused keeps its existing look.
+ */
+fun heroOutline(autoSkip: ArmedStatus): HeroOutline = when (autoSkip.level) {
+    ArmedLevel.BLOCKED -> HeroOutline.SETUP_MISSING
+    ArmedLevel.ARMED -> HeroOutline.READY
+    ArmedLevel.OFF, ArmedLevel.PAUSED -> HeroOutline.NORMAL
+}
