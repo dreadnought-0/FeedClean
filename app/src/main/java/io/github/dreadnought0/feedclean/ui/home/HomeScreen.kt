@@ -638,6 +638,8 @@ private fun NotInterestedCard(
             icon = FeedCleanIcons.ThumbDown,
             pill = { ClickablePill(state.armed.notInterestedCard.level) { openSheet(SheetTarget.NotInterested) } },
         )
+        CardBody(stringResource(R.string.home_ni_p1))
+        CardBody(stringResource(R.string.home_ni_p2))
         val (d1, c1) = rowDescription(button, stringResource(R.string.home_ni_button_sub))
         OptionRow(
             title = stringResource(R.string.behaviour_ni_button),
@@ -686,6 +688,7 @@ private fun BlockingCard(state: HomeUiState, navigation: HomeNavigation, fix: Fi
             icon = FeedCleanIcons.Block,
             pill = { ClickablePill(state.armed.blockingCard.level) { openSheet(SheetTarget.Of(Behaviour.BLOCK_BUTTON)) } },
         )
+        CardBody(stringResource(R.string.home_block_p1))
         val (d, c) = rowDescription(block, stringResource(R.string.home_block_button_sub))
         OptionRow(
             title = stringResource(R.string.behaviour_block_button),
@@ -726,6 +729,8 @@ private fun HelpersCard(
             icon = FeedCleanIcons.Bubble,
             pill = { ClickablePill(state.armed.helpersCard.level) { openSheet(SheetTarget.Helpers) } },
         )
+        CardBody(stringResource(R.string.home_helpers_p1))
+        CardBody(stringResource(R.string.home_helpers_p2))
         OptionRow(
             title = stringResource(R.string.home_bubble_title),
             description = stringResource(R.string.home_bubble_sub),

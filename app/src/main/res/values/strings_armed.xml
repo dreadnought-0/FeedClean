@@ -137,16 +137,21 @@
 
     <!-- Home: Not interested / Blocking / helpers -->
     <string name="home_ni_title">Not interested</string>
+    <string name="home_ni_p1">Tells TikTok you\'re not interested in a post, using TikTok\'s own Not interested.</string>
+    <string name="home_ni_p2">The button sends it for the post on screen when you tap it on the bubble card. Automatic Not interested sends it when Auto-skip skips a Shop video that isn\'t an ad.</string>
     <string name="home_ni_button_sub">Adds a one-tap button to the bubble card.</string>
     <string name="home_ni_auto_sub">Also taps it for you on each Shop post it skips.</string>
     <string name="home_link_ni">Reason &amp; details</string>
     <string name="home_block_title">Blocking</string>
+    <string name="home_block_p1">Blocks the account of the post on screen when you tap Block on the bubble card. It never acts on its own.</string>
     <string name="home_block_button_sub">Tap the bubble, then Block. It only ever runs on your tap.</string>
     <string name="home_link_block">Block mode &amp; pace limit</string>
     <string name="home_link_block_value">%1$s · %2$d s</string>
     <string name="home_block_mode_full_short">Do it all</string>
     <string name="home_block_mode_confirm_short">You confirm</string>
     <string name="home_helpers_title">On-screen helpers</string>
+    <string name="home_helpers_p1">The bubble sits over TikTok. Tap it for Skip, Not interested, and Block, or long-press to turn Pause everything on or off.</string>
+    <string name="home_helpers_p2">The cover hides a post while Auto-skip scrolls past it, so it doesn\'t flash by. It doesn\'t change what gets skipped.</string>
     <string name="home_bubble_title">Bubble</string>
     <string name="home_bubble_sub">A small dot over TikTok. Tap for actions, long-press to pause.</string>
     <string name="home_cover_title">Cover skipped posts</string>
