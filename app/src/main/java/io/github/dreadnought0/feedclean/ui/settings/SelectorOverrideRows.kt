@@ -12,6 +12,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import io.github.dreadnought0.feedclean.ui.common.GlassDivider
+import io.github.dreadnought0.feedclean.ui.common.OptionRow
+import io.github.dreadnought0.feedclean.ui.common.ValueChip
 import androidx.compose.ui.res.stringResource
 import io.github.dreadnought0.feedclean.R
 import kotlinx.coroutines.Dispatchers
@@ -48,21 +51,27 @@ fun SelectorOverrideRows(
     }
 
     Column(modifier = modifier) {
-        ValueSettingRow(
-            title = stringResource(R.string.ui_settings_selectors_current),
-            value = if (overrideUri == null) {
-                stringResource(R.string.ui_settings_selectors_builtin)
-            } else {
-                stringResource(R.string.ui_settings_selectors_override, displayName ?: overrideUri)
+        OptionRow(
+            title = stringResource(R.string.adv_rules_in_use),
+            trailing = {
+                ValueChip(
+                    if (overrideUri == null) {
+                        stringResource(R.string.adv_rules_builtin)
+                    } else {
+                        displayName ?: stringResource(R.string.adv_rules_custom)
+                    },
+                )
             },
         )
-        ActionSettingRow(
-            title = stringResource(R.string.ui_settings_selectors_load),
-            summary = stringResource(R.string.ui_settings_selectors_load_summary),
+        GlassDivider()
+        OptionRow(
+            title = stringResource(R.string.adv_rules_load),
+            description = stringResource(R.string.adv_rules_load_sub),
             onClick = { launcher.launch(SelectorFileMimeTypes) },
         )
-        ActionSettingRow(
-            title = stringResource(R.string.ui_settings_selectors_use_builtin),
+        GlassDivider()
+        OptionRow(
+            title = stringResource(R.string.adv_rules_reset),
             enabled = overrideUri != null,
             onClick = {
                 overrideUri?.let { context.releaseReadGrant(it) }
