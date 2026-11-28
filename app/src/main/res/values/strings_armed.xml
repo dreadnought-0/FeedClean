@@ -95,7 +95,9 @@
     <string name="and_word">and</string>
 
     <!-- Home summary -->
+    <string name="home_steps_title">Setup Checklist</string>
     <string name="home_steps_count">of %1$d steps completed</string>
+    <string name="home_steps_open_full">Open full checklist</string>
     <string name="home_steps_completed">%1$d of %2$d steps completed</string>
     <string name="home_steps_expand_cd">Show setup steps</string>
     <string name="home_steps_collapse_cd">Hide setup steps</string>
@@ -150,9 +152,6 @@
     <string name="home_cover_title">Cover skipped posts</string>
     <string name="home_cover_sub">Hides a post while it\'s skipped so it doesn\'t flash by.</string>
     <string name="home_link_helpers">Bubble &amp; cover options</string>
-    <string name="home_setup_row">Setup checklist</string>
-    <string name="home_setup_all_set">All set</string>
-    <string name="home_setup_needs">Needs attention</string>
     <string name="home_audit_row">Unblock audit</string>
     <string name="home_info_cd">More about %1$s</string>
 

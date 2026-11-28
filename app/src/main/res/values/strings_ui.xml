@@ -24,7 +24,7 @@
     <string name="ui_home_title">@string/app_name</string>
 
     <!-- ── Setup checklist ───────────────────────────────────────────────── -->
-    <string name="ui_setup_title">Setup checklist</string>
+    <string name="ui_setup_title">Setup Checklist</string>
     <string name="ui_setup_all_set">All set. FeedClean is ready.</string>
     <plurals name="ui_setup_steps_to_go">
         <item quantity="one">step to go</item>

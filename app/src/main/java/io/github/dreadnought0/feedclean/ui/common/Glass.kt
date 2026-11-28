@@ -70,7 +70,7 @@ import io.github.dreadnought0.feedclean.ui.theme.Glass
 
 // ── Surfaces ─────────────────────────────────────────────────────────────────────────────────────────────────
 
-/** Card look: normal frosted glass, amber ("Pause everything" while on), a red outline (Setup / hero when setup is missing), or an accent teal outline (hero when Auto-skip is ready). */
+/** Card look: normal frosted glass, amber ("Pause everything" while on), a strong red outline (Setup when steps are missing), or an accent teal outline (hero when setup is complete). */
 enum class CardTone { NORMAL, AMBER, DESTRUCTIVE, ACCENT }
 
 val GlassCardShape = RoundedCornerShape(22.dp)
@@ -86,18 +86,19 @@ fun GlassCard(
     spacing: Dp = 0.dp,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val (fill, border) = when (tone) {
-        CardTone.NORMAL -> Glass.Card to Glass.Border
-        CardTone.AMBER -> Glass.AmberWash to Glass.AmberBorderSoft
-        CardTone.DESTRUCTIVE -> Glass.Card to Glass.RedBorder
-        CardTone.ACCENT -> Glass.Card to Glass.Accent
+    val (fill, border, borderWidth) = when (tone) {
+        CardTone.NORMAL -> Triple(Glass.Card, Glass.Border, 1.dp)
+        CardTone.AMBER -> Triple(Glass.AmberWash, Glass.AmberBorderSoft, 1.dp)
+        // Needs-attention: a 3 dp, 90% [Glass.Red] outline and a faint red wash — clearly stronger than the 1 dp teal ready state.
+        CardTone.DESTRUCTIVE -> Triple(Glass.RedWash, Glass.RedOutline, 3.dp)
+        CardTone.ACCENT -> Triple(Glass.Card, Glass.Accent, 1.dp)
     }
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = GlassCardShape,
         color = fill,
         contentColor = Glass.Ink,
-        border = BorderStroke(1.dp, border),
+        border = BorderStroke(borderWidth, border),
     ) {
         Column(
             modifier = (if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier).padding(contentPadding),

@@ -64,6 +64,7 @@ import io.github.dreadnought0.feedclean.ui.common.GlassSwitch
 import io.github.dreadnought0.feedclean.ui.common.LinkRow
 import io.github.dreadnought0.feedclean.ui.common.ArmedPill
 import io.github.dreadnought0.feedclean.ui.common.OptionRow
+import io.github.dreadnought0.feedclean.ui.common.PrimaryButton
 import io.github.dreadnought0.feedclean.ui.common.WarnBar
 import io.github.dreadnought0.feedclean.ui.icons.FeedCleanIcons
 import io.github.dreadnought0.feedclean.ui.settings.NotInterestedRiskDialog
@@ -197,7 +198,7 @@ fun HomeScreen(
         NotInterestedCard(state, actions, navigation, fixHandlers, openSheet)
         BlockingCard(state, navigation, fixHandlers, openSheet)
         HelpersCard(state, actions, navigation, openSheet)
-        ToolsCard(setupStatus, state.serviceConnected, navigation)
+        ToolsCard(navigation)
     }
 
     sheetTargetOf(sheetKey)?.let { target ->
@@ -287,25 +288,34 @@ private fun SummaryCard(state: HomeUiState, setupStatus: SetupStatus?, navigatio
                 .then(if (toggle != null) Modifier.clickable(onClick = toggle) else Modifier),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            if (expanded) {
+            Column(Modifier.weight(1f)) {
                 Text(
-                    progress.completed.toString(),
-                    style = MaterialTheme.typography.displaySmall,
-                    color = Glass.Ink,
-                )
-                Text(
-                    stringResource(R.string.home_steps_count, progress.total),
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal, fontSize = 17.sp),
-                    color = Glass.Muted,
-                    modifier = Modifier.padding(start = 8.dp, bottom = 4.dp).weight(1f),
-                )
-            } else {
-                Text(
-                    stringResource(R.string.home_steps_completed, progress.completed, progress.total),
+                    stringResource(R.string.home_steps_title),
                     style = MaterialTheme.typography.titleMedium,
                     color = Glass.Ink,
-                    modifier = Modifier.weight(1f),
                 )
+                if (expanded) {
+                    Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.Bottom) {
+                        Text(
+                            progress.completed.toString(),
+                            style = MaterialTheme.typography.displaySmall,
+                            color = Glass.Ink,
+                        )
+                        Text(
+                            stringResource(R.string.home_steps_count, progress.total),
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal, fontSize = 17.sp),
+                            color = Glass.Muted,
+                            modifier = Modifier.padding(start = 8.dp, bottom = 4.dp),
+                        )
+                    }
+                } else {
+                    Text(
+                        stringResource(R.string.home_steps_completed, progress.completed, progress.total),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Glass.Muted,
+                        modifier = Modifier.padding(top = 2.dp),
+                    )
+                }
             }
             if (canToggle) {
                 Icon(
@@ -325,6 +335,8 @@ private fun SummaryCard(state: HomeUiState, setupStatus: SetupStatus?, navigatio
                     onFix = { fixSetupStep(context, step.id, navigation.openSetup) },
                 )
             }
+            GlassDivider(Modifier.padding(top = 10.dp))
+            LinkRow(stringResource(R.string.home_steps_open_full), navigation.openSetup)
         }
     }
 }
@@ -381,14 +393,9 @@ private fun SetupStepRow(
                 Text(subtitle, style = MaterialTheme.typography.bodySmall, color = if (step.done) Glass.Muted else Glass.AmberText, modifier = Modifier.padding(top = 2.dp))
             }
         }
-        if (action != null) {
-            Text(
-                "$action ›",
-                style = MaterialTheme.typography.labelMedium,
-                color = Glass.Accent,
-                modifier = Modifier.clip(CircleShape).clickable(onClick = onFix).padding(horizontal = 4.dp, vertical = 2.dp),
-            )
-        }
+    }
+    if (action != null) {
+        PrimaryButton(action, onFix, modifier = Modifier.padding(top = 10.dp))
     }
 }
 
@@ -406,7 +413,6 @@ private fun fixSetupStep(context: android.content.Context, id: SetupStepId, open
     if (!opened) openSetup()
 }
 
-// ── Pause everything ────────────────────────────────────────────────────────────────────────────────────────
 // ── Pause everything ────────────────────────────────────────────────────────────────────────────────────────
 
 @Composable
@@ -735,24 +741,8 @@ private fun HelpersCard(
 }
 
 @Composable
-private fun ToolsCard(setupStatus: SetupStatus?, serviceConnected: Boolean, navigation: HomeNavigation) {
-    val allSet = setupStatus != null && setupStatus.allSet(serviceConnected)
-    // Same truth ArmedEvaluator uses (service actually running), plus "not enabled" when Setup has checked.
-    val accessibilityMissing = !serviceConnected || setupStatus?.serviceEnabled == false
-    val toolsPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 16.dp, vertical = 6.dp)
-    GlassCard(
-        contentPadding = toolsPadding,
-        tone = if (accessibilityMissing) CardTone.DESTRUCTIVE else CardTone.NORMAL,
-    ) {
-        LinkRow(
-            stringResource(R.string.home_setup_row),
-            navigation.openSetup,
-            icon = FeedCleanIcons.Checklist,
-            accent = false,
-            value = setupStatus?.let { stringResource(if (allSet) R.string.home_setup_all_set else R.string.home_setup_needs) },
-        )
-    }
-    GlassCard(contentPadding = toolsPadding) {
+private fun ToolsCard(navigation: HomeNavigation) {
+    GlassCard(contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 16.dp, vertical = 6.dp)) {
         LinkRow(stringResource(R.string.home_audit_row), navigation.openAudit, icon = FeedCleanIcons.Scan, accent = false)
     }
 }
