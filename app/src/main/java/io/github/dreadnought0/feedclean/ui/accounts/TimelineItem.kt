@@ -103,7 +103,7 @@ private fun OutcomeMark(outcome: TimelineOutcome) {
 @Composable
 private fun TimelineItemPreview() {
     val now = 1_795_000_000_000L
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         Column(modifier = Modifier.padding(16.dp)) {
             TimelineItem(
                 row = TimelineRowText(

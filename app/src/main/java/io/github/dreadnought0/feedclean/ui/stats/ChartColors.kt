@@ -1,17 +1,11 @@
 package io.github.dreadnought0.feedclean.ui.stats
 
+import io.github.dreadnought0.feedclean.ui.theme.Glass
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
-
-/**
- * Data-mark blue for light surfaces. The theme's teal primary is too low in chroma to read as a data color
- * (it fails the chroma floor), so charts use a dedicated blue. Checked against FeedClean's light surface,
- * card and container colors: inside the lightness band, above the chroma floor, ≥ 3:1 contrast.
- */
-private val SeriesBlueLight = Color(0xFF2A78D6)
 
 /** Data-mark blue for dark surfaces; the same hue stepped for the dark band, ≥ 3:1 on dark containers. */
 private val SeriesBlueDark = Color(0xFF3987E5)
@@ -39,10 +33,11 @@ data class ChartColors(
 @Composable
 fun chartColors(): ChartColors {
     val scheme = MaterialTheme.colorScheme
-    val series = if (scheme.surface.luminance() < 0.5f) SeriesBlueDark else SeriesBlueLight
+    // The glass look: teal data marks on frosted white cards (the blues stay for a non-glass surface).
+    val series = if (scheme.surface.luminance() < 0.5f) SeriesBlueDark else Glass.Teal
     return ChartColors(
         series = series,
-        track = series.copy(alpha = 0.22f),
+        track = Color.White.copy(alpha = 0.6f),
         gridline = scheme.outlineVariant,
         baseline = scheme.outline,
         label = scheme.onSurfaceVariant,

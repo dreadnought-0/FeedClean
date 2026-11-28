@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Adaptive icon foreground: a white funnel (filter) glyph centred in the 66dp safe zone.
-     The 24-unit Material "filter" path is scaled ×2.5 and offset so its centre (12,12) lands on (54,54). -->
+<!-- Adaptive icon foreground: the approved 02b circle-ban (white prohibition ring,
+     eighth-note, and top-left-to-bottom-right slash). The note is cut where the slash
+     crosses it so the gap shows the background. Centred on the 108dp canvas at an
+     outer diameter of ~56dp (about 15% smaller than the first install). -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <group
-        android:scaleX="2.5"
-        android:scaleY="2.5"
-        android:translateX="24"
-        android:translateY="24">
-        <path
-            android:fillColor="@color/ic_launcher_glyph"
-            android:pathData="M4.25,5.61C6.27,8.2 10,13 10,13v6c0,0.55 0.45,1 1,1h2c0.55,0 1,-0.45 1,-1v-6c0,0 3.72,-4.8 5.74,-7.39C20.25,4.95 19.78,4 18.95,4H5.04C4.21,4 3.74,4.95 4.25,5.61z" />
-    </group>
+    <!-- Ring. Stroke is centred on r=25.5, so the outer edge is at 28.2dp from the centre. -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M79.50,54.00A25.50,25.50 0 1,1 28.50,54.00A25.50,25.50 0 1,1 79.50,54.00Z"
+        android:strokeWidth="5.44"
+        android:strokeColor="@color/ic_launcher_glyph" />
+    <!-- Note, with a rounded gap subtracted along the slash. -->
+    <path
+        android:fillColor="@color/ic_launcher_glyph"
+        android:pathData="M58.70,46.24L60.98,47.00L63.23,48.02L65.04,49.05L67.96,51.02L68.82,51.48L69.02,50.43L69.15,48.91L69.07,47.45L68.80,46.07L68.34,44.76L67.69,43.54L66.86,42.41L66.21,41.72L65.08,40.77L63.79,39.95L62.34,39.25L61.28,38.85L59.55,38.39L57.68,38.07L57.68,39.81L57.60,39.31L57.48,38.99L57.28,38.71L56.91,38.37L56.60,38.21L56.11,38.08L55.76,38.08L55.27,38.21L54.82,38.47L54.59,38.71L54.32,39.15L54.20,39.64L54.19,46.68L57.68,50.17L57.68,45.97ZM50.97,58.50L49.64,58.24L48.23,58.19L46.77,58.37L45.31,58.75L43.90,59.35L42.58,60.12L41.38,61.05L40.34,62.12L39.51,63.29L38.89,64.52L38.56,65.53L38.39,66.79L38.47,68.01L38.80,69.14L39.38,70.17L40.18,71.04L40.96,71.62L41.62,71.99L42.60,72.34L43.38,72.53L44.21,72.64L45.34,72.66L46.51,72.54L47.68,72.28L48.83,71.89L49.95,71.37L51.00,70.74L51.97,70.00L52.84,69.17L53.59,68.27L54.20,67.32L54.69,66.31L54.97,66.54L55.27,66.70L55.94,66.83L56.60,66.70L56.91,66.54L57.28,66.20L57.54,65.76L57.67,65.19Z" />
+    <!-- Slash. Caps sit on the ring midline so they meet the stroke cleanly. -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M36.83,36.83L71.17,71.17"
+        android:strokeWidth="5.44"
+        android:strokeColor="@color/ic_launcher_glyph"
+        android:strokeLineCap="round" />
 </vector>

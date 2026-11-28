@@ -51,7 +51,7 @@ fun StatusPill(text: String, ok: Boolean, modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun StatusPillPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(8.dp)) {
             StatusPill("Service running", ok = true)
             StatusPill("Not in foreground", ok = false)

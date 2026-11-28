@@ -19,58 +19,35 @@
     <string name="ui_status_service_disconnected">Service not running</string>
     <string name="ui_status_target_foreground">TikTok in foreground</string>
     <string name="ui_status_target_background">TikTok not in foreground</string>
-    <string name="ui_kill_switch_title">Pause all automation</string>
-    <string name="ui_kill_switch_summary">Instantly stops auto-skip and automated Not interested.</string>
-    <string name="ui_kill_switch_engaged">Paused. Nothing is skipped or tapped automatically until you turn this off.</string>
-    <string name="ui_curate_feed_title">Curate feed</string>
-    <string name="ui_curate_feed_summary">Auto-skip the posts you pick. Navigation only: it scrolls past posts and never acts on an account.</string>
-    <string name="ui_skip_cover_title">Skip-cover</string>
-    <string name="ui_skip_cover_summary">Hide the post while it\'s being skipped, so it doesn\'t flash by.</string>
-    <string name="ui_unit_ms">%1$d ms</string>
-    <string name="ui_unit_seconds">%1$d s</string>
-    <string name="ui_unit_per_hour">%1$d / h</string>
 
     <!-- ── Home ──────────────────────────────────────────────────────────── -->
     <string name="ui_home_title">@string/app_name</string>
-    <string name="ui_home_service_off">Accessibility service is off</string>
-    <string name="ui_home_service_not_running">Service isn\'t running</string>
-    <string name="ui_home_service_warning_body">FeedClean can\'t see your feed until its accessibility service is on and running. The setup checklist walks you through it.</string>
-    <string name="ui_home_open_setup">Open setup checklist</string>
-    <string name="ui_home_quick_toggles">Quick toggles</string>
-    <string name="ui_home_skip_organic_shop">Auto-skip organic Shop posts</string>
-    <string name="ui_home_armed">Armed: organic Shop posts are skipped while TikTok is open.</string>
-    <string name="ui_home_tools">Tools</string>
 
     <!-- ── Setup checklist ───────────────────────────────────────────────── -->
-    <string name="ui_setup_title">Setup checklist</string>
-    <string name="ui_setup_all_set">All set. FeedClean is ready.</string>
-    <plurals name="ui_setup_remaining">
-        <item quantity="one">%d step needs attention</item>
-        <item quantity="other">%d steps need attention</item>
-    </plurals>
-    <string name="ui_setup_intro">These checks refresh each time you come back to this screen.</string>
+    <string name="ui_setup_title">Setup Checklist</string>
+    <string name="ui_setup_intro">Checked again each time you open or come back to this screen.</string>
     <string name="ui_setup_state_ok">Done</string>
     <string name="ui_setup_state_action_needed">Needs attention</string>
-    <string name="ui_setup_state_info">Info</string>
+    <string name="ui_setup_state_info">Good to know</string>
     <string name="ui_setup_target_title">TikTok installed</string>
     <string name="ui_setup_target_ok">Found on this phone.</string>
     <string name="ui_setup_target_missing">TikTok isn\'t installed, or FeedClean can\'t see it. Install it first.</string>
-    <string name="ui_setup_service_title">Accessibility service</string>
-    <string name="ui_setup_service_ok">FeedClean is switched on and running.</string>
+    <string name="ui_setup_service_title">Accessibility access</string>
+    <string name="ui_setup_service_ok">FeedClean is switched on and running, so it can see what\'s on TikTok\'s screen.</string>
     <string name="ui_setup_service_not_running">Switched on, but the service isn\'t running yet. Turn it off and on again under Accessibility → Installed apps.</string>
-    <string name="ui_setup_service_off">Switch FeedClean on under Accessibility → Installed apps. If the toggle is greyed out, see “Allow restricted settings” below.</string>
+    <string name="ui_setup_service_off">Turn Accessibility Access on for FeedClean in your phone\'s settings to allow FeedClean to see what you see on TikTok. No data is ever sent off your phone unless you allow it. Without this, FeedClean can\'t identify ads or promotional content.</string>
     <string name="ui_setup_service_enabled_line">Enabled: %1$s</string>
     <string name="ui_setup_service_running_line">Running: %1$s</string>
     <string name="ui_setup_service_action">Open accessibility settings</string>
     <string name="ui_setup_battery_title">Battery: Unrestricted</string>
     <string name="ui_setup_battery_ok">The system won\'t put FeedClean to sleep.</string>
-    <string name="ui_setup_battery_off">Set battery use to Unrestricted so the phone doesn\'t stop the service. On Samsung phones you can also add FeedClean to “Never sleeping apps”.</string>
+    <string name="ui_setup_battery_off">Stops your phone from putting FeedClean to sleep. On Samsung, also add FeedClean to “Never sleeping apps”.</string>
     <string name="ui_setup_battery_action">Allow unrestricted battery</string>
-    <string name="ui_setup_restricted_title">Allow restricted settings</string>
-    <string name="ui_setup_restricted_body">Android holds back accessibility access for apps installed outside an app store until you allow it. If the FeedClean toggle is greyed out: open App info, tap ⋮ (top right), choose “Allow restricted settings”, then try again.</string>
+    <string name="ui_setup_restricted_title">Can\'t adjust accessibility?</string>
+    <string name="ui_setup_restricted_body">Android holds back accessibility access for apps installed outside an app store until you allow it. Open App info, tap ⋮ (top right), choose “Allow restricted settings”, then try again.</string>
     <string name="ui_setup_restricted_action">Open App info</string>
     <string name="ui_setup_advanced_protection_title">Advanced Protection</string>
-    <string name="ui_setup_advanced_protection_body">If Android\'s Advanced Protection mode is on, it turns off accessibility services from apps that aren\'t accessibility tools, including FeedClean. FeedClean can\'t run while it is on.</string>
+    <string name="ui_setup_advanced_protection_body">If Android\'s Advanced Protection is on, it turns off accessibility services from apps that aren\'t accessibility tools — FeedClean can\'t run while it is.</string>
 
     <!-- ── Debug ─────────────────────────────────────────────────────────── -->
     <string name="ui_debug_title">Debug</string>
@@ -81,146 +58,32 @@
 
     <!-- ── Settings: shared ──────────────────────────────────────────────── -->
     <string name="ui_settings_title">Settings</string>
-    <string name="ui_settings_decrease">Decrease %1$s</string>
-    <string name="ui_settings_increase">Increase %1$s</string>
 
     <!-- Detection -->
-    <string name="ui_settings_group_detection">Detection</string>
-    <string name="ui_settings_detection_master">Detection</string>
-    <string name="ui_settings_detection_master_summary">Read the TikTok screen to find ads, promoted posts and Shop posts.</string>
-    <string name="ui_settings_detection_off_note">Detection is off. These take effect when you turn it on.</string>
-    <string name="ui_settings_detect_paid_ad">Paid ads</string>
-    <string name="ui_settings_detect_paid_ad_summary">Posts labelled “Ad” or “Sponsored”.</string>
-    <string name="ui_settings_detect_promoted">Promoted posts</string>
-    <string name="ui_settings_detect_promoted_summary">Posts labelled as promotional content or a paid partnership.</string>
-    <string name="ui_settings_detect_shop_anchor">Shop posts</string>
-    <string name="ui_settings_detect_shop_anchor_summary">Posts with a product link (Shop anchor).</string>
-    <string name="ui_settings_detect_live_shopping">Live shopping</string>
-    <string name="ui_settings_ocr_fallback">OCR fallback</string>
-    <string name="ui_settings_ocr_fallback_summary">Read image-only labels with on-device text recognition. Coming in a later version.</string>
-    <string name="ui_settings_selectors_subheader">Selectors</string>
-    <string name="ui_settings_selectors_current">Selector source</string>
-    <string name="ui_settings_selectors_builtin">Built-in</string>
-    <string name="ui_settings_selectors_override">Override file: %1$s</string>
-    <string name="ui_settings_selectors_load">Load selector file…</string>
-    <string name="ui_settings_selectors_load_summary">Use a fixed selector file after a TikTok update, without rebuilding the app.</string>
-    <string name="ui_settings_selectors_use_builtin">Use built-in selectors</string>
 
     <!-- Curate feed -->
-    <string name="ui_settings_group_curate">Curate feed</string>
-    <string name="ui_settings_paused_by_kill_switch">Paused by the kill-switch. Nothing is skipped until you resume automation.</string>
-    <string name="ui_settings_curate_off_note">Curate feed is off. These take effect when you turn it on.</string>
-    <string name="ui_settings_skip_targets">Auto-skip targets</string>
-    <string name="ui_settings_skip_organic_shop">Organic Shop posts (recommended)</string>
-    <string name="ui_settings_skip_organic_shop_summary">Shop posts without an Ad or Promoted label.</string>
-    <string name="ui_settings_skip_paid_ads">Paid ads</string>
-    <string name="ui_settings_skip_paid_ads_summary">Posts labelled Ad or Sponsored. Off by default.</string>
-    <string name="ui_settings_skip_promoted">Promoted posts</string>
-    <string name="ui_settings_skip_live_shopping">Live shopping</string>
-    <string name="ui_settings_skip_behaviour">Skip behaviour</string>
-    <string name="ui_settings_settle_delay">Skip settle delay</string>
-    <string name="ui_settings_settle_delay_summary">Wait after the cover goes up and before scrolling. 0–%1$d ms.</string>
-    <string name="ui_settings_skip_cap">Consecutive-skip cap</string>
-    <string name="ui_settings_skip_cap_summary">Pause auto-skip after this many skips in a row, in case detection goes wrong. 1–%1$d.</string>
-    <string name="ui_settings_cover_subheader">Skip-cover</string>
-    <string name="ui_settings_cover_off_note">Skip-cover is off. The cover style takes effect when you turn it on.</string>
-    <string name="ui_settings_cover_style">Cover style</string>
-    <string name="ui_settings_cover_blank">Blank</string>
-    <string name="ui_settings_cover_blank_desc">A solid cover in the app\'s colors.</string>
-    <string name="ui_settings_cover_blur">Blur</string>
-    <string name="ui_settings_cover_blur_desc">A blurred cover.</string>
-    <string name="ui_settings_cover_labelled">Labelled</string>
-    <string name="ui_settings_cover_labelled_desc">A cover that says what was skipped.</string>
 
     <!-- Not interested -->
-    <string name="ui_settings_group_not_interested">Not interested</string>
-    <string name="ui_settings_ni_manual">Not interested button</string>
-    <string name="ui_settings_ni_manual_summary">Show it on the overlay card. One tap sends TikTok\'s own Not interested for the current post.</string>
-    <string name="ui_settings_ni_automated">Automated with auto-skip</string>
-    <string name="ui_settings_ni_automated_summary">Send Not interested before each organic Shop auto-skip. TikTok sees these taps. Rate-limited together with blocks. Off by default.</string>
-    <string name="ui_settings_ni_needs_curate">Runs only while Curate feed is on.</string>
-    <string name="ui_settings_ni_revoke">Withdraw risk acceptance</string>
-    <string name="ui_settings_ni_revoke_summary">You accepted the account-risk note. Withdraw it to turn automation off and see the note again next time.</string>
-    <string name="ui_settings_ni_reason">Preferred reason (when TikTok asks)</string>
-    <string name="ui_settings_reason_first">First reason offered</string>
-    <string name="ui_settings_reason_first_desc">Tap whichever reason TikTok lists first.</string>
-    <string name="ui_settings_reason_shopping">Prefer shopping-related</string>
-    <string name="ui_settings_reason_shopping_desc">Pick a reason about shopping or products when there is one.</string>
-    <string name="ui_settings_reason_skip">Don\'t pick a reason</string>
-    <string name="ui_settings_reason_skip_desc">Close the reason picker without choosing.</string>
 
     <!-- Automated Not interested: account-risk dialog -->
-    <string name="ui_risk_dialog_title">Automate Not interested?</string>
-    <string name="ui_risk_dialog_body_seen">TikTok sees every Not interested tap. Repeated automated feedback is the most visible thing FeedClean can do, and TikTok\'s terms restrict automated interaction, so this carries some risk to your account.</string>
-    <string name="ui_risk_dialog_body_rate_limit">These taps share the rate limit with blocks: at least %1$d s apart and at most %2$d per hour. When the limit is reached, FeedClean skips without tapping.</string>
-    <string name="ui_risk_dialog_body_off">You can turn this off at any time here, or pause everything with the kill-switch.</string>
+    <string name="ui_risk_dialog_title">Let FeedClean tap “Not interested”?</string>
+    <string name="ui_risk_dialog_body_seen">TikTok can see these taps, and its terms limit automated actions — so there\'s some risk to your account.</string>
+    <string name="ui_risk_dialog_body_rate_limit">It follows the pace limit: at least %1$d s apart and at most %2$d an hour. Past that, FeedClean just skips.</string>
+    <string name="ui_risk_dialog_body_off">You can turn it off any time, or pause everything.</string>
     <string name="ui_risk_dialog_accept">Turn on</string>
     <string name="ui_risk_dialog_decline">Keep off</string>
 
     <!-- Overlay -->
-    <string name="ui_settings_group_overlay">Overlay</string>
-    <string name="ui_settings_show_bubble">Show bubble</string>
-    <string name="ui_settings_show_bubble_summary">A small status dot over TikTok. Tap it to open the card.</string>
-    <string name="ui_settings_reset_bubble">Reset bubble position</string>
-    <string name="ui_settings_bubble_default">At the default position.</string>
-    <string name="ui_settings_bubble_custom">Moved to %1$d, %2$d.</string>
 
     <!-- Blocking -->
-    <string name="ui_settings_group_blocking">Blocking</string>
-    <string name="ui_settings_blocking_intro">Every block starts with your tap. FeedClean never blocks on its own.</string>
-    <string name="ui_settings_block_style">Block style</string>
-    <string name="ui_settings_block_one_tap">One tap, full flow</string>
-    <string name="ui_settings_block_one_tap_desc">One tap on Block runs every step and checks each one.</string>
-    <string name="ui_settings_block_stop_at_dialog">Stop at TikTok\'s dialog</string>
-    <string name="ui_settings_block_stop_at_dialog_desc">FeedClean opens TikTok\'s confirmation and you tap Block yourself.</string>
-    <string name="ui_settings_rate_limit">Rate limit (blocks and automated Not interested)</string>
-    <string name="ui_settings_min_seconds">Minimum time between actions</string>
-    <string name="ui_settings_min_seconds_summary">Never less than %1$d s.</string>
-    <string name="ui_settings_max_per_hour">Maximum actions per hour</string>
-    <string name="ui_settings_max_per_hour_summary">Never more than %1$d per hour. Counts attempts, and survives restarts.</string>
 
     <!-- Automation safety -->
-    <string name="ui_settings_group_safety">Automation safety</string>
-    <string name="ui_settings_screen_on_only">Auto-skip only while the screen is on</string>
-    <string name="ui_settings_screen_on_only_summary">Recommended. Nothing moves while the screen is off.</string>
 
     <!-- Data & privacy -->
-    <string name="ui_settings_group_data">Data &amp; privacy</string>
-    <string name="ui_settings_session_tracking">Session tracking</string>
-    <string name="ui_settings_session_tracking_summary">Count every video you watch, not just detections, to show ad and Shop ratios. Off by default.</string>
-    <string name="ui_settings_save_screenshots">Save screenshots on sightings</string>
-    <string name="ui_settings_save_screenshots_summary">Keep a screenshot with each logged sighting, in app storage only. Off by default.</string>
-    <string name="ui_settings_subjective_tags">Public export: include subjective tags</string>
-    <string name="ui_settings_subjective_tags_summary">Adds tags like AI generated or impersonator. When off, only on-screen labels (Ad, Promoted, Shop, Live shopping) are shared.</string>
-    <string name="ui_settings_export_full">Export full backup</string>
-    <string name="ui_settings_export_full_summary">Every table, saved to a file you choose.</string>
-    <string name="ui_settings_export_public">Export public list</string>
-    <string name="ui_settings_export_public_summary">Handles and on-screen tags only. No names, notes, screenshots or timestamps.</string>
-    <string name="ui_settings_import">Import backup</string>
-    <string name="ui_settings_import_summary">Merge a previous full export.</string>
-    <string name="ui_settings_clear_all">Clear all data</string>
-    <string name="ui_settings_clear_all_summary">Delete everything FeedClean has stored. You\'ll be asked to confirm.</string>
-    <string name="ui_settings_privacy_note">Everything stays on this phone. No analytics, no cloud backup. Exports only go where you save them.</string>
 
     <!-- ── Pushed destinations / placeholders ────────────────────────────── -->
     <string name="ui_audit_title">Unblock audit</string>
     <string name="ui_suggested_title">Suggested</string>
     <string name="ui_account_detail_title">Account</string>
     <string name="ui_data_transfer_title">Export &amp; import</string>
-    <string name="ui_settings_skip_where">Where to auto-skip</string>
-    <string name="ui_settings_skip_where_note">Auto-skip is still only a quick scroll, never an account action. It respects the kill-switch and the consecutive-skip cap.</string>
-    <string name="ui_settings_skip_where_for_you">For You</string>
-    <string name="ui_settings_skip_where_other_home">Following and other Home tabs</string>
-    <string name="ui_settings_skip_where_search">Search results</string>
-    <string name="ui_settings_skip_where_other_feeds">Profiles, hashtags and sounds</string>
-    <string name="ui_home_where_for_you">For You</string>
-    <string name="ui_home_where_other_home">Other Home tabs</string>
-    <string name="ui_home_where_search">Search</string>
-    <string name="ui_home_where_other_feeds">Profiles</string>
-    <string name="ui_home_where_none">Not active anywhere</string>
-    <string name="ui_home_where_summary">Active in: %1$s</string>
-    <string name="ui_settings_decision_log">Decision log (7 days, on this phone)</string>
-    <string name="ui_settings_decision_log_summary">Records what FeedClean decided for each post (type, decision, why) — never names, handles or captions — so you can check why something was or wasn\'t skipped. View or export it on the Debug screen.</string>
-    <string name="ui_settings_open_debug">Open the Debug screen</string>
-    <string name="ui_settings_open_debug_summary">View or export the decision log.</string>
 </resources>

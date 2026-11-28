@@ -65,6 +65,9 @@ class BubbleLookMapperTest {
         assertFalse(map(Signals()).skipArmed)
         assertTrue(map(Signals(), defaults.copy(curateFeedEnabled = true)).skipArmed)
         assertFalse(map(Signals(), defaults.copy(curateFeedEnabled = true, killSwitchEngaged = true)).skipArmed)
+        // Honest glyph: no place selected, or the only skip type's detection off, means nothing can be skipped.
+        assertFalse(map(Signals(), defaults.copy(curateFeedEnabled = true, autoSkipInForYou = false)).skipArmed)
+        assertFalse(map(Signals(), defaults.copy(curateFeedEnabled = true, detectShopAnchor = false)).skipArmed)
     }
 
     @Test

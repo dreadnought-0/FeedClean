@@ -41,7 +41,7 @@ fun AccountStatusPill(status: AccountStatus, modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun AccountStatusPillPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.padding(8.dp)) {
             AccountStatus.entries.forEach { AccountStatusPill(it) }
         }

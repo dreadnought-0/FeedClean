@@ -1,5 +1,6 @@
 package io.github.dreadnought0.feedclean.ui.debug
 
+import io.github.dreadnought0.feedclean.ui.common.GlassDialog
 import android.content.ClipData
 import android.content.ClipDescription
 import android.net.Uri
@@ -42,6 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.dreadnought0.feedclean.R
+import io.github.dreadnought0.feedclean.ui.home.HomeUiState
 import io.github.dreadnought0.feedclean.appContainer
 import io.github.dreadnought0.feedclean.detect.Bounds
 import io.github.dreadnought0.feedclean.detect.FeedContext
@@ -142,6 +144,7 @@ fun DebugRoute(onBack: () -> Unit, modifier: Modifier = Modifier) {
         autoSkip = autoSkip,
         action = action,
         recentEvents = events,
+        armed = HomeUiState.from(settings, serviceConnected, tiktokForeground, autoSkip).armed,
     )
 
     val logUi = if (logLoaded) DecisionLogUiState(settings.decisionLogEnabled, logData, logStatus) else null
@@ -289,11 +292,11 @@ fun DebugScreen(
                         text = stringResource(
                             when {
                                 runtime.autoSkip.pausedByLoopGuard -> R.string.service_debug_autoskip_paused
-                                runtime.autoSkipArmed -> R.string.service_debug_autoskip_armed
+                                runtime.armed?.anySkipArmed ?: runtime.autoSkipAllowedBySettings -> R.string.service_debug_autoskip_armed
                                 else -> R.string.service_debug_autoskip_off
                             },
                         ),
-                        ok = runtime.autoSkipArmed && !runtime.autoSkip.pausedByLoopGuard,
+                        ok = (runtime.armed?.anySkipArmed ?: runtime.autoSkipAllowedBySettings) && !runtime.autoSkip.pausedByLoopGuard,
                     )
                     val selectorsOk = runtime.selectorsLoaded && runtime.selectorLoadError == null
                     StatusPill(
@@ -443,21 +446,17 @@ private fun DecisionLogSection(
         }
     }
     if (confirmClear) {
-        AlertDialog(
-            onDismissRequest = { confirmClear = false },
-            title = { Text(stringResource(R.string.debug_log_clear_title)) },
-            text = { Text(stringResource(R.string.debug_log_clear_text)) },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        confirmClear = false
-                        onClear()
-                    },
-                ) { Text(stringResource(R.string.debug_log_clear_confirm)) }
+        GlassDialog(
+            title = stringResource(R.string.debug_log_clear_title),
+            text = stringResource(R.string.debug_log_clear_text),
+            confirm = stringResource(R.string.debug_log_clear_confirm),
+            onConfirm = {
+                confirmClear = false
+                onClear()
             },
-            dismissButton = {
-                TextButton(onClick = { confirmClear = false }) { Text(stringResource(R.string.debug_log_clear_cancel)) }
-            },
+            dismiss = stringResource(R.string.debug_log_clear_cancel),
+            onDismiss = { confirmClear = false },
+            destructive = true,
         )
     }
 }
@@ -465,7 +464,7 @@ private fun DecisionLogSection(
 @Preview(showBackground = true, heightDp = 900)
 @Composable
 private fun DebugScreenPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         DebugScreen(
             serviceConnected = true,
             tiktokForeground = true,

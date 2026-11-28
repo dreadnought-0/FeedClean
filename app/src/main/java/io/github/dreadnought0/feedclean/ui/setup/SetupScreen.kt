@@ -1,9 +1,12 @@
 package io.github.dreadnought0.feedclean.ui.setup
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -14,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,6 +25,7 @@ import io.github.dreadnought0.feedclean.R
 import io.github.dreadnought0.feedclean.service.ScreenStateHolder
 import io.github.dreadnought0.feedclean.ui.common.FeedCleanTopAppBar
 import io.github.dreadnought0.feedclean.ui.theme.FeedCleanTheme
+import io.github.dreadnought0.feedclean.ui.theme.Glass
 
 /**
  * Setup checklist destination: live checks (refreshed on every resume) plus deep links into system settings.
@@ -67,8 +70,8 @@ fun SetupScreen(
     onOpenAppInfo: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val serviceOk = status.serviceEnabled && serviceConnected
-    val remaining = listOf(status.targetAppInstalled, serviceOk, status.batteryUnrestricted).count { !it }
+    val progress = setupProgress(status, serviceConnected)
+    val serviceOk = progress.done(SetupStepId.ACCESSIBILITY)
     val yes = stringResource(R.string.ui_yes)
     val no = stringResource(R.string.ui_no)
 
@@ -84,15 +87,19 @@ fun SetupScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            Text(
-                text = if (remaining == 0) {
-                    stringResource(R.string.ui_setup_all_set)
-                } else {
-                    pluralStringResource(R.plurals.ui_setup_remaining, remaining, remaining)
-                },
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.fillMaxWidth(),
-            )
+            Row(verticalAlignment = Alignment.Bottom) {
+                Text(
+                    progress.completed.toString(),
+                    style = MaterialTheme.typography.displaySmall,
+                    color = Glass.Ink,
+                )
+                Text(
+                    stringResource(R.string.home_steps_count, progress.total),
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal, fontSize = 17.sp),
+                    color = Glass.Muted,
+                    modifier = Modifier.padding(start = 8.dp, bottom = 4.dp),
+                )
+            }
             Text(
                 text = stringResource(R.string.ui_setup_intro),
                 style = MaterialTheme.typography.bodyMedium,
@@ -100,11 +107,12 @@ fun SetupScreen(
             )
 
             ChecklistItem(
-                state = if (status.targetAppInstalled) CheckState.OK else CheckState.ACTION_NEEDED,
+                state = if (progress.done(SetupStepId.TARGET_APP)) CheckState.OK else CheckState.ACTION_NEEDED,
                 title = stringResource(R.string.ui_setup_target_title),
                 body = stringResource(
-                    if (status.targetAppInstalled) R.string.ui_setup_target_ok else R.string.ui_setup_target_missing,
+                    if (progress.done(SetupStepId.TARGET_APP)) R.string.ui_setup_target_ok else R.string.ui_setup_target_missing,
                 ),
+                tone = setupStepTone(progress, SetupStepId.TARGET_APP),
             )
 
             ChecklistItem(
@@ -123,16 +131,18 @@ fun SetupScreen(
                 ),
                 actionLabel = stringResource(R.string.ui_setup_service_action),
                 onAction = onOpenAccessibilitySettings,
+                tone = setupStepTone(progress, SetupStepId.ACCESSIBILITY),
             )
 
             ChecklistItem(
-                state = if (status.batteryUnrestricted) CheckState.OK else CheckState.ACTION_NEEDED,
+                state = if (progress.done(SetupStepId.BATTERY)) CheckState.OK else CheckState.ACTION_NEEDED,
                 title = stringResource(R.string.ui_setup_battery_title),
                 body = stringResource(
-                    if (status.batteryUnrestricted) R.string.ui_setup_battery_ok else R.string.ui_setup_battery_off,
+                    if (progress.done(SetupStepId.BATTERY)) R.string.ui_setup_battery_ok else R.string.ui_setup_battery_off,
                 ),
-                actionLabel = if (status.batteryUnrestricted) null else stringResource(R.string.ui_setup_battery_action),
+                actionLabel = if (progress.done(SetupStepId.BATTERY)) null else stringResource(R.string.ui_setup_battery_action),
                 onAction = onRequestBatteryUnrestricted,
+                tone = setupStepTone(progress, SetupStepId.BATTERY),
             )
 
             ChecklistItem(
@@ -155,7 +165,7 @@ fun SetupScreen(
 @Preview(showBackground = true, heightDp = 1200)
 @Composable
 private fun SetupScreenPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         SetupScreen(
             status = SetupStatus(targetAppInstalled = true, serviceEnabled = true, batteryUnrestricted = false),
             serviceConnected = false,

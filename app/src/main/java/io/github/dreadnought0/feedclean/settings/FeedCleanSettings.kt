@@ -81,8 +81,12 @@ data class FeedCleanSettings(
     val saveScreenshots: Boolean = false,
     val publicExportIncludeSubjectiveTags: Boolean = false,
 ) {
-    /** True when auto-skip may run right now (master on, kill-switch off). */
-    val autoSkipArmed: Boolean
+    /**
+     * Runtime gate only: the Auto-skip master is on and "Pause everything" is off. This is NOT "armed": whether a
+     * skip will actually happen also depends on the service, detection, the skip type, its detection kind, the
+     * places and the safety stop. The UI reads [io.github.dreadnought0.feedclean.armed.ArmedEvaluator] for that.
+     */
+    val autoSkipAllowedBySettings: Boolean
         get() = curateFeedEnabled && !killSwitchEngaged
 
     /** Whether auto-skip is switched on for pages in [context] (independent of arming). */
@@ -93,9 +97,13 @@ data class FeedCleanSettings(
         FeedContext.OTHER -> autoSkipInOtherFeeds
     }
 
-    /** True when automated Not-interested may run (also requires the risk note to have been accepted). */
-    val automatedNotInterestedArmed: Boolean
-        get() = autoSkipArmed && notInterestedAutomated && notInterestedRiskAcknowledged
+    /**
+     * Runtime gate only: [autoSkipAllowedBySettings], the switch, and the accepted risk note. It also only ever runs
+     * on a skipped organic Shop post; see [io.github.dreadnought0.feedclean.armed.ArmedEvaluator] for the honest
+     * armed state.
+     */
+    val automatedNotInterestedAllowedBySettings: Boolean
+        get() = autoSkipAllowedBySettings && notInterestedAutomated && notInterestedRiskAcknowledged
 
     /** Clamp to hard floors/caps. The repository applies this on every write. */
     fun sanitized(): FeedCleanSettings = copy(

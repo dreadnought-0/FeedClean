@@ -111,7 +111,7 @@ private fun CandidateRow(row: AccountRowModel, onClick: () -> Unit) {
 @Preview
 @Composable
 private fun SuspectedOriginalDialogPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         SuspectedOriginalDialog(
             candidates = listOf(
                 AccountRowModel(

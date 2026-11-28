@@ -84,7 +84,7 @@ class AutoSkipController(
     }
 
     private fun refusal(request: AutoSkipRequest): SkipHold? = when {
-        !request.settings.autoSkipArmed || !settings().autoSkipArmed ->
+        !request.settings.autoSkipAllowedBySettings || !settings().autoSkipAllowedBySettings ->
             if (settings().killSwitchEngaged || request.settings.killSwitchEngaged) SkipHold.KILL_SWITCH else SkipHold.NOT_ARMED
         loopGuard.isPaused -> SkipHold.PAUSED
         loopGuard.wasAttempted(request.page.pageSignature) -> SkipHold.ALREADY_ATTEMPTED
@@ -95,7 +95,7 @@ class AutoSkipController(
         val signature = request.page.pageSignature
         var ni: NotInterestedResult? = null
 
-        if (request.reason == SkipReason.ORGANIC_SHOP && decided.automatedNotInterestedArmed) {
+        if (request.reason == SkipReason.ORGANIC_SHOP && decided.automatedNotInterestedAllowedBySettings) {
             ni = notInterested.run(NotInterestedTrigger.Automated(decided), request.accountId, signature)
             log("autoskip notInterested ${ni.javaClass.simpleName}")
             if (ni is NotInterestedResult.Done) {
@@ -136,7 +136,7 @@ class AutoSkipController(
         val live = settings()
         return when {
             live.killSwitchEngaged -> SkipCancel.KILL_SWITCH
-            !live.autoSkipArmed -> SkipCancel.DISARMED
+            !live.autoSkipAllowedBySettings -> SkipCancel.DISARMED
             current !is FeedVideo -> SkipCancel.LEFT_FEED
             current.pageSignature != signature -> SkipCancel.USER_SCROLLED
             !live.autoSkipAllowedIn(current.feedContext) -> SkipCancel.CONTEXT_OFF

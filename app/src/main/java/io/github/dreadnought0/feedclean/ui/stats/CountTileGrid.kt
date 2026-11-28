@@ -1,5 +1,8 @@
 package io.github.dreadnought0.feedclean.ui.stats
 
+import io.github.dreadnought0.feedclean.ui.theme.Glass
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -55,15 +58,16 @@ fun CountTileGrid(tiles: List<CountTile>, modifier: Modifier = Modifier, columns
 private fun CountTileView(tile: CountTile, modifier: Modifier = Modifier) {
     val locale = currentLocale()
     Surface(
-        color = MaterialTheme.colorScheme.surfaceContainerLow,
-        shape = MaterialTheme.shapes.medium,
+        color = Glass.Nest,
+        shape = RoundedCornerShape(16.dp),
+        border = BorderStroke(1.dp, Glass.Border),
         modifier = modifier.semantics(mergeDescendants = true) {},
     ) {
         Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp)) {
             Text(
                 text = NumberFormat.getIntegerInstance(locale).format(tile.value),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.SemiBold,
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Light,
             )
             Text(
                 text = stringResource(tile.kind.labelRes),
@@ -77,7 +81,7 @@ private fun CountTileView(tile: CountTile, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun CountTileGridPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         CountTileGrid(
             tiles = countTiles(
                 DailyCounts(seen = 212, detected = 31, organicShop = 18, paidAds = 9, autoSkipped = 17, blocked = 2),

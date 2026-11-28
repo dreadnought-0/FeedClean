@@ -1,5 +1,7 @@
 package io.github.dreadnought0.feedclean.ui.debug
 
+import io.github.dreadnought0.feedclean.armed.ArmedReport
+import io.github.dreadnought0.feedclean.armed.ArmedStatus
 import io.github.dreadnought0.feedclean.detect.FeedContext
 import io.github.dreadnought0.feedclean.service.ActionStatus
 import io.github.dreadnought0.feedclean.service.AutoSkipStatus
@@ -22,14 +24,18 @@ data class DebugRuntimeInfo(
     val autoSkip: AutoSkipStatus = AutoSkipStatus(),
     val action: ActionStatus? = null,
     val recentEvents: List<String> = emptyList(),
+    /** The same [ArmedReport] Home shows (null in old callers / previews). */
+    val armed: ArmedReport? = null,
 ) {
-    /** Mirrors FeedCleanSettings.autoSkipArmed. */
-    val autoSkipArmed: Boolean get() = curateFeedEnabled && !killSwitchEngaged
+    /** Mirrors FeedCleanSettings.autoSkipAllowedBySettings: the runtime gate's settings part, NOT "armed". */
+    val autoSkipAllowedBySettings: Boolean get() = curateFeedEnabled && !killSwitchEngaged
 }
 
 /** Plain-text dump of [DebugRuntimeInfo] (diagnostic keys, not translated UI text). */
 object DebugRuntimeFormatter {
     private val timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss")
+
+    private fun status(s: ArmedStatus): String = s.level.name + (s.reason?.let { " ($it)" } ?: "")
 
     fun format(info: DebugRuntimeInfo, zone: ZoneId = ZoneId.systemDefault()): String = buildString {
         appendLine("selectors:")
@@ -40,8 +46,15 @@ object DebugRuntimeFormatter {
         appendLine("  warnings (${info.selectorWarnings.size}):")
         info.selectorWarnings.forEach { appendLine("    - $it") }
         appendLine()
+        info.armed?.let { report ->
+            appendLine("actions armed (${report.actionArmedCount}/${report.actionTotal}):")
+            line("  detection", status(report.detection))
+            line("  autoSkip", status(report.autoSkip))
+            report.behaviours.forEach { (behaviour, st) -> line("  $behaviour", status(st)) }
+            appendLine()
+        }
         appendLine("autoSkip:")
-        line("  armed", info.autoSkipArmed)
+        line("  allowedBySettings", info.autoSkipAllowedBySettings)
         line("  curateFeedEnabled", info.curateFeedEnabled)
         line("  killSwitchEngaged", info.killSwitchEngaged)
         info.autoSkipContexts?.let { line("  allowedIn", it.joinToString(prefix = "[", postfix = "]")) }

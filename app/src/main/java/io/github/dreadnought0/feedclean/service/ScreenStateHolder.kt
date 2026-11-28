@@ -1,7 +1,10 @@
 package io.github.dreadnought0.feedclean.service
 
 import io.github.dreadnought0.feedclean.detect.ScreenSnapshot
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -18,6 +21,7 @@ object ScreenStateHolder {
     private val _autoSkip = MutableStateFlow(AutoSkipStatus())
     private val _action = MutableStateFlow<ActionStatus?>(null)
     private val _recentEvents = MutableStateFlow<List<String>>(emptyList())
+    private val _commands = MutableSharedFlow<RuntimeCommand>(extraBufferCapacity = 4)
 
     /** Latest parsed TikTok screen, or null if none yet. */
     val snapshot: StateFlow<ScreenSnapshot?> = _snapshot.asStateFlow()
@@ -39,6 +43,15 @@ object ScreenStateHolder {
 
     /** Recent runtime events, newest first (at most [MAX_RECENT_EVENTS]); diagnostic text without screen content. */
     val recentEvents: StateFlow<List<String>> = _recentEvents.asStateFlow()
+
+    /** Requests from the app UI to the running service (e.g. Home's "Resume" after the safety stop). */
+    val commands: SharedFlow<RuntimeCommand> = _commands.asSharedFlow()
+
+    /**
+     * Asks the running service to do [command]. Returns false when no service is running to receive it. Only call
+     * from a user's tap.
+     */
+    fun send(command: RuntimeCommand): Boolean = _serviceConnected.value && _commands.tryEmit(command)
 
     fun publishSnapshot(snapshot: ScreenSnapshot) {
         _snapshot.value = snapshot
@@ -71,4 +84,10 @@ object ScreenStateHolder {
     }
 
     const val MAX_RECENT_EVENTS = 30
+}
+
+/** Commands the app UI can send to the running service. Each one must come from a user's tap. */
+enum class RuntimeCommand {
+    /** Clear the safety stop (too many skips in a row), same as tapping the paused bubble. */
+    RESUME_AUTO_SKIP,
 }

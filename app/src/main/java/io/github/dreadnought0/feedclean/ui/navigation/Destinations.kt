@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
  */
 sealed interface TopLevelKey : NavKey
 
-/** Home dashboard: service status, quick toggles, today's counts. Root of the back stack. */
+/** Home control center: armed summary, Pause everything, Detection, Auto-skip, Not interested, Blocking. */
 @Serializable
 data object HomeKey : TopLevelKey
 
@@ -23,7 +23,7 @@ data object AccountsKey : TopLevelKey
 @Serializable
 data object StatsKey : TopLevelKey
 
-/** Full grouped Settings list. */
+/** Slimmed Settings root. */
 @Serializable
 data object SettingsKey : TopLevelKey
 
@@ -46,6 +46,46 @@ data object SetupKey : NavKey
 /** Live ScreenSnapshot / matched-strategy view. */
 @Serializable
 data object DebugKey : NavKey
+
+/** "What Armed means" guide. */
+@Serializable
+data object ArmedGuideKey : NavKey
+
+/** Where auto-skip may act (the four places). */
+@Serializable
+data object WhereItSkipsKey : NavKey
+
+/** Detection master + the four kinds. */
+@Serializable
+data object DetectionRulesKey : NavKey
+
+/** Not interested button, automation, reason. */
+@Serializable
+data object NotInterestedKey : NavKey
+
+/** Block button, how a block works, block mode. */
+@Serializable
+data object BlockingKey : NavKey
+
+/** Bubble and skip cover. */
+@Serializable
+data object BubbleCoverKey : NavKey
+
+/** Settle delay, safety stop, screen-on. */
+@Serializable
+data object TimingKey : NavKey
+
+/** Shared pace limits for blocks and Not interested. */
+@Serializable
+data object PaceKey : NavKey
+
+/** Session tracking, decision log, screenshots. */
+@Serializable
+data object DataPrivacyKey : NavKey
+
+/** Matching rules, OCR, Debug / Setup / Audit / Suggested. */
+@Serializable
+data object AdvancedKey : NavKey
 
 /**
  * Export / import / clear data.

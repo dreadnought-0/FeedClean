@@ -112,7 +112,7 @@ fun AccountListItem(
 @Composable
 private fun AccountListItemPreview() {
     val now = 1_795_000_000_000L
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         Column(horizontalAlignment = Alignment.Start) {
             AccountListItem(
                 row = AccountRowModel(

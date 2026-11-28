@@ -1,5 +1,21 @@
 package io.github.dreadnought0.feedclean.ui.setup
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import io.github.dreadnought0.feedclean.ui.common.GlassButton
+import io.github.dreadnought0.feedclean.ui.common.PillStyle
+import io.github.dreadnought0.feedclean.ui.common.TagPill
+import io.github.dreadnought0.feedclean.ui.theme.Glass
+import androidx.compose.foundation.layout.PaddingValues
+import io.github.dreadnought0.feedclean.ui.common.CardTone
+import io.github.dreadnought0.feedclean.ui.common.GlassCard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -49,50 +65,52 @@ fun ChecklistItem(
     details: List<String> = emptyList(),
     actionLabel: String? = null,
     onAction: (() -> Unit)? = null,
+    tone: CardTone = CardTone.NORMAL,
 ) {
-    val (icon, tint, stateDescription) = when (state) {
-        CheckState.OK -> Triple(
-            Icons.Filled.CheckCircle,
-            FeedCleanTheme.extraColors.statusOk,
-            stringResource(R.string.ui_setup_state_ok),
-        )
-
-        CheckState.ACTION_NEEDED -> Triple(
-            Icons.Filled.Close,
-            MaterialTheme.colorScheme.error,
-            stringResource(R.string.ui_setup_state_action_needed),
-        )
-
-        CheckState.INFO -> Triple(
-            Icons.Filled.Info,
-            MaterialTheme.colorScheme.primary,
-            stringResource(R.string.ui_setup_state_info),
-        )
-    }
-    Card(modifier = modifier.fillMaxWidth()) {
+    val stateLabel = stringResource(
+        when (state) {
+            CheckState.OK -> R.string.ui_setup_state_ok
+            CheckState.ACTION_NEEDED -> R.string.ui_setup_state_action_needed
+            CheckState.INFO -> R.string.ui_setup_state_info
+        },
+    )
+    GlassCard(modifier = modifier.fillMaxWidth(), tone = tone, contentPadding = PaddingValues(0.dp)) {
         Row(
             modifier = Modifier.padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(14.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.Top,
         ) {
-            Icon(icon, contentDescription = stateDescription, tint = tint, modifier = Modifier.size(28.dp))
+            val mark = Modifier.size(26.dp).clip(CircleShape)
+            when (state) {
+                CheckState.OK -> Box(mark.background(FeedCleanTheme.extraColors.statusOk), contentAlignment = Alignment.Center) {
+                    Icon(Icons.Filled.Check, contentDescription = stateLabel, tint = Color.White, modifier = Modifier.size(16.dp))
+                }
+                CheckState.ACTION_NEEDED -> Box(mark.border(1.5.dp, Glass.Faint, CircleShape).semantics { contentDescription = stateLabel })
+                CheckState.INFO -> Box(mark.border(1.dp, Glass.Faint, CircleShape).semantics { contentDescription = stateLabel })
+            }
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(6.dp),
             ) {
                 Text(title, style = MaterialTheme.typography.titleMedium)
+                TagPill(
+                    stateLabel,
+                    style = when (state) {
+                        CheckState.OK -> PillStyle.ACCENT
+                        CheckState.ACTION_NEEDED -> PillStyle.AMBER
+                        CheckState.INFO -> PillStyle.NEUTRAL
+                    },
+                )
                 Text(
                     body,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 details.forEach { line ->
-                    Text(line, style = MaterialTheme.typography.labelLarge)
+                    Text(line, style = MaterialTheme.typography.labelMedium, color = Glass.Muted)
                 }
                 if (actionLabel != null && onAction != null) {
-                    FilledTonalButton(onClick = onAction, modifier = Modifier.padding(top = 4.dp)) {
-                        Text(actionLabel)
-                    }
+                    GlassButton(actionLabel, onAction, modifier = Modifier.padding(top = 4.dp))
                 }
             }
         }
@@ -102,7 +120,7 @@ fun ChecklistItem(
 @Preview
 @Composable
 private fun ChecklistItemPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(8.dp)) {
             ChecklistItem(CheckState.OK, "Battery: Unrestricted", "The system won't stop FeedClean.")
             ChecklistItem(

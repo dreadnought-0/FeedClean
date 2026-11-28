@@ -1,5 +1,9 @@
 package io.github.dreadnought0.feedclean.ui.accounts
 
+import io.github.dreadnought0.feedclean.ui.common.GlassCard
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,7 +22,6 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -115,7 +118,7 @@ fun AccountsContent(
                     onToggle = { onToggleTag(state.tagChips[it]) },
                 )
             }
-            HorizontalDivider(modifier = Modifier.padding(top = 4.dp))
+            Spacer(Modifier.height(6.dp))
             when {
                 !state.loaded -> Unit
                 state.accounts.isEmpty() -> AccountsEmptyState(
@@ -126,9 +129,15 @@ fun AccountsContent(
                     },
                 )
 
-                else -> LazyColumn(modifier = Modifier.fillMaxSize()) {
+                else -> LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                ) {
                     items(state.accounts, key = { it.id }) { row ->
-                        AccountListItem(row = row, nowMillis = state.nowMillis, onClick = { onOpenAccount(row.id) })
+                        GlassCard(contentPadding = PaddingValues(0.dp)) {
+                            AccountListItem(row = row, nowMillis = state.nowMillis, onClick = { onOpenAccount(row.id) })
+                        }
                     }
                 }
             }
@@ -243,7 +252,7 @@ private fun previewAccountsState(): AccountsUiState {
 @Preview(showBackground = true, heightDp = 700)
 @Composable
 private fun AccountsScreenPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         AccountsContent(
             state = previewAccountsState(),
             onQueryChange = {},
@@ -258,7 +267,7 @@ private fun AccountsScreenPreview() {
 @Preview(showBackground = true, heightDp = 500)
 @Composable
 private fun AccountsScreenEmptyPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         AccountsContent(
             state = AccountsUiState(loaded = true),
             onQueryChange = {},

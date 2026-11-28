@@ -181,7 +181,7 @@ internal fun previewStatsState(trackingOn: Boolean): StatsUiState {
 @Preview(showBackground = true, heightDp = 2000)
 @Composable
 private fun StatsScreenPreview() {
-    FeedCleanTheme(dynamicColor = false) {
+    FeedCleanTheme {
         StatsContent(state = previewStatsState(trackingOn = true))
     }
 }
@@ -189,7 +189,7 @@ private fun StatsScreenPreview() {
 @Preview(showBackground = true, heightDp = 2000, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun StatsScreenTrackingOffDarkPreview() {
-    FeedCleanTheme(darkTheme = true, dynamicColor = false) {
+    FeedCleanTheme {
         StatsContent(state = previewStatsState(trackingOn = false))
     }
 }

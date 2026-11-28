@@ -1,5 +1,17 @@
 package io.github.dreadnought0.feedclean.ui.data
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.ui.graphics.vector.ImageVector
+import io.github.dreadnought0.feedclean.ui.common.CardHeader
+import io.github.dreadnought0.feedclean.ui.common.GlassButton
+import io.github.dreadnought0.feedclean.ui.common.GlassDialog
+import io.github.dreadnought0.feedclean.ui.common.OptionRow
+import io.github.dreadnought0.feedclean.ui.common.PrimaryButton
+import io.github.dreadnought0.feedclean.ui.icons.FeedCleanIcons
+import androidx.compose.foundation.layout.PaddingValues
+import io.github.dreadnought0.feedclean.ui.common.GlassCard
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -103,68 +115,54 @@ internal fun DataTransferBody(
         modifier = modifier
             .verticalScroll(rememberScrollState())
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         StatusCard(status, onDismissStatus)
 
-        Section(R.string.io_full_title, R.string.io_full_body) {
-            Button(onClick = onExportFull, enabled = !busy) { Text(stringResource(R.string.io_export_full)) }
+        Section(FeedCleanIcons.Archive, R.string.io_full_title, R.string.io_full_body) {
+            PrimaryButton(stringResource(R.string.io_export_full), onExportFull, icon = FeedCleanIcons.Download, enabled = !busy)
         }
 
-        Section(R.string.io_public_title, R.string.io_public_body) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(stringResource(R.string.io_public_subjective), style = MaterialTheme.typography.bodyLarge)
-                    Text(
-                        stringResource(R.string.io_public_subjective_body),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-                Switch(checked = includeSubjectiveTags, onCheckedChange = onIncludeSubjectiveTags)
-            }
-            Button(onClick = onExportPublic, enabled = !busy) { Text(stringResource(R.string.io_export_public)) }
+        Section(Icons.Filled.Person, R.string.io_public_title, R.string.io_public_body) {
+            OptionRow(
+                title = stringResource(R.string.io_public_subjective),
+                description = stringResource(R.string.io_public_subjective_body),
+                checked = includeSubjectiveTags,
+                onCheckedChange = onIncludeSubjectiveTags,
+            )
+            PrimaryButton(stringResource(R.string.io_export_public), onExportPublic, icon = FeedCleanIcons.Upload, enabled = !busy)
         }
 
-        Section(R.string.io_import_title, R.string.io_import_body) {
-            OutlinedButton(onClick = onImport, enabled = !busy) { Text(stringResource(R.string.io_import)) }
+        Section(FeedCleanIcons.Download, R.string.io_import_title, R.string.io_import_body) {
+            GlassButton(stringResource(R.string.io_import), onImport, icon = FeedCleanIcons.Upload, enabled = !busy)
         }
 
-        Section(R.string.io_clear_title, R.string.io_clear_body) {
-            Button(
-                onClick = { confirmClear = true },
-                enabled = !busy,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.error,
-                    contentColor = MaterialTheme.colorScheme.onError,
-                ),
-            ) { Text(stringResource(R.string.io_clear)) }
+        Section(Icons.Filled.Delete, R.string.io_clear_title, R.string.io_clear_body) {
+            GlassButton(stringResource(R.string.io_clear), { confirmClear = true }, icon = Icons.Filled.Delete, destructive = true, enabled = !busy)
         }
     }
 
     if (confirmClear) {
-        AlertDialog(
-            onDismissRequest = { confirmClear = false },
-            title = { Text(stringResource(R.string.io_clear_confirm_title)) },
-            text = { Text(stringResource(R.string.io_clear_confirm_body)) },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        confirmClear = false
-                        onClearConfirmed()
-                    },
-                ) { Text(stringResource(R.string.io_clear_confirm), color = MaterialTheme.colorScheme.error) }
+        GlassDialog(
+            title = stringResource(R.string.io_clear_confirm_title),
+            text = stringResource(R.string.io_clear_confirm_body),
+            confirm = stringResource(R.string.io_clear_confirm),
+            onConfirm = {
+                confirmClear = false
+                onClearConfirmed()
             },
-            dismissButton = { TextButton(onClick = { confirmClear = false }) { Text(stringResource(R.string.io_cancel)) } },
+            dismiss = stringResource(R.string.io_cancel),
+            onDismiss = { confirmClear = false },
+            destructive = true,
         )
     }
 }
 
 @Composable
-private fun Section(titleRes: Int, bodyRes: Int, actions: @Composable () -> Unit) {
-    OutlinedCard(modifier = Modifier.fillMaxWidth()) {
+private fun Section(icon: ImageVector, titleRes: Int, bodyRes: Int, actions: @Composable () -> Unit) {
+    GlassCard(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(0.dp)) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(stringResource(titleRes), style = MaterialTheme.typography.titleMedium)
+            CardHeader(stringResource(titleRes), icon = icon)
             Text(
                 stringResource(bodyRes),
                 style = MaterialTheme.typography.bodyMedium,
@@ -178,7 +176,7 @@ private fun Section(titleRes: Int, bodyRes: Int, actions: @Composable () -> Unit
 @Composable
 private fun StatusCard(status: TransferStatus, onDismiss: () -> Unit) {
     if (status == TransferStatus.Idle) return
-    Card(modifier = Modifier.fillMaxWidth()) {
+    GlassCard(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(0.dp)) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             when (status) {
                 TransferStatus.Idle -> Unit
