@@ -2,72 +2,62 @@ package io.github.dreadnought0.feedclean.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Neutral fallback palette (used when dynamic color is unavailable or disabled): a deep teal primary with
-// slate secondary/tertiary tones. Deliberately unlike any social-app brand palette.
+/**
+ * The locked "frosted glass" palette: a grey-blue gradient background, translucent white cards with a white
+ * hairline border, dark teal ([Accent]) for selected states and primary buttons, amber for "Blocked" and for
+ * "Pause everything" while it is on, slate for "Paused", and a muted red for destructive actions.
+ */
+object Glass {
+    // Text
+    val Ink = Color(0xFF1D2326)
+    val Muted = Color(0xFF5F6B70)
+    val Faint = Color(0xFF7C898D)
 
-// ── Light ────────────────────────────────────────────────────────────────────
-internal val TealPrimaryLight = Color(0xFF2D6A64)
-internal val OnTealPrimaryLight = Color(0xFFFFFFFF)
-internal val TealPrimaryContainerLight = Color(0xFFB3E8DF)
-internal val OnTealPrimaryContainerLight = Color(0xFF00201D)
-internal val SlateSecondaryLight = Color(0xFF4A6360)
-internal val OnSlateSecondaryLight = Color(0xFFFFFFFF)
-internal val SlateSecondaryContainerLight = Color(0xFFCCE8E3)
-internal val OnSlateSecondaryContainerLight = Color(0xFF051F1D)
-internal val SlateTertiaryLight = Color(0xFF475D78)
-internal val OnSlateTertiaryLight = Color(0xFFFFFFFF)
-internal val SlateTertiaryContainerLight = Color(0xFFCFE4FF)
-internal val OnSlateTertiaryContainerLight = Color(0xFF001D33)
-internal val SurfaceLight = Color(0xFFF5FAF8)
-internal val OnSurfaceLight = Color(0xFF171D1C)
-internal val SurfaceVariantLight = Color(0xFFDAE5E2)
-internal val OnSurfaceVariantLight = Color(0xFF3F4947)
-internal val OutlineLight = Color(0xFF6F7977)
-internal val OutlineVariantLight = Color(0xFFBEC9C6)
-internal val InverseSurfaceLight = Color(0xFF2B3230)
-internal val InverseOnSurfaceLight = Color(0xFFECF2EF)
-internal val InversePrimaryLight = Color(0xFF98D3C9)
-internal val SurfaceDimLight = Color(0xFFD6DBD9)
-internal val SurfaceBrightLight = Color(0xFFF5FAF8)
-internal val SurfaceContainerLowestLight = Color(0xFFFFFFFF)
-internal val SurfaceContainerLowLight = Color(0xFFF0F5F2)
-internal val SurfaceContainerLight = Color(0xFFEAEFED)
-internal val SurfaceContainerHighLight = Color(0xFFE4E9E7)
-internal val SurfaceContainerHighestLight = Color(0xFFDEE4E1)
+    // Accent (selected states, primary buttons, switches, nav selection)
+    val Accent = Color(0xFF1A5E6C)
+    val AccentWash = Color(0x241A5E6C)
 
-// ── Dark ─────────────────────────────────────────────────────────────────────
-internal val TealPrimaryDark = Color(0xFF98D3C9)
-internal val OnTealPrimaryDark = Color(0xFF003732)
-internal val TealPrimaryContainerDark = Color(0xFF0D514B)
-internal val OnTealPrimaryContainerDark = Color(0xFFB3E8DF)
-internal val SlateSecondaryDark = Color(0xFFB0CCC7)
-internal val OnSlateSecondaryDark = Color(0xFF1B3532)
-internal val SlateSecondaryContainerDark = Color(0xFF324B48)
-internal val OnSlateSecondaryContainerDark = Color(0xFFCCE8E3)
-internal val SlateTertiaryDark = Color(0xFFAFC9E8)
-internal val OnSlateTertiaryDark = Color(0xFF17324A)
-internal val SlateTertiaryContainerDark = Color(0xFF2F4862)
-internal val OnSlateTertiaryContainerDark = Color(0xFFCFE4FF)
-internal val SurfaceDark = Color(0xFF0F1514)
-internal val OnSurfaceDark = Color(0xFFDEE4E2)
-internal val SurfaceVariantDark = Color(0xFF3F4947)
-internal val OnSurfaceVariantDark = Color(0xFFBEC9C6)
-internal val OutlineDark = Color(0xFF889391)
-internal val OutlineVariantDark = Color(0xFF3F4947)
-internal val InverseSurfaceDark = Color(0xFFDEE4E2)
-internal val InverseOnSurfaceDark = Color(0xFF2B3230)
-internal val InversePrimaryDark = Color(0xFF2D6A64)
-internal val SurfaceDimDark = Color(0xFF0F1514)
-internal val SurfaceBrightDark = Color(0xFF343B39)
-internal val SurfaceContainerLowestDark = Color(0xFF090F0E)
-internal val SurfaceContainerLowDark = Color(0xFF171D1C)
-internal val SurfaceContainerDark = Color(0xFF1B2120)
-internal val SurfaceContainerHighDark = Color(0xFF252B2A)
-internal val SurfaceContainerHighestDark = Color(0xFF303635)
+    /** Lighter teal for charts, meters and icon glyphs. */
+    val Teal = Color(0xFF2F7F8F)
 
-// ── Status colors (setup checklist ✓/✗), not part of the M3 scheme ───────────
-/** "OK" tint for passing checklist items, light theme. */
-internal val StatusOkLight = Color(0xFF2E6B3A)
+    /** Destructive actions and errors. */
+    val Red = Color(0xFF9A4A44)
 
-/** "OK" tint for passing checklist items, dark theme. */
-internal val StatusOkDark = Color(0xFF94D69F)
+    // Amber: Blocked, and Pause everything while on
+    val Amber = Color(0xFFD79A2B)
+    val AmberStrong = Color(0xFFC48A24)
+    val AmberInk = Color(0xFF5E3B04)
+    val AmberText = Color(0xFF7A4D08)
+    val AmberFill = Color(0x57E2A330) // ~.34
+    val AmberWash = Color(0x3DE2A330) // ~.24
+    val AmberBorder = Color(0xA6B07618)
+    val AmberBorderSoft = Color(0x6BB07618)
+
+    // Slate: Paused
+    val Slate = Color(0xFF6F8187)
+    val SlateInk = Color(0xFF2D4046)
+    val SlateBar = Color(0xFF7B8D93)
+
+    // Glass surfaces
+    val Card = Color(0x4DFFFFFF) // .30
+    val CardStrong = Color(0x75FFFFFF) // .46
+    val Nest = Color(0x66FFFFFF) // .40
+    val Border = Color(0x9EFFFFFF) // .62
+    val Divider = Color(0x8CFFFFFF) // .55
+    val Track = Color(0x8CFFFFFF) // unchecked switch track
+    val TrackBorder = Color(0xCCFFFFFF)
+
+    /** Opaque frosted surface for dialogs, sheets and menus (they sit over the scrim, not the gradient). */
+    val Sheet = Color(0xFFF1F5F6)
+
+    // Background gradient (165°) and soft light blobs
+    val BgTop = Color(0xFFC9D3D6)
+    val BgMid = Color(0xFFC0CCD0)
+    val BgBottom = Color(0xFFB9C7CC)
+    val BlobWhite = Color(0x99FFFFFF)
+    val BlobTeal = Color(0x422F7F8F)
+    val BlobSage = Color(0x4D789696)
+
+    /** Passing setup-checklist items. */
+    val Ok = Accent
+}

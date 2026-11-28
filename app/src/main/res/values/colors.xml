@@ -2,7 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <!-- Launcher icon: deep teal background (theme primary) with a white glyph. -->
-    <color name="ic_launcher_background">#FF2D6A64</color>
+    <!-- Launcher icon: deep teal background (the #1A5E6C glass accent) with a white glyph. -->
+    <color name="ic_launcher_background">#FF1A5E6C</color>
     <color name="ic_launcher_glyph">#FFFFFFFF</color>
+    <!-- Glass gradient (top colour), used as the window background. -->
+    <color name="glass_background">#FFC9D3D6</color>
 </resources>

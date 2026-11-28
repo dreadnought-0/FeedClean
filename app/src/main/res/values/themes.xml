@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.FeedClean" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Window background matches the top of the glass gradient, so there's no white flash on launch. -->
+    <style name="Theme.FeedClean" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/glass_background</item>
+    </style>
 
     <!-- Share target: transparent window so the Compose bottom sheet floats over TikTok. -->
     <style name="Theme.FeedClean.Translucent" parent="android:Theme.Material.Light.NoActionBar">
