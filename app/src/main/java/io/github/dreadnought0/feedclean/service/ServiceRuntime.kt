@@ -150,6 +150,7 @@ class ServiceRuntime(
         scope.launch { snapshotLoop() }
         scope.launch { foregroundLoop() }
         scope.launch { settingsLoop() }
+        scope.launch { commandLoop() }
         foregroundPokes.trySend(Unit)
         events.trySend(Unit)
         log.log("runtime started")
@@ -237,13 +238,22 @@ class ServiceRuntime(
             val prev = lastSettings
             lastSettings = s
             if (s.killSwitchEngaged && prev?.killSwitchEngaged != true && prev != null) stopAutomation("kill-switch")
-            if (!s.autoSkipArmed && prev?.autoSkipArmed == true) curator.cancelActiveSkip()
+            if (!s.autoSkipAllowedBySettings && prev?.autoSkipAllowedBySettings == true) curator.cancelActiveSkip()
             if (prev != null && s.bubbleX < 0 && (prev.bubbleX != s.bubbleX || prev.bubbleY != s.bubbleY)) {
                 overlays.hideBubble() // "Reset bubble position": re-show at the default spot.
             }
             renderBubble()
             if (prev == null || prev.sessionTrackingEnabled != s.sessionTrackingEnabled) {
                 session.sync(s.sessionTrackingEnabled, foreground.isForeground)
+            }
+        }
+    }
+
+    /** Taps in the app (Home) that the runtime acts on. */
+    private suspend fun commandLoop() {
+        ScreenStateHolder.commands.collect { command ->
+            when (command) {
+                RuntimeCommand.RESUME_AUTO_SKIP -> if (loopGuard.isPaused) resumeAutoSkip()
             }
         }
     }
@@ -281,6 +291,8 @@ class ServiceRuntime(
         if (stopped || !foreground.isForeground || !s.showBubble) {
             card.close()
             overlays.hideBubble()
+            // Home reads the safety-stop state from here, so keep publishing it with the bubble hidden too.
+            if (!stopped) publishAutoSkipStatus()
             return
         }
         overlays.setBubbleLook(BubbleLookMapper.map(currentPage, s, loopGuard.isPaused, busy = card.isActionRunning))
@@ -326,7 +338,9 @@ class ServiceRuntime(
     private fun resumeAutoSkip() {
         loopGuard.resume()
         log.log("autoskip resumed by user")
-        overlays.showTransientHint(OverlayTexts.message(service, ActionMessage(ActionMessage.Type.AUTO_SKIP_RESUMED, ok = true)))
+        if (foreground.isForeground && settings.showBubble) {
+            overlays.showTransientHint(OverlayTexts.message(service, ActionMessage(ActionMessage.Type.AUTO_SKIP_RESUMED, ok = true)))
+        }
         renderBubble()
     }
 
@@ -363,6 +377,7 @@ class ServiceRuntime(
         ScreenStateHolder.publishAutoSkip(
             AutoSkipStatus(
                 pausedByLoopGuard = loopGuard.isPaused,
+                pausedAfter = loopGuard.pausedAfter,
                 consecutiveSkips = loopGuard.consecutiveSkips,
                 skipping = skipping,
                 lastOutcome = lastOutcome ?: prev.lastOutcome,

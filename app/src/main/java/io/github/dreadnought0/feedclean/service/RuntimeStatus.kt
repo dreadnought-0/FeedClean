@@ -8,6 +8,8 @@ package io.github.dreadnought0.feedclean.service
  */
 data class AutoSkipStatus(
     val pausedByLoopGuard: Boolean = false,
+    /** Skips in a row that triggered the current safety stop (0 when not paused). */
+    val pausedAfter: Int = 0,
     val consecutiveSkips: Int = 0,
     val skipping: Boolean = false,
     val lastOutcome: String? = null,

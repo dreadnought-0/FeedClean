@@ -12,7 +12,7 @@ sealed interface NotInterestedTrigger {
 
     /**
      * Auto-skip is about to skip an organic Shop post. Rejected unless
-     * [FeedCleanSettings.automatedNotInterestedArmed] is true both in [settings] (the settings the auto-skip
+     * [FeedCleanSettings.automatedNotInterestedAllowedBySettings] is true both in [settings] (the settings the auto-skip
      * decision was made with) and in the flow's current settings.
      */
     data class Automated(val settings: FeedCleanSettings) : NotInterestedTrigger

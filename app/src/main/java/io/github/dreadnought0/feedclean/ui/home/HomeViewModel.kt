@@ -2,6 +2,11 @@ package io.github.dreadnought0.feedclean.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.dreadnought0.feedclean.armed.ArmedEvaluator
+import io.github.dreadnought0.feedclean.armed.ArmedReport
+import io.github.dreadnought0.feedclean.armed.LiveFacts
+import io.github.dreadnought0.feedclean.service.AutoSkipStatus
+import io.github.dreadnought0.feedclean.service.RuntimeCommand
 import io.github.dreadnought0.feedclean.service.ScreenStateHolder
 import io.github.dreadnought0.feedclean.settings.FeedCleanSettings
 import io.github.dreadnought0.feedclean.settings.SettingsRepository
@@ -9,9 +14,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 
-/** A place auto-skip can be enabled for (the four "Where to auto-skip" switches). */
+/** A place auto-skip can be enabled for (the four "Where it skips" switches). */
 enum class AutoSkipPlace { FOR_YOU, OTHER_HOME_TABS, SEARCH, OTHER_FEEDS }
 
 /** The enabled places, in display order. */
@@ -23,60 +27,61 @@ fun autoSkipPlaces(forYou: Boolean, otherHome: Boolean, search: Boolean, otherFe
         AutoSkipPlace.OTHER_FEEDS.takeIf { otherFeeds },
     )
 
+/** The places enabled in [settings], in display order. */
+fun FeedCleanSettings.autoSkipPlaceList(): List<AutoSkipPlace> =
+    autoSkipPlaces(autoSkipInForYou, autoSkipInOtherHomeTabs, autoSkipInSearch, autoSkipInOtherFeeds)
+
 /** Joins place labels as "For You · Search · Profiles"; null when no place is enabled. */
 fun autoSkipSummary(places: List<AutoSkipPlace>, label: (AutoSkipPlace) -> String): String? =
     places.takeIf { it.isNotEmpty() }?.joinToString(" · ", transform = label)
 
-/** Everything the Home dashboard header and quick toggles show. */
+/**
+ * Everything Home (and the sub-screens' Armed pills) show: the settings, the honest [armed] report, and the live
+ * service facts for the one-line status under the count.
+ */
 data class HomeUiState(
-    val serviceConnected: Boolean = false,
-    val tiktokForeground: Boolean = false,
-    val curateFeedEnabled: Boolean = false,
-    val autoSkipOrganicShop: Boolean = true,
-    val skipCoverEnabled: Boolean = true,
-    val killSwitchEngaged: Boolean = false,
-    val autoSkipInForYou: Boolean = true,
-    val autoSkipInOtherHomeTabs: Boolean = false,
-    val autoSkipInSearch: Boolean = false,
-    val autoSkipInOtherFeeds: Boolean = false,
+    val settings: FeedCleanSettings,
+    val armed: ArmedReport,
+    val serviceConnected: Boolean,
+    val tiktokForeground: Boolean,
 ) {
-    /** Places where auto-skip is allowed, in display order. */
-    val autoSkipPlaces: List<AutoSkipPlace>
-        get() = autoSkipPlaces(autoSkipInForYou, autoSkipInOtherHomeTabs, autoSkipInSearch, autoSkipInOtherFeeds)
-
-    /** True when auto-skip may run right now (mirrors [FeedCleanSettings.autoSkipArmed]). */
-    val autoSkipArmed: Boolean get() = curateFeedEnabled && !killSwitchEngaged
-
     companion object {
-        /** Builds the state from its sources. */
-        fun from(settings: FeedCleanSettings, serviceConnected: Boolean, tiktokForeground: Boolean) = HomeUiState(
-            serviceConnected = serviceConnected,
-            tiktokForeground = tiktokForeground,
-            curateFeedEnabled = settings.curateFeedEnabled,
-            autoSkipOrganicShop = settings.autoSkipOrganicShop,
-            skipCoverEnabled = settings.skipCoverEnabled,
-            killSwitchEngaged = settings.killSwitchEngaged,
-            autoSkipInForYou = settings.autoSkipInForYou,
-            autoSkipInOtherHomeTabs = settings.autoSkipInOtherHomeTabs,
-            autoSkipInSearch = settings.autoSkipInSearch,
-            autoSkipInOtherFeeds = settings.autoSkipInOtherFeeds,
-        )
+        fun from(
+            settings: FeedCleanSettings,
+            serviceConnected: Boolean,
+            tiktokForeground: Boolean,
+            autoSkip: AutoSkipStatus = AutoSkipStatus(),
+        ): HomeUiState {
+            val facts = LiveFacts(
+                serviceConnected = serviceConnected,
+                loopGuardPaused = serviceConnected && autoSkip.pausedByLoopGuard,
+                loopGuardPausedAfter = if (serviceConnected) autoSkip.pausedAfter else 0,
+            )
+            return HomeUiState(
+                settings = settings,
+                armed = ArmedEvaluator.evaluate(settings, facts),
+                serviceConnected = serviceConnected,
+                tiktokForeground = serviceConnected && tiktokForeground,
+            )
+        }
     }
 }
 
 /**
- * Backs the Home quick toggles. Live service state defaults to [ScreenStateHolder]; tests inject flows.
- * All writes go through `SettingsRepository.update`.
+ * Combines settings with the live service state into [HomeUiState] through [ArmedEvaluator] (the single source of
+ * truth for armed states). Settings edits go through [io.github.dreadnought0.feedclean.ui.settings.SettingsViewModel].
+ * Live flows default to [ScreenStateHolder]; tests inject their own.
  */
 class HomeViewModel(
-    private val settingsRepository: SettingsRepository,
+    settingsRepository: SettingsRepository,
     serviceConnected: StateFlow<Boolean> = ScreenStateHolder.serviceConnected,
     tiktokForeground: StateFlow<Boolean> = ScreenStateHolder.tiktokForeground,
+    autoSkip: StateFlow<AutoSkipStatus> = ScreenStateHolder.autoSkip,
+    private val sendCommand: (RuntimeCommand) -> Boolean = ScreenStateHolder::send,
 ) : ViewModel() {
 
-    /** Combined settings + live service state. */
     val uiState: StateFlow<HomeUiState> =
-        combine(settingsRepository.settings, serviceConnected, tiktokForeground, HomeUiState::from)
+        combine(settingsRepository.settings, serviceConnected, tiktokForeground, autoSkip, HomeUiState::from)
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS),
@@ -84,24 +89,12 @@ class HomeViewModel(
                     settingsRepository.settings.value,
                     serviceConnected.value,
                     tiktokForeground.value,
+                    autoSkip.value,
                 ),
             )
 
-    /** "Curate feed" master switch. */
-    fun setCurateFeedEnabled(enabled: Boolean) = edit { it.copy(curateFeedEnabled = enabled) }
-
-    /** "Auto-skip organic Shop posts". */
-    fun setAutoSkipOrganicShop(enabled: Boolean) = edit { it.copy(autoSkipOrganicShop = enabled) }
-
-    /** "Skip-cover". */
-    fun setSkipCoverEnabled(enabled: Boolean) = edit { it.copy(skipCoverEnabled = enabled) }
-
-    /** "Pause all automation" kill-switch. */
-    fun setKillSwitchEngaged(engaged: Boolean) = edit { it.copy(killSwitchEngaged = engaged) }
-
-    private fun edit(transform: (FeedCleanSettings) -> FeedCleanSettings) {
-        viewModelScope.launch { settingsRepository.update(transform) }
-    }
+    /** "Resume" after the safety stop (too many skips in a row). Returns false if no service is running. */
+    fun resumeAfterSafetyStop(): Boolean = sendCommand(RuntimeCommand.RESUME_AUTO_SKIP)
 
     private companion object {
         const val STOP_TIMEOUT_MS = 5_000L

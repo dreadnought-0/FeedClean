@@ -81,7 +81,7 @@ object AutoSkipGate {
         val reason = (decision as? CurationDecision.Skip)?.reason ?: return hold(SkipHold.KEEP)
         return when {
             settings.killSwitchEngaged -> hold(SkipHold.KILL_SWITCH)
-            !settings.autoSkipArmed -> hold(SkipHold.NOT_ARMED)
+            !settings.autoSkipAllowedBySettings -> hold(SkipHold.NOT_ARMED)
             !context.tiktokForeground -> hold(SkipHold.NOT_FOREGROUND)
             !settings.autoSkipAllowedIn(page.feedContext) -> hold(SkipHold.CONTEXT_OFF)
             settings.autoSkipOnlyWhenScreenOn && !context.screenInteractive -> hold(SkipHold.SCREEN_OFF)

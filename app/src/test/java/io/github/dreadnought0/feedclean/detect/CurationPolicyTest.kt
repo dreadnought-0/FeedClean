@@ -92,11 +92,11 @@ class CurationPolicyTest {
             keep,
         ),
         Row(
-            "policy does not check curateFeedEnabled (callers check autoSkipArmed)",
+            "policy does not check curateFeedEnabled (callers check autoSkipAllowedBySettings)",
             shopAnchor, defaults.copy(curateFeedEnabled = false), skip(SkipReason.ORGANIC_SHOP),
         ),
         Row(
-            "policy does not check the kill-switch (callers check autoSkipArmed)",
+            "policy does not check the kill-switch (callers check autoSkipAllowedBySettings)",
             shopAnchor, defaults.copy(curateFeedEnabled = true, killSwitchEngaged = true), skip(SkipReason.ORGANIC_SHOP),
         ),
         Row("plain LIVE preview is kept by default", livePreview, defaults, keep),

@@ -1,6 +1,9 @@
 package io.github.dreadnought0.feedclean.ui.debug
 
+import io.github.dreadnought0.feedclean.armed.ArmedEvaluator
+import io.github.dreadnought0.feedclean.armed.LiveFacts
 import io.github.dreadnought0.feedclean.detect.FeedContext
+import io.github.dreadnought0.feedclean.settings.FeedCleanSettings
 import io.github.dreadnought0.feedclean.service.ActionStatus
 import io.github.dreadnought0.feedclean.service.AutoSkipStatus
 import org.junit.Assert.assertTrue
@@ -29,7 +32,7 @@ class DebugRuntimeFormatterTest {
             "loadError: Selector override not used: bad json",
             "- en/feed.x[0]: invalid regex",
             "verifiedAppVersions: [47.7.3]",
-            "armed: true",
+            "allowedBySettings: true",
             "pausedByLoopGuard: true",
             "consecutiveSkips: 8",
             "lastOutcomeAt: 01:02:03",
@@ -55,7 +58,17 @@ class DebugRuntimeFormatterTest {
     @Test
     fun killSwitchDisarms() {
         val text = DebugRuntimeFormatter.format(DebugRuntimeInfo(curateFeedEnabled = true, killSwitchEngaged = true))
-        assertTrue(text.contains("armed: false"))
+        assertTrue(text.contains("allowedBySettings: false"))
         assertTrue(text.contains("action:\n  (none)"))
+    }
+
+    @Test
+    fun showsTheArmedReport() {
+        val report = ArmedEvaluator.evaluate(FeedCleanSettings(curateFeedEnabled = true, detectionEnabled = false), LiveFacts(serviceConnected = true))
+        val text = DebugRuntimeFormatter.format(DebugRuntimeInfo(armed = report))
+        assertTrue(text, text.contains("armed (2/7):"))
+        assertTrue(text, text.contains("SKIP_SHOP: BLOCKED (DETECTION_ON)"))
+        assertTrue(text, text.contains("BLOCK_BUTTON: ARMED"))
+        assertTrue(text, text.contains("detection: OFF"))
     }
 }

@@ -1,5 +1,7 @@
 package io.github.dreadnought0.feedclean.overlay
 
+import io.github.dreadnought0.feedclean.armed.ArmedEvaluator
+import io.github.dreadnought0.feedclean.armed.LiveFacts
 import io.github.dreadnought0.feedclean.service.BlockedMatch
 import io.github.dreadnought0.feedclean.service.DetectionRules
 import io.github.dreadnought0.feedclean.service.ProcessedPage
@@ -27,7 +29,7 @@ enum class BubbleKind {
  * Everything the bubble draws. Pure data.
  *
  * @property signalCount number of distinct detected kinds; a count badge shows when it is 2 or more.
- * @property skipArmed show the skip glyph (auto-skip armed).
+ * @property skipArmed show the skip glyph: at least one skip type is armed ([ArmedEvaluator]), not just the master.
  * @property warning "seen after block" badge (strong vs possible).
  * @property killSwitch the kill-switch is engaged (paused look).
  * @property loopGuardPaused auto-skip paused by the consecutive-skip cap (paused look + "tap to resume").
@@ -56,11 +58,13 @@ object BubbleLookMapper {
         loopGuardPaused: Boolean,
         busy: Boolean,
     ): BubbleLook {
+        // The bubble only exists while the service runs, so the service is connected by definition here.
+        val armed = ArmedEvaluator.evaluate(settings, LiveFacts(serviceConnected = true, loopGuardPaused = loopGuardPaused))
         val kinds = page?.let { DetectionRules.detectedKinds(it.signals, settings) }.orEmpty()
         return BubbleLook(
             kind = kinds.firstOrNull()?.toBubbleKind() ?: BubbleKind.NEUTRAL,
             signalCount = kinds.size,
-            skipArmed = settings.autoSkipArmed,
+            skipArmed = armed.anySkipArmed,
             warning = page?.blockedMatch ?: BlockedMatch.NONE,
             killSwitch = settings.killSwitchEngaged,
             loopGuardPaused = loopGuardPaused,

@@ -75,7 +75,7 @@ class NotInterestedFlow(
                     acceptUserIntent(trigger.token, clock(), config.tokenMaxAgeMillis)
                 }
             is NotInterestedTrigger.Automated ->
-                if (trigger.settings.automatedNotInterestedArmed && current.automatedNotInterestedArmed) {
+                if (trigger.settings.automatedNotInterestedAllowedBySettings && current.automatedNotInterestedAllowedBySettings) {
                     null
                 } else {
                     RejectReason.AUTOMATION_NOT_ARMED

@@ -216,8 +216,8 @@ class SettingsViewModelTest {
             notInterestedRiskAcknowledged = true,
         )
         val result = after(armed) { setKillSwitchEngaged(true) }
-        assertFalse(result.autoSkipArmed)
-        assertFalse(result.automatedNotInterestedArmed)
+        assertFalse(result.autoSkipAllowedBySettings)
+        assertFalse(result.automatedNotInterestedAllowedBySettings)
     }
 
     // ── Data & privacy ─────────────────────────────────────────────────────

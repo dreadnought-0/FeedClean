@@ -26,7 +26,7 @@ import io.github.dreadnought0.feedclean.settings.FeedCleanSettings
  * (default off) skips. A plain LIVE preview is kept.
  *
  * This answers "would this page be skipped?". It deliberately does NOT check whether auto-skip may run right
- * now: callers must also require [FeedCleanSettings.autoSkipArmed] (master "Curate feed" on, kill-switch off),
+ * now: callers must also require [FeedCleanSettings.autoSkipAllowedBySettings] (master "Curate feed" on, kill-switch off),
  * TikTok in the foreground, auto-skip allowed in the page's [FeedContext][io.github.dreadnought0.feedclean.detect.FeedContext]
  * (`FeedCleanSettings.autoSkipAllowedIn`), and the loop guard. A Skip decision alone never moves the feed.
  */
