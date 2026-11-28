@@ -26,8 +26,6 @@ object Glass {
     val RedBorder = Red.copy(alpha = 0.45f)
     /** Strong outline for Setup cards that need attention (90% of [Red]). */
     val RedOutline = Red.copy(alpha = 0.90f)
-    /** Faint red tint behind a needs-attention Setup card. */
-    val RedWash = Red.copy(alpha = 0.14f)
 
     // Amber: Blocked, and Pause everything while on
     val Amber = Color(0xFFD79A2B)

@@ -89,8 +89,8 @@ fun GlassCard(
     val (fill, border, borderWidth) = when (tone) {
         CardTone.NORMAL -> Triple(Glass.Card, Glass.Border, 1.dp)
         CardTone.AMBER -> Triple(Glass.AmberWash, Glass.AmberBorderSoft, 1.dp)
-        // Needs-attention: a 3 dp, 90% [Glass.Red] outline and a faint red wash — clearly stronger than the 1 dp teal ready state.
-        CardTone.DESTRUCTIVE -> Triple(Glass.RedWash, Glass.RedOutline, 3.dp)
+        // Needs-attention: a 3 dp, 90% [Glass.Red] outline on the normal glass fill — stronger than the 1 dp teal ready state.
+        CardTone.DESTRUCTIVE -> Triple(Glass.Card, Glass.RedOutline, 3.dp)
         CardTone.ACCENT -> Triple(Glass.Card, Glass.Accent, 1.dp)
     }
     Surface(
