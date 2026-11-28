@@ -106,9 +106,22 @@ data class ArmedReport(
     val behaviours: Map<Behaviour, ArmedStatus>,
     val detection: ArmedStatus,
     val autoSkip: ArmedStatus,
+    /** Bubble and skip-cover, summarized for the On-screen helpers card header. */
+    val helpersCard: ArmedStatus,
     val facts: LiveFacts,
 ) {
     fun of(behaviour: Behaviour): ArmedStatus = behaviours.getValue(behaviour)
+
+    /**
+     * Not interested card header: the button and automated Not interested, in display order.
+     * See [summarizeCard].
+     */
+    val notInterestedCard: ArmedStatus
+        get() = summarizeCard(of(Behaviour.NOT_INTERESTED_BUTTON), of(Behaviour.AUTO_NOT_INTERESTED))
+
+    /** Blocking card header: the Block button (always present; it has no off switch). */
+    val blockingCard: ArmedStatus
+        get() = of(Behaviour.BLOCK_BUTTON)
 
     fun count(level: ArmedLevel): Int = behaviours.values.count { it.level == level }
 
@@ -146,6 +159,7 @@ object ArmedEvaluator {
             behaviours = behaviours,
             detection = detection(settings, facts),
             autoSkip = autoSkipMaster(settings, facts),
+            helpersCard = summarizeCard(helper(settings.showBubble, facts), helper(settings.skipCoverEnabled, facts)),
             facts = facts,
         )
     }
@@ -205,6 +219,12 @@ object ArmedEvaluator {
         )
     }
 
+    /** Bubble or skip-cover: each only needs the service (an overlay can't appear without it). */
+    private fun helper(switchOn: Boolean, facts: LiveFacts): ArmedStatus {
+        if (!switchOn) return ArmedStatus(ArmedLevel.OFF)
+        return resolve(listOf(Check(Requirement.SERVICE_RUNNING, facts.serviceConnected)))
+    }
+
     private fun detection(settings: FeedCleanSettings, facts: LiveFacts): ArmedStatus {
         if (!settings.detectionEnabled) return ArmedStatus(ArmedLevel.OFF)
         return resolve(
@@ -245,4 +265,23 @@ object ArmedEvaluator {
 
     private val FeedCleanSettings.anyDetectionKind: Boolean
         get() = detectPaidAd || detectPromoted || detectShopAnchor || detectLiveShopping
+}
+
+/**
+ * Card-level Armed / Off / Blocked / Paused for a Home card that groups one or more statuses
+ * (the header pill). Per-row pills stay on each behaviour; this only summarizes the card.
+ *
+ * Rule — worst state among the ones that are switched on:
+ *  1. Ignore OFF (a switch that's off doesn't count).
+ *  2. If everything is OFF, the card is OFF.
+ *  3. Otherwise pick the worst level, in this order: BLOCKED, then PAUSED, then ARMED.
+ *  4. When several share that worst level, the first in the given order wins, and that
+ *     status's [ArmedStatus.reason] and [ArmedStatus.checks] are the ones the fix sheet shows.
+ */
+fun summarizeCard(vararg statuses: ArmedStatus): ArmedStatus {
+    val enabled = statuses.filter { it.level != ArmedLevel.OFF }
+    if (enabled.isEmpty()) return ArmedStatus(ArmedLevel.OFF)
+    return enabled.firstOrNull { it.level == ArmedLevel.BLOCKED }
+        ?: enabled.firstOrNull { it.level == ArmedLevel.PAUSED }
+        ?: enabled.first()
 }

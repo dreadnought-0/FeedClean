@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.dreadnought0.feedclean.R
 import io.github.dreadnought0.feedclean.service.ScreenStateHolder
+import io.github.dreadnought0.feedclean.ui.common.CardTone
 import io.github.dreadnought0.feedclean.ui.common.FeedCleanTopAppBar
 import io.github.dreadnought0.feedclean.ui.theme.FeedCleanTheme
 
@@ -131,6 +132,7 @@ fun SetupScreen(
                 ),
                 actionLabel = stringResource(R.string.ui_setup_service_action),
                 onAction = onOpenAccessibilitySettings,
+                tone = if (serviceOk) CardTone.NORMAL else CardTone.DESTRUCTIVE,
             )
 
             ChecklistItem(

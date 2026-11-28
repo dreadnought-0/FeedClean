@@ -117,18 +117,24 @@ internal sealed interface SheetTarget {
     data class Of(val behaviour: Behaviour) : SheetTarget
     data object Detection : SheetTarget
     data object AutoSkip : SheetTarget
+    data object NotInterested : SheetTarget
+    data object Helpers : SheetTarget
 }
 
 private fun SheetTarget.key(): String = when (this) {
     is SheetTarget.Of -> behaviour.name
     SheetTarget.Detection -> "DETECTION"
     SheetTarget.AutoSkip -> "AUTO_SKIP"
+    SheetTarget.NotInterested -> "NOT_INTERESTED"
+    SheetTarget.Helpers -> "HELPERS"
 }
 
 private fun sheetTargetOf(key: String?): SheetTarget? = when (key) {
     null -> null
     "DETECTION" -> SheetTarget.Detection
     "AUTO_SKIP" -> SheetTarget.AutoSkip
+    "NOT_INTERESTED" -> SheetTarget.NotInterested
+    "HELPERS" -> SheetTarget.Helpers
     else -> Behaviour.entries.firstOrNull { it.name == key }?.let { SheetTarget.Of(it) }
 }
 
@@ -175,7 +181,7 @@ fun HomeScreen(
         AutoSkipCard(state, actions, navigation, fixHandlers, openSheet)
         NotInterestedCard(state, actions, navigation, fixHandlers, openSheet)
         BlockingCard(state, navigation, fixHandlers, openSheet)
-        HelpersCard(s, actions, navigation)
+        HelpersCard(state, actions, navigation, openSheet)
         ToolsCard(setupStatus, state.serviceConnected, navigation)
     }
 
@@ -184,15 +190,25 @@ fun HomeScreen(
             is SheetTarget.Of -> stringResource(target.behaviour.label()) to armed.of(target.behaviour)
             SheetTarget.Detection -> stringResource(R.string.behaviour_detection) to armed.detection
             SheetTarget.AutoSkip -> stringResource(R.string.behaviour_auto_skip) to armed.autoSkip
+            SheetTarget.NotInterested -> stringResource(R.string.home_ni_title) to armed.notInterestedCard
+            SheetTarget.Helpers -> stringResource(R.string.home_helpers_title) to armed.helpersCard
         }
-        val manual = target is SheetTarget.Of && (target.behaviour == Behaviour.BLOCK_BUTTON || target.behaviour == Behaviour.NOT_INTERESTED_BUTTON)
+        val manual = when (target) {
+            is SheetTarget.Of -> target.behaviour == Behaviour.BLOCK_BUTTON || target.behaviour == Behaviour.NOT_INTERESTED_BUTTON
+            SheetTarget.NotInterested -> status === armed.of(Behaviour.NOT_INTERESTED_BUTTON)
+            else -> false
+        }
         FixSheet(
             name = name,
             status = status,
             settings = s,
             safetyStopAfter = armed.facts.loopGuardPausedAfter,
             manual = manual,
-            showSwitchLine = !(target is SheetTarget.Of && target.behaviour == Behaviour.BLOCK_BUTTON),
+            showSwitchLine = when (target) {
+                is SheetTarget.Of -> target.behaviour != Behaviour.BLOCK_BUTTON
+                SheetTarget.Helpers -> false
+                else -> true
+            },
             onFix = { req ->
                 sheetKey = null
                 req.applyFix(fixHandlers)
@@ -541,7 +557,11 @@ private fun NotInterestedCard(
     val button = state.armed.of(Behaviour.NOT_INTERESTED_BUTTON)
     val auto = state.armed.of(Behaviour.AUTO_NOT_INTERESTED)
     GlassCard {
-        CardHeader(stringResource(R.string.home_ni_title), icon = FeedCleanIcons.ThumbDown)
+        CardHeader(
+            stringResource(R.string.home_ni_title),
+            icon = FeedCleanIcons.ThumbDown,
+            pill = { ClickablePill(state.armed.notInterestedCard.level) { openSheet(SheetTarget.NotInterested) } },
+        )
         val (d1, c1) = rowDescription(button, stringResource(R.string.home_ni_button_sub))
         OptionRow(
             title = stringResource(R.string.behaviour_ni_button),
@@ -585,7 +605,11 @@ private fun BlockingCard(state: HomeUiState, navigation: HomeNavigation, fix: Fi
     val s = state.settings
     val block = state.armed.of(Behaviour.BLOCK_BUTTON)
     GlassCard {
-        CardHeader(stringResource(R.string.home_block_title), icon = FeedCleanIcons.Block)
+        CardHeader(
+            stringResource(R.string.home_block_title),
+            icon = FeedCleanIcons.Block,
+            pill = { ClickablePill(state.armed.blockingCard.level) { openSheet(SheetTarget.Of(Behaviour.BLOCK_BUTTON)) } },
+        )
         val (d, c) = rowDescription(block, stringResource(R.string.home_block_button_sub))
         OptionRow(
             title = stringResource(R.string.behaviour_block_button),
@@ -613,9 +637,19 @@ private fun BlockingCard(state: HomeUiState, navigation: HomeNavigation, fix: Fi
 // ── Helpers & tools ─────────────────────────────────────────────────────────────────────────────────────────
 
 @Composable
-private fun HelpersCard(s: FeedCleanSettings, actions: SettingsActions, navigation: HomeNavigation) {
+private fun HelpersCard(
+    state: HomeUiState,
+    actions: SettingsActions,
+    navigation: HomeNavigation,
+    openSheet: (SheetTarget) -> Unit,
+) {
+    val s = state.settings
     GlassCard {
-        CardHeader(stringResource(R.string.home_helpers_title), icon = FeedCleanIcons.Bubble)
+        CardHeader(
+            stringResource(R.string.home_helpers_title),
+            icon = FeedCleanIcons.Bubble,
+            pill = { ClickablePill(state.armed.helpersCard.level) { openSheet(SheetTarget.Helpers) } },
+        )
         OptionRow(
             title = stringResource(R.string.home_bubble_title),
             description = stringResource(R.string.home_bubble_sub),
@@ -639,7 +673,13 @@ private fun HelpersCard(s: FeedCleanSettings, actions: SettingsActions, navigati
 @Composable
 private fun ToolsCard(setupStatus: SetupStatus?, serviceConnected: Boolean, navigation: HomeNavigation) {
     val allSet = setupStatus != null && setupStatus.allSet(serviceConnected)
-    GlassCard(contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 16.dp, vertical = 6.dp)) {
+    // Same truth ArmedEvaluator uses (service actually running), plus "not enabled" when Setup has checked.
+    val accessibilityMissing = !serviceConnected || setupStatus?.serviceEnabled == false
+    val toolsPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 16.dp, vertical = 6.dp)
+    GlassCard(
+        contentPadding = toolsPadding,
+        tone = if (accessibilityMissing) CardTone.DESTRUCTIVE else CardTone.NORMAL,
+    ) {
         LinkRow(
             stringResource(R.string.home_setup_row),
             navigation.openSetup,
@@ -647,7 +687,8 @@ private fun ToolsCard(setupStatus: SetupStatus?, serviceConnected: Boolean, navi
             accent = false,
             value = setupStatus?.let { stringResource(if (allSet) R.string.home_setup_all_set else R.string.home_setup_needs) },
         )
-        GlassDivider()
+    }
+    GlassCard(contentPadding = toolsPadding) {
         LinkRow(stringResource(R.string.home_audit_row), navigation.openAudit, icon = FeedCleanIcons.Scan, accent = false)
     }
 }

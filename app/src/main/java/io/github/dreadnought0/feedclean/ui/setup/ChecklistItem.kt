@@ -14,6 +14,7 @@ import io.github.dreadnought0.feedclean.ui.common.PillStyle
 import io.github.dreadnought0.feedclean.ui.common.TagPill
 import io.github.dreadnought0.feedclean.ui.theme.Glass
 import androidx.compose.foundation.layout.PaddingValues
+import io.github.dreadnought0.feedclean.ui.common.CardTone
 import io.github.dreadnought0.feedclean.ui.common.GlassCard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -64,6 +65,7 @@ fun ChecklistItem(
     details: List<String> = emptyList(),
     actionLabel: String? = null,
     onAction: (() -> Unit)? = null,
+    tone: CardTone = CardTone.NORMAL,
 ) {
     val stateLabel = stringResource(
         when (state) {
@@ -72,7 +74,7 @@ fun ChecklistItem(
             CheckState.INFO -> R.string.ui_setup_state_info
         },
     )
-    GlassCard(modifier = modifier.fillMaxWidth(), contentPadding = PaddingValues(0.dp)) {
+    GlassCard(modifier = modifier.fillMaxWidth(), tone = tone, contentPadding = PaddingValues(0.dp)) {
         Row(
             modifier = Modifier.padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),

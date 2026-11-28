@@ -233,4 +233,119 @@ class ArmedEvaluatorTest {
                 assertEquals(s.toString(), r.anySkipArmed, r.autoSkip.isArmed)
             }
     }
+
+
+    // ── Card-level summaries (Home header pills) ───────────────────────────────────────────────
+
+    @Test
+    fun `Not interested card is off only when both the button and auto are off`() {
+        val r = eval(allOn.copy(notInterestedManualEnabled = false, notInterestedAutomated = false))
+        assertEquals(OFF, r.notInterestedCard.level)
+        assertNull(r.notInterestedCard.reason)
+    }
+
+    @Test
+    fun `Not interested card is armed when the button is armed and auto is off`() {
+        val r = eval(allOn.copy(notInterestedAutomated = false))
+        assertEquals(ARMED, r.of(NOT_INTERESTED_BUTTON).level)
+        assertEquals(OFF, r.of(AUTO_NOT_INTERESTED).level)
+        assertEquals(ARMED, r.notInterestedCard.level)
+    }
+
+    @Test
+    fun `Not interested card is blocked with auto's reason when the button is armed and auto is blocked`() {
+        val r = eval(allOn.copy(notInterestedRiskAcknowledged = false))
+        assertEquals(ARMED, r.of(NOT_INTERESTED_BUTTON).level)
+        assertEquals(BLOCKED, r.of(AUTO_NOT_INTERESTED).level)
+        assertEquals(BLOCKED, r.notInterestedCard.level)
+        assertEquals(Requirement.RISK_ACCEPTED, r.notInterestedCard.reason)
+    }
+
+    @Test
+    fun `Not interested card is paused when auto is paused even if the button is armed`() {
+        val r = eval(allOn.copy(killSwitchEngaged = true))
+        assertEquals(ARMED, r.of(NOT_INTERESTED_BUTTON).level)
+        assertEquals(PAUSED, r.of(AUTO_NOT_INTERESTED).level)
+        assertEquals(PAUSED, r.notInterestedCard.level)
+        assertEquals(Requirement.NOT_PAUSED_BY_USER, r.notInterestedCard.reason)
+    }
+
+    @Test
+    fun `Not interested card prefers the button's reason when both enabled rows are blocked`() {
+        val r = eval(allOn.copy(showBubble = false), LiveFacts(serviceConnected = false))
+        assertEquals(BLOCKED, r.of(NOT_INTERESTED_BUTTON).level)
+        assertEquals(Requirement.SERVICE_RUNNING, r.of(NOT_INTERESTED_BUTTON).reason)
+        assertEquals(BLOCKED, r.of(AUTO_NOT_INTERESTED).level)
+        assertEquals(BLOCKED, r.notInterestedCard.level)
+        assertEquals(Requirement.SERVICE_RUNNING, r.notInterestedCard.reason)
+    }
+
+    @Test
+    fun `Not interested card is blocked by the hidden bubble when auto is off`() {
+        val r = eval(allOn.copy(showBubble = false, notInterestedAutomated = false))
+        assertEquals(BLOCKED, r.notInterestedCard.level)
+        assertEquals(Requirement.BUBBLE_SHOWN, r.notInterestedCard.reason)
+    }
+
+    @Test
+    fun `Blocking card follows the Block button`() {
+        assertEquals(ARMED, eval().blockingCard.level)
+        val hidden = eval(allOn.copy(showBubble = false))
+        assertEquals(BLOCKED, hidden.blockingCard.level)
+        assertEquals(Requirement.BUBBLE_SHOWN, hidden.blockingCard.reason)
+        val noService = eval(facts = LiveFacts(serviceConnected = false))
+        assertEquals(BLOCKED, noService.blockingCard.level)
+        assertEquals(Requirement.SERVICE_RUNNING, noService.blockingCard.reason)
+    }
+
+    @Test
+    fun `helpers card is armed when the bubble is on and the service is running`() {
+        val r = eval() // showBubble defaults to true, cover off
+        assertEquals(ARMED, r.helpersCard.level)
+        assertNull(r.helpersCard.reason)
+    }
+
+    @Test
+    fun `helpers card is off when the bubble and the cover are both off`() {
+        val r = eval(allOn.copy(showBubble = false, skipCoverEnabled = false))
+        assertEquals(OFF, r.helpersCard.level)
+    }
+
+    @Test
+    fun `helpers card is blocked when a helper is on but the service is not running`() {
+        val r = eval(facts = LiveFacts(serviceConnected = false))
+        assertEquals(BLOCKED, r.helpersCard.level)
+        assertEquals(Requirement.SERVICE_RUNNING, r.helpersCard.reason)
+    }
+
+    @Test
+    fun `helpers card is armed when only the cover is on and the service is running`() {
+        val r = eval(allOn.copy(showBubble = false, skipCoverEnabled = true))
+        assertEquals(ARMED, r.helpersCard.level)
+    }
+
+    @Test
+    fun `helpers card is not paused by Pause everything`() {
+        val r = eval(allOn.copy(killSwitchEngaged = true, skipCoverEnabled = true))
+        assertEquals(ARMED, r.helpersCard.level)
+    }
+
+    @Test
+    fun `summarizeCard is off only when every status is off, otherwise worst enabled wins`() {
+        val off = ArmedStatus(OFF)
+        val armed = ArmedStatus(ARMED)
+        val paused = ArmedStatus(PAUSED, Requirement.NOT_PAUSED_BY_USER)
+        val blocked = ArmedStatus(BLOCKED, Requirement.BUBBLE_SHOWN)
+        val blockedService = ArmedStatus(BLOCKED, Requirement.SERVICE_RUNNING)
+        assertEquals(OFF, summarizeCard(off, off).level)
+        assertEquals(ARMED, summarizeCard(armed, off).level)
+        assertEquals(PAUSED, summarizeCard(armed, paused).level)
+        assertEquals(Requirement.NOT_PAUSED_BY_USER, summarizeCard(armed, paused).reason)
+        assertEquals(BLOCKED, summarizeCard(armed, paused, blocked).level)
+        assertEquals(Requirement.BUBBLE_SHOWN, summarizeCard(armed, paused, blocked).reason)
+        // First of the worst level wins.
+        assertEquals(Requirement.BUBBLE_SHOWN, summarizeCard(blocked, blockedService).reason)
+        assertEquals(Requirement.SERVICE_RUNNING, summarizeCard(blockedService, blocked).reason)
+        assertEquals(OFF, summarizeCard().level)
+    }
 }

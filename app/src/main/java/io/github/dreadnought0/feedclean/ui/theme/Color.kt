@@ -22,6 +22,8 @@ object Glass {
 
     /** Destructive actions and errors. */
     val Red = Color(0xFF9A4A44)
+    /** Outline for destructive actions and for Setup when accessibility access is missing. */
+    val RedBorder = Red.copy(alpha = 0.45f)
 
     // Amber: Blocked, and Pause everything while on
     val Amber = Color(0xFFD79A2B)

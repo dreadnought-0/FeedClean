@@ -70,8 +70,8 @@ import io.github.dreadnought0.feedclean.ui.theme.Glass
 
 // ── Surfaces ─────────────────────────────────────────────────────────────────────────────────────────────────
 
-/** Card look: normal frosted glass, or amber (only "Pause everything" while it is on). */
-enum class CardTone { NORMAL, AMBER }
+/** Card look: normal frosted glass, amber ("Pause everything" while on), or a red outline (Setup when accessibility is missing). */
+enum class CardTone { NORMAL, AMBER, DESTRUCTIVE }
 
 val GlassCardShape = RoundedCornerShape(22.dp)
 private val NestShape = RoundedCornerShape(16.dp)
@@ -89,6 +89,7 @@ fun GlassCard(
     val (fill, border) = when (tone) {
         CardTone.NORMAL -> Glass.Card to Glass.Border
         CardTone.AMBER -> Glass.AmberWash to Glass.AmberBorderSoft
+        CardTone.DESTRUCTIVE -> Glass.Card to Glass.RedBorder
     }
     Surface(
         modifier = modifier.fillMaxWidth(),
@@ -520,7 +521,7 @@ fun GlassButton(
         enabled = enabled,
         modifier = modifier.fillMaxWidth().heightIn(min = 46.dp),
         shape = CircleShape,
-        border = BorderStroke(1.dp, if (destructive) Glass.Red.copy(alpha = 0.45f) else Glass.TrackBorder),
+        border = BorderStroke(1.dp, if (destructive) Glass.RedBorder else Glass.TrackBorder),
         colors = ButtonDefaults.outlinedButtonColors(containerColor = Glass.CardStrong, contentColor = ink),
     ) {
         if (icon != null) {
